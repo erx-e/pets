@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using mascotas.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace mascotas.Controllers
@@ -11,29 +13,34 @@ namespace mascotas.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly petDBContext _context;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, petDBContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
         [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        public ActionResult<IEnumerable<CantonView>> Get()
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            using (_context)
             {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray();
+                List<CantonView> listCantons = (from c in _context.Cantons
+                                                join p in _context.Provincia
+                                                on c.IdProvincia equals p.IdProvincia
+                                                select new CantonView{
+                                                    id = c.IdCanton,
+                                                    name = c.Name,
+                                                    provincia = new ProvinciaView{
+                                                        id = p.IdProvincia,
+                                                        name = p.Name
+                                                    }
+                                                }).ToList();
+                return listCantons;
+            }
         }
     }
 }

@@ -1,5 +1,8 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": "edf7d5dc-ab9c-4bdf-9128-fa769fa0664b"
+  },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
@@ -19,6 +22,9 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
+            "allowedCommonJsDependencies": [
+              "url","domino"
+            ],
             "assets": [
               "src/assets"
             ],
@@ -89,33 +95,6 @@
             "scripts": [],
             "assets": ["src/assets"]
           }
-        },
-        "server": {
-          "builder": "@angular-devkit/build-angular:server",
-          "options": {
-            "outputPath": "dist-server",
-            "main": "src/main.ts",
-            "tsConfig": "src/tsconfig.server.json",
-            "sourceMap": true,
-            "optimization": false
-          },
-          "configurations": {
-            "dev": {
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": false,
-              "extractLicenses": true
-            },
-            "production": {
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": false,
-              "extractLicenses": true
-            }
-          },
-          "defaultConfiguration": ""
         }
       }
     },

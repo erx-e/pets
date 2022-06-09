@@ -15,7 +15,11 @@
     "lib": [
       "es2017",
       "dom"
-    ]
+    ],
+    "paths":{
+      "url":["./node_modules/url"],
+      "domino": ["./node_modules/domino"]
+    }
   },
   "angularCompilerOptions": {
     "strictTemplates":true,
