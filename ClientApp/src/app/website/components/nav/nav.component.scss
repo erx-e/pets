@@ -1,11 +1,17 @@
 header {
-  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 25%);
+  // box-shadow: 0 2px 4px 0 rgb(0 0 0 / 25%);
   position: relative;
+  background-color: #F1F6F8;
 }
 
+
+
 .nav-header {
-  background-color: rgb(255, 255, 255);
+  background-color: transparent;
   display: flex;
+  max-width: 1280px;
+  margin-right: auto;
+  margin-left: auto;
   justify-content: space-between;
   align-items: center;
   width: 100%;
@@ -86,12 +92,19 @@ header {
   display: none;
 }
 
+
+
+
 @media screen and (min-width: 40em) and (max-width: 63.9375em) {
   .show-mobile {
     display: none;
   }
   .hide-mobile {
     display: block;
+  }
+
+  header{
+    padding: 0px 20px;
   }
 
   // .nav__logo{
@@ -121,6 +134,10 @@ header {
   //       font-size: 20px;
   //     }
   // }
+
+  header{
+    padding: 0px;
+  }
 
   .nav__button {
     font-size: 0.875rem;
