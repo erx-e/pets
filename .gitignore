@@ -1,6 +1,7 @@
 # Created by https://www.toptal.com/developers/gitignore/api/csharp,angular,vs
 # Edit at https://www.toptal.com/developers/gitignore?templates=csharp,angular,vs
 
+appsettings.json
 ### Angular ###
 ## Angular ##
 # compiled output

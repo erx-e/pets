@@ -1,0 +1,133 @@
+header {
+  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 25%);
+  position: relative;
+}
+
+.nav-header {
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 60px;
+  padding-right: 12px;
+}
+
+.nav__logo {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: min-content;
+  font-size: 15px;
+  a {
+    font-weight: bold;
+    text-decoration: none;
+    color: black;
+    img {
+      margin: 8px;
+      margin-left: 12px;
+      margin-right: 5px;
+      width: 50px;
+      height: 50px;
+    }
+  }
+}
+
+.nav__search-bar {
+  display: flex;
+  align-items: center;
+}
+
+.nav__links {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav__button {
+  padding: 8px 8px;
+  border: 0;
+  border-radius: 6px;
+  text-decoration: none;
+  border-radius: 6px;
+  background-color: yellow;
+  font-size: 12px;
+  line-height: 1.15;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.button__create_account {
+  margin-right: 8px;
+}
+
+.button__login {
+  color: #03091e;
+  margin-right: 12px;
+}
+
+.nav__menu {
+  margin-right: 8px;
+  span {
+    display: block;
+    background-color: black;
+    width: 26px;
+    height: 2px;
+  }
+}
+.nav__menu > span:not(:last-child) {
+  margin-bottom: 3px;
+}
+
+.show-mobile {
+  display: block;
+}
+.hide-mobile {
+  display: none;
+}
+
+@media screen and (min-width: 40em) and (max-width: 63.9375em) {
+  .show-mobile {
+    display: none;
+  }
+  .hide-mobile {
+    display: block;
+  }
+
+  // .nav__logo{
+  //     font-size: 20px;
+  // }
+
+  // .nav__button{
+  //   font-size: .875rem;
+  //   padding: 8px;
+  //   border: 0;
+  //   text-decoration: none;
+  //   border-radius: 6px;
+  //   background-color: yellow;
+  // }
+}
+
+/* Large and up */
+@media screen and (min-width: 64em) {
+  .show-mobile {
+    display: none;
+  }
+  .hide-mobile {
+    display: block;
+  }
+  //   .nav__logo{
+  //     .texto{
+  //       font-size: 20px;
+  //     }
+  // }
+
+  .nav__button {
+    font-size: 0.875rem;
+    padding: 9px 16px;
+    border: 0;
+    text-decoration: none;
+    border-radius: 6px;
+    background-color: yellow;
+  }
+}

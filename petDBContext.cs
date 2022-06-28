@@ -17,7 +17,6 @@ namespace mascotas
         {
         }
 
-
         public virtual DbSet<Canton> Cantons { get; set; }
         public virtual DbSet<PetBreed> PetBreeds { get; set; }
         public virtual DbSet<PetSpecie> PetSpecies { get; set; }
@@ -27,7 +26,6 @@ namespace mascotas
         public virtual DbSet<Provincium> Provincia { get; set; }
         public virtual DbSet<Sector> Sectors { get; set; }
         public virtual DbSet<User> Users { get; set; }
-
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -128,35 +126,26 @@ namespace mascotas
 
             modelBuilder.Entity<PostImage>(entity =>
             {
-                entity.HasKey(e => e.IdImage);
+                entity.HasKey(e => e.IdImage)
+                    .HasName("PK_post_images");
 
-                entity.ToTable("post_images");
-
-                entity.HasIndex(e => e.IdImage2, "UQ__post_ima__27CC26447866E06E")
-                    .IsUnique();
+                entity.ToTable("post_image");
 
                 entity.Property(e => e.IdImage).HasColumnName("id_image");
 
-                entity.Property(e => e.Contenido)
+                entity.Property(e => e.FileName)
                     .IsRequired()
-                    .HasColumnName("contenido");
-
-                entity.Property(e => e.Extension)
-                    .IsRequired()
-                    .HasMaxLength(4)
+                    .HasMaxLength(200)
                     .IsUnicode(false)
-                    .HasColumnName("extension")
-                    .IsFixedLength(true);
-
-                entity.Property(e => e.IdImage2).HasColumnName("id_image2");
+                    .HasColumnName("fileName");
 
                 entity.Property(e => e.IdPostPet).HasColumnName("id_postPet");
 
-                entity.Property(e => e.Nombre)
+                entity.Property(e => e.Url)
                     .IsRequired()
-                    .HasMaxLength(1000)
+                    .HasMaxLength(400)
                     .IsUnicode(false)
-                    .HasColumnName("nombre");
+                    .HasColumnName("url");
 
                 entity.HasOne(d => d.IdPostPetNavigation)
                     .WithMany(p => p.PostImages)
@@ -203,10 +192,6 @@ namespace mascotas
                     .IsFixedLength(true);
 
                 entity.Property(e => e.IdUser).HasColumnName("id_user");
-
-                entity.Property(e => e.Img)
-                    .IsRequired()
-                    .HasColumnName("img");
 
                 entity.Property(e => e.LastTimeSeen)
                     .HasColumnType("datetime")
@@ -284,8 +269,7 @@ namespace mascotas
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(50)
-                    .HasColumnName("name")
-                    .IsFixedLength(true);
+                    .HasColumnName("name");
             });
 
             modelBuilder.Entity<Sector>(entity =>
