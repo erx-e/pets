@@ -16,7 +16,7 @@ const routes: Routes = [
       {
         path: "",
         component: LandpageComponent,
-        pathMatch: 'full'
+        pathMatch: "full",
       },
       {
         path: "home",
@@ -30,16 +30,16 @@ const routes: Routes = [
         path: "pet/:id",
         component: PetDetailComponent,
       },
-      {
-        path: "register",
-        component: RegisterComponent,
-      },
-      {
-        path: "login",
-        component: LoginComponent,
-      },
     ],
   },
+  {
+    path: "login",
+    component: LoginComponent,
+  },
+  {
+    path: "register",
+    component: RegisterComponent,
+  }
 ];
 
 @NgModule({

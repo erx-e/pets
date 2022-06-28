@@ -1,0 +1,96 @@
+.register-container {
+  margin: 58px auto;
+  width: 300px;
+}
+
+.nav__logo {
+  display: flex;
+  margin: 12px auto;
+  align-items: center;
+  height: 100%;
+  width: min-content;
+  font-size: 15px;
+  a {
+    font-weight: bold;
+    text-decoration: none;
+    color: black;
+    img {
+      margin-right: 5px;
+      width: 50px;
+      height: 50px;
+    }
+  }
+}
+
+.register-texto{
+  margin: 0 auto;
+  font-size: 30px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.form-box {
+  padding: 16px;
+  border: 1px solid gray;
+  border-radius: 6px;
+}
+
+.form-flex {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-items {
+  margin: 12px 0px;
+}
+
+.form-button {
+  width: 100%;
+  background-color: yellow;
+  padding: 9px 19px;
+}
+
+.login {
+  text-align: center;
+  margin-top: 16px;
+  padding: 16px;
+  border: 1px solid gray;
+  border-radius: 6px;
+  a{
+    text-decoration: none;
+  }
+}
+
+.show-mobile{
+  display: block;
+}
+
+.hide-mobile{
+  display: none;
+}
+
+
+/* Large mobile */
+@media screen and (min-width: 30rem) {
+  .show-mobile {
+    display: block;
+  }
+  .hide-mobile {
+    display: none;
+  }
+}
+
+/* Tablet - Laptop */
+@media screen and (min-width: 48rem) {
+}
+
+/* (Laptop - Desktop) Large and up */
+@media screen and (min-width: 64rem) {
+  .show-mobile {
+    display: none;
+  }
+  .hide-mobile {
+    display: block;
+  }
+
+}
