@@ -29,8 +29,12 @@ namespace mascotas.Controllers
 
         [HttpGet]
         [Route("get")]
-        public IEnumerable<PostPetView> Get(int limit, int offset)
+        public IEnumerable<PostPetView> Get([FromQuery] int? limit = null, int? offset = null)
         {
+            if (limit != null && offset != null)
+            {
+                return _postPetService.getAllPosts(limit, offset);
+            }
             return _postPetService.getAllPosts();
         }
 

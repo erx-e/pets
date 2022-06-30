@@ -17,6 +17,8 @@ export class PostpetService {
   private key_secret = environment.AWS_KEY_SECRET;
   private region = environment.AWS_REGION;
 
+
+
   getAll(limit?: number, offset?: number) {
     let params = new HttpParams();
     params = params.set("limit", limit);

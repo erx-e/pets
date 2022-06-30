@@ -8,26 +8,25 @@
     <p>Bienvenido a Pet's Lighthouse</p>
   </div>
   <div class="form-box">
-
-    <form>
+    <form (ngSubmit)="OnRegister()">
       <div class="form-flex">
         <div class="form-items">
           <label class="form-label" for="formName"> Nombre </label>
-          <input class="form-control" type="text" id="formName" />
+          <input class="form-control" name="name" type="text" id="formName" />
         </div>
         <div class="form-items">
           <label class="form-label" for="formEmail"> Email </label>
-          <input class="form-control" type="email" id="formEmail" />
+          <input class="form-control" name="email" type="email" id="formEmail" />
         </div>
         <div class="form-items">
           <label class="form-label" for="formPassword"> Contraseña </label>
-          <input class="form-control" type="text" id="formPassword" />
+          <input class="form-control" name="password" type="text" id="formPassword" />
         </div>
         <div class="form-items">
           <label class="form-label" for="formPasswordR">
             Repita la contraseña
           </label>
-          <input class="form-control" type="text" id="formPasswordR" />
+          <input class="form-control" name="passwordR" type="text" id="formPasswordR" />
         </div>
         <div>
           <button class="form-items form-button" type="submit">

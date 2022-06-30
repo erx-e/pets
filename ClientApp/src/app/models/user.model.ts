@@ -12,3 +12,12 @@ export interface CreateUserDTO extends UserView {
 export interface UpdateUserDTO extends Partial<CreateUserDTO> {
   idUser: number;
 }
+
+export interface authUser{
+  email: string;
+  password: string;
+}
+
+export interface authUserResponse{
+  token: string;
+}

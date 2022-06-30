@@ -77,7 +77,7 @@ namespace mascotas.Controllers
 
         [Authorize]
         [HttpDelete]
-        [Route("delete")]
+        [Route("delete/{id}")]
         public ActionResult delete(int id)
         {
             var response = _userService.deleteUser(id);

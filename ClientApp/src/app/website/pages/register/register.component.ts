@@ -1,4 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { CreateUserDTO } from 'src/app/models/user.model';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-register',
@@ -7,9 +10,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor() { }
+  constructor(private userService: UserService ) { }
 
   ngOnInit(): void {
   }
 
+  user: CreateUserDTO;
+
+  OnRegister(user: CreateUserDTO){
+    this.userService.create(user);
+  }
 }

@@ -55,10 +55,9 @@ header {
   text-decoration: none;
   border-radius: 6px;
   background-color: yellow;
-  font-size: 12px;
+  font-size: 1rem;
   line-height: 1.15;
   font-weight: 700;
-  text-transform: uppercase;
 }
 
 .button__create_account {
@@ -67,11 +66,10 @@ header {
 
 .button__login {
   color: #03091e;
-  margin-right: 12px;
+  margin-right: 6px;
 }
 
 .nav__menu {
-  margin-right: 8px;
   span {
     display: block;
     background-color: black;
