@@ -11,6 +11,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { PetDetailComponent } from './pages/pet-detail/pet-detail.component';
 import { LandpageComponent } from './pages/landpage/landpage.component';
 import { SharedModule } from '../shared/shared.module';
+import { ReactiveFormsModule } from '@angular/forms'
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { SharedModule } from '../shared/shared.module';
   imports: [
     CommonModule,
     WebsiteRoutingModule,
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule
   ]
 })
 export class WebsiteModule { }

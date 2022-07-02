@@ -22,7 +22,7 @@
   }
 }
 
-.register-texto{
+.register-texto {
   margin: 0 auto;
   font-size: 30px;
   margin-bottom: 16px;
@@ -31,6 +31,7 @@
 
 .form-box {
   padding: 16px;
+  padding-top: 25px;
   border: 1px solid gray;
   border-radius: 6px;
 }
@@ -41,7 +42,7 @@
 }
 
 .form-items {
-  margin: 12px 0px;
+  margin-bottom: 20px;
 }
 
 .form-button {
@@ -49,6 +50,7 @@
   background-color: yellow;
   padding: 9px 19px;
   font-weight: 700;
+  margin-bottom: 12px;
 }
 
 .login {
@@ -57,19 +59,55 @@
   padding: 16px;
   border: 1px solid gray;
   border-radius: 6px;
-  a{
+  a {
     text-decoration: none;
   }
 }
 
-.show-mobile{
+.validationMessage {
+  display: none;
+  &.active {
+    display: block;
+  }
+}
+
+.is-valid {
+  background-image: none;
+}
+
+.is-invalid {
+  background-image: none;
+}
+
+.invalid-feedback {
   display: block;
 }
 
-.hide-mobile{
-  display: none;
+
+.icon-eye{
+  position: absolute;
+  fill: gray;
+  right: 15px;
+  cursor: pointer;
+  top: 35px;
+  svg{
+    display: none;
+    &.active{
+      display: block;
+    }
+  }
 }
 
+
+
+
+.show-mobile {
+  display: block;
+}
+
+.hide-mobile {
+  display: none;
+}
 
 /* Large mobile */
 @media screen and (min-width: 30rem) {
@@ -93,5 +131,4 @@
   .hide-mobile {
     display: block;
   }
-
 }
