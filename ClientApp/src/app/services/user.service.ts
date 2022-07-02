@@ -12,11 +12,6 @@ export class UserService {
 
   private apiUrl = `${environment.API_URL}/user`;
 
-  login(authRequest: authUser){
-    return this.http.post(`${this.apiUrl}/login`, authRequest);
-  }
-
-
 
   update(dto: UpdateUserDTO) {
     return this.http.put(`${this.apiUrl}/update`, dto);
