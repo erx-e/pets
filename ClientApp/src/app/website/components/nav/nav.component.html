@@ -14,7 +14,10 @@
           <!-- <a class="hide-mobile" href="">
             <button type="button" class="nav__button button__create_account">Crear cuenta</button>
           </a> -->
-          <a routerLink="login" class="nav__button button__login">Iniciar sesión</a>
+          <a *ngIf="!user" routerLink="login" class="nav__button button__login" else profileButton>Iniciar sesión</a>
+          <ng-template #profileButton>
+            <a href="/profile" class="nav__button button__login" >{{user?.email}}</a>
+          </ng-template>
           <div class="nav__menu show-mobile">
             <span></span>
             <span></span>
