@@ -54,6 +54,8 @@ namespace mascotas.Services
                 FacebookProfile = userDTO.facebookProfile,
                 Password = userDTO.password
             };
+            response.Success = 1;
+            response.Data = userNew;
             _context.Add(userNew);
             _context.SaveChanges();
             return response;
