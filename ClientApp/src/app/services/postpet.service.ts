@@ -2,9 +2,9 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
 import { Response } from "../models/response.model";
-import { map, retry } from "rxjs/operators";
 import * as S3 from "aws-sdk/clients/s3";
 import { CreatePostpetDTO, postpetView, UpdatePostpetDTO } from "../models/postpet.model";
+import { checkToken } from "../interceptors/token.interceptor";
 
 @Injectable({
   providedIn: "root",
@@ -31,15 +31,15 @@ export class PostpetService {
   }
 
   update(dto: UpdatePostpetDTO) {
-    return this.http.put<Response>(`${this.apiUrl}/postpet/update`, dto);
+    return this.http.put<Response>(`${this.apiUrl}/postpet/update`, dto, {context: checkToken()});
   }
 
   create(dto: CreatePostpetDTO) {
-    return this.http.post<Response>(`${this.apiUrl}/postpet/create`, dto);
+    return this.http.post<Response>(`${this.apiUrl}/postpet/create`, dto, {context: checkToken()});
   }
 
   delete(id: number){
-    return this.http.delete<Response>(`${this.apiUrl}/postpet/delete/${id}`);
+    return this.http.delete<Response>(`${this.apiUrl}/postpet/delete/${id}`, {context: checkToken()});
   }
 
   storage = new S3({
