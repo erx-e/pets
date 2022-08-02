@@ -1,0 +1,60 @@
+
+
+.petpost-page{
+  margin-top: 20px;
+  padding: 0 12px;
+}
+
+.navButtons{
+  display: flex;
+  justify-content: space-between;
+}
+
+.backBotton{
+  padding: 9px 9px;
+  font-weight: 600;
+  background-color: yellow;
+  border-radius: 6px;
+}
+
+.deleteButton{
+  padding: 9px 9px;
+  font-weight: 600;
+  background-color: blue;
+  color: white;
+  border-radius: 6px;
+}
+
+.editButton{
+  padding: 9px 9px;
+  font-weight: 600;
+  color: white;
+  background-color: red;
+  border-radius: 6px;
+}
+
+.petContainer{
+  margin-top: 12px;
+  line-height: 1.15;
+  a{
+    text-decoration: none;
+  }
+  div{
+    margin-bottom: 8px;
+  }
+  p{
+    margin-bottom: 20px;
+  }
+}
+
+.petGallery{
+  margin-bottom: 5px;
+}
+
+.imgPet{
+  width: 100%;
+}
+
+.petGallery{
+  width: 100%;
+}

@@ -33,7 +33,14 @@ namespace mascotas.Services
             {
                 return null;
             }
+            UserView authUser = new UserView{
+                name = user.Name,
+                email = user.Email,
+                cellNumber = user.CellNumber,
+                facebookProfile = user.FacebookProfile
+            };
             userresponse.token = GetToken(user);
+            userresponse.user = authUser;
             return userresponse;
         }
 
@@ -46,18 +53,25 @@ namespace mascotas.Services
                 response.Message = "Email already registered";
                 return response;
             }
+
+            string password = Encrypt.GetSHA256(userDTO.password);
+
             var userNew = new User
             {
                 Name = userDTO.name,
                 Email = userDTO.email,
                 CellNumber = userDTO.cellNumber,
                 FacebookProfile = userDTO.facebookProfile,
-                Password = userDTO.password
+                Password = password
             };
             response.Success = 1;
-            response.Data = userNew;
             _context.Add(userNew);
+            userNew.Password = "";
+            response.Data = userNew;
             _context.SaveChanges();
+
+            response.token = GetToken(userNew);
+
             return response;
         }
 

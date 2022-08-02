@@ -17,7 +17,7 @@ namespace mascotas
         public string PetName { get; set; }
         public string IdState { get; set; }
         public int IdPetSpecie { get; set; }
-        public int? IdPetBreed { get; set; }
+        public int IdPetBreed { get; set; }
         public int IdProvincia { get; set; }
         public int IdCanton { get; set; }
         public int? IdSector { get; set; }
@@ -25,8 +25,8 @@ namespace mascotas
         public decimal? Reward { get; set; }
         public DateTime LastTimeSeen { get; set; }
         public string LinkMapSeen { get; set; }
-        public DateTime? CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; } = DateTime.Now;
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
 
         public virtual Canton IdCantonNavigation { get; set; }
         public virtual PetBreed IdPetBreedNavigation { get; set; }

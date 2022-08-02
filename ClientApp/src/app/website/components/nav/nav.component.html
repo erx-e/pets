@@ -1,30 +1,68 @@
-<header>
-  <div>
-    <div>
-      <nav class="nav-header">
-        <div class="nav__logo">
-          <a href="/" class="logo" href="">
-            <img src="../../../../assets/imgs/logo.png" alt="logo" />
-          </a>
-          <a href="/" class="texto">
-            <span>Pet's Lighthouse</span>
-          </a>
-        </div>
-        <div class="nav__links">
-          <!-- <a class="hide-mobile" href="">
+<header [class.open]="toggle">
+  <div
+    class="overlay"
+    [class.fade-in]="toggle"
+    [class.fade-out]="toggle == false"
+  ></div>
+  <nav class="nav-header">
+    <div class="nav__logo">
+      <a (click)="toggle == false || toggle == null ? toggle : toggleMenu()" [routerLink]="user ? '/home' : '/'" class="logo" href="">
+        <img src="../../../../assets/imgs/logo.png" alt="logo" />
+      </a>
+      <a [routerLink]="user ? '/home' : '/'" class="texto">
+        <span>Pet's Lighthouse</span>
+      </a>
+    </div>
+    <div class="hide-mobile nav__showLinks" >
+      <a *ngIf="user" routerLinkActive="active" routerLink="/home">Home</a
+      ><a routerLinkActive="active" routerLink="/encuentra">Encuentra</a
+      ><a routerLinkActive="active" routerLink="difunde">Difunde</a><a routerLinkActive="active" routerLink="adopta">Adopta</a
+      ><a routerLinkActive="active" routerLink="ayuda">Ayuda</a>
+    </div>
+    <div class="nav__links" [class.flex-end]="user">
+      <!-- <a class="hide-mobile" href="">
             <button type="button" class="nav__button button__create_account">Crear cuenta</button>
           </a> -->
-          <a *ngIf="!user" routerLink="login" class="nav__button button__login" else profileButton>Iniciar sesión</a>
-          <ng-template #profileButton>
-            <a href="/profile" class="nav__button button__login" >{{user?.email}}</a>
-          </ng-template>
-          <div class="nav__menu show-mobile">
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
+      <a
+        *ngIf="!user; else profileButton"
+        routerLink="login"
+        class="nav__button button__login"
+        >Iniciar sesión</a
+      >
+      <ng-template #profileButton>
+        <div class="hide-mobile">
+          <a routerLink="/profile" class="nav__button button__login"
+            >Ir a tu perfil</a
+          >
+          <a class="nav__button" (click)="logout()">Cerrar sesión</a>
         </div>
-      </nav>
+      </ng-template>
+      <div class="nav__toggle show-mobile" (click)="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
     </div>
+  </nav>
+  <div
+    class="nav__menu show-mobile"
+    *ngIf="!user; else navMenuAuth"
+    [class.fade-in]="toggle"
+    [class.fade-out-visibility]="toggle == false"
+  >
+    <a (click)="toggleMenu()" routerLink="encuentra">Encuentra</a><a (click)="toggleMenu()" routerLink="difunde">Difunde</a
+    ><a (click)="toggleMenu()" routerLink="adopta">Adopta</a><a (click)="toggleMenu()" routerLink="ayuda">Ayuda</a>
   </div>
+  <ng-template #navMenuAuth>
+    <div
+      class="nav__menu show-mobile"
+      [class.fade-in]="toggle"
+      [class.fade-out-visibility]="toggle == false"
+    >
+      <a (click)="toggleMenu()" routerLink="/home">Home</a><a (click)="toggleMenu()" routerLink="encuentra">Encuentra</a
+      ><a (click)="toggleMenu()" routerLink="difunde">Difunde</a><a routerLink="adopta">Adopta</a
+      ><a (click)="toggleMenu()" routerLink="ayuda">Ayuda</a><a routerLink="/profile">Ir al perfil</a
+      ><a (click)="toggleMenu()" (click)="logout()">Cerrar sesión</a>
+    </div>
+  </ng-template>
 </header>

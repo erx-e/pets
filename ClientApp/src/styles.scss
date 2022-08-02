@@ -3,9 +3,34 @@
 @import "../node_modules/bootstrap/scss/maps";
 @import "../node_modules/bootstrap/scss/mixins";
 @import "../node_modules/bootstrap/scss/root";
+@import "swiper/scss";
+@import "swiper/scss/pagination";
+@import "swiper/scss/navigation";
 
-@import url('./app/styles/reset.scss');
+@import url("./app/styles/reset.scss");
 
-*{
+* {
   font-family: Roboto, sans-serif;
+}
+
+.swiper-wrapper{
+  align-items: center;
+}
+
+.swiper-button-prev{
+  color: yellow;
+}
+
+.swiper-button-next{
+  color: yellow;
+}
+
+.swiper-pagination-bullet-active {
+
+  background: yellow;
+
+}
+
+.noScroll {
+  overflow: hidden;
 }

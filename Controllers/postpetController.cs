@@ -39,11 +39,59 @@ namespace mascotas.Controllers
         }
 
         [HttpGet]
+        [Route("getByState/{id}")]
+        public ActionResult<IEnumerable<PostPetView>> GetByState(string id, [FromQuery] int? limit = null, int? offset = null)
+        {
+            if (id == null)
+            {
+                return BadRequest("Must send id state");
+            }
+            if (limit != null && offset != null)
+            {
+                return _postPetService.getByState(id, limit, offset);
+            }
+            return _postPetService.getByState(id);
+        }
+
+        [HttpGet]
+        [Route("getByFilter/{stateId}")]
+        public ActionResult<IEnumerable<PostPetView>> GetByFilter(string stateId, [FromQuery] int? petSpecieId, int? petBreedId, int? provinciaId, int? cantonId, int? sectorId, DateTime? date, int? limit = null, int? offset = null)
+        {
+            if (stateId == null)
+            {
+                return BadRequest("Must send id state");
+            }
+
+            if (limit != null && offset != null)
+            {
+                var response = _postPetService.getByFilter(stateId, petSpecieId, petBreedId, provinciaId, cantonId, sectorId, date, limit, offset);
+                if (response.Data != null)
+                {
+                    return Ok((IEnumerable<PostPetView>)response.Data);
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            return Ok((IEnumerable<PostPetView>)_postPetService.getByFilter(stateId, petSpecieId, petBreedId, provinciaId, cantonId, sectorId, date).Data);
+        }
+
+        [HttpGet]
         [Route("get/{id}")]
         public ActionResult<PostPetView> get([Required] int id)
         {
+            var response = _postPetService.getViewPostById(id);
+            if (response.Success == 0) return BadRequest();
+            return Ok(response.Data);
+        }
+
+        [HttpGet]
+        [Route("getUpdate/{id}")]
+        public ActionResult<UpdatePostPetDTO> getUpdate([Required] int id)
+        {
             var response = _postPetService.getPostById(id);
-            if (response.Success == 0) return BadRequest(response.Message);
+            if (response.Success == 0) return BadRequest();
             return Ok(response.Data);
         }
 

@@ -34,21 +34,26 @@ namespace mascotas
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors(option => option.AddPolicy(name: cors, builder => {
-                builder.WithOrigins("*");
+                builder.WithOrigins("*").AllowAnyHeader()
+                                        .AllowAnyMethod();
             }));
+
             services.AddControllersWithViews().AddNewtonsoftJson(options =>
                      options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+
             services.AddDbContext<petDBContext>(opt =>
                 opt.UseSqlServer(Configuration.GetConnectionString("SqlServerConnection")));
             services.AddAutoMapper(typeof(postpetProfile));
 
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IPostPetService, PostpetService>();
+            services.AddScoped<ICategoryService, CategoryService>();
 
             // var secretKey = Configuration["SecretKey"];
             var jwt = Configuration.GetSection("Jwt");

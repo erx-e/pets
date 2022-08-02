@@ -71,3 +71,36 @@
     font-weight: 700;
   }
 }
+
+.validationMessage {
+  display: none;
+  &.active {
+    display: block;
+  }
+}
+
+.is-valid {
+  background-image: none;
+}
+
+.is-invalid {
+  background-image: none;
+}
+
+.invalid-feedback {
+  display: block;
+}
+
+.icon-eye{
+  position: absolute;
+  fill: gray;
+  right: 15px;
+  cursor: pointer;
+  top: 35px;
+  svg{
+    display: none;
+    &.active{
+      display: block;
+    }
+  }
+}

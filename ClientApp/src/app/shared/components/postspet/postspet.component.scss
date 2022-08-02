@@ -1,0 +1,36 @@
+.postpets--grid {
+  display: flex;
+  flex-direction: column;
+}
+
+.load-container{
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.load-button{
+  padding: 9px 16px;
+  background-color: yellow;
+  font-weight: 700;
+  font-size: 14px;
+  border-radius: 6px;
+  color: #03091e;
+}
+
+@media screen and (min-width: 40em) and (max-width: 63.9em){
+  .postpets--grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 15px;
+  }
+}
+
+// web
+@media screen and (min-width: 64em){
+  .postpets--grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 15px;
+  }
+}

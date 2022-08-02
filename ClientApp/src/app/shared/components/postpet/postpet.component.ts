@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { postpetView } from 'src/app/models/postpet.model';
 
 @Component({
   selector: 'app-postpet',
@@ -8,6 +9,8 @@ import { Component, OnInit } from '@angular/core';
 export class PostpetComponent implements OnInit {
 
   constructor() { }
+
+  @Input() postpet: postpetView;
 
   ngOnInit(): void {
   }

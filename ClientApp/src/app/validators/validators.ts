@@ -13,4 +13,18 @@ export class MyValidators {
     }
     return null;
   }
+
+  static correctDate(control: AbstractControl) {
+    if (control.value) {
+      const dateLost: Date = new Date(control.value);
+
+      const dateNow = new Date()
+
+      if (dateLost <= dateNow) {
+        return null;
+      }
+      return { invalid_date: true };
+    }
+    return null;
+  }
 }

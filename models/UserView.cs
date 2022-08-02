@@ -33,6 +33,7 @@ namespace mascotas.Models
 
     public class UserResponse
     {
+        public UserView user { get; set; }
         public string token { get; set; }
     }
 

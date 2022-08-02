@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+import { NotfoundComponent } from "../not-found/notfound.component";
 import { LayoutComponent } from "./components/layout/layout.component";
 import { HomeComponent } from "./pages/home/home.component";
 import { LandpageComponent } from "./pages/landpage/landpage.component";
@@ -27,8 +28,38 @@ const routes: Routes = [
         component: ProfileComponent,
       },
       {
+        path: "profile/:id",
+        component: ProfileComponent,
+      },
+      {
+        path: "encuentra",
+        loadChildren: () =>
+          import("./pages/encuentra/encuentra.module").then(
+            (m) => m.EncuentraModule
+          ),
+      },
+      {
+        path: "difunde",
+        loadChildren: () =>
+          import("./pages/difunde/difunde.module").then((m) => m.DifundeModule),
+      },
+      {
+        path: "adopta",
+        loadChildren: () =>
+          import("./pages/adopta/adopta.module").then((m) => m.AdoptaModule),
+      },
+      {
+        path: "ayuda",
+        loadChildren: () =>
+          import("./pages/ayuda/ayuda.module").then((m) => m.AyudaModule),
+      },
+      {
         path: "pet/:id",
         component: PetDetailComponent,
+      },
+      {
+        path: "**",
+        component: NotfoundComponent,
       },
     ],
   },
@@ -39,7 +70,7 @@ const routes: Routes = [
   {
     path: "register",
     component: RegisterComponent,
-  }
+  },
 ];
 
 @NgModule({

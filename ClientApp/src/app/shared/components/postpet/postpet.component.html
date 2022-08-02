@@ -1,1 +1,28 @@
-<p>postpet works!</p>
+<div class="postpet">
+  <div class="container__postpet-img">
+    <div class="postpet-img" *ngIf="postpet.urlImgs; else elseImage">
+      <a [routerLink]="['/pet', postpet.id]">
+        <app-image
+          [img]="postpet.urlImgs[0].url"
+          [alt]="postpet.petSpecie"
+        ></app-image>
+      </a>
+    </div>
+    <ng-template #elseImage>
+      <!-- <app-image></app-image> -->
+    </ng-template>
+  </div>
+  <div class="postpet-info">
+    <p>
+      Visto por ultima vez en {{ postpet.cantonName | titlecase }},
+      {{ postpet.provinciaName | titlecase }}
+    </p>
+    <p *ngIf="postpet.petBreed">Raza: {{ postpet.petBreed }}</p>
+    <p *ngIf="postpet.reward; else noReward">
+      Recompensa: {{ postpet.reward | currency }}
+    </p>
+    <ng-template #noReward>
+      <p>Recompensa: -</p>
+    </ng-template>
+  </div>
+</div>

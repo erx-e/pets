@@ -67,8 +67,7 @@ namespace mascotas
 
                 entity.HasIndex(e => e.IdSpecie, "fk_pet_breed_pet_specie_idx");
 
-                entity.HasIndex(e => e.BreedName, "pet_breed$breed_type_UNIQUE")
-                    .IsUnique();
+                entity.HasIndex(e => e.BreedName, "pet_breed$breed_type");
 
                 entity.Property(e => e.IdPetBreed).HasColumnName("id_petBreed");
 
@@ -93,8 +92,7 @@ namespace mascotas
 
                 entity.ToTable("pet_specie", "mydb");
 
-                entity.HasIndex(e => e.SpecieName, "pet_specie$specie_type_UNIQUE")
-                    .IsUnique();
+                entity.HasIndex(e => e.SpecieName, "pet_specie$specie_type");
 
                 entity.Property(e => e.IdPetSpecie).HasColumnName("id_petSpecie");
 
@@ -132,12 +130,6 @@ namespace mascotas
                 entity.ToTable("post_image");
 
                 entity.Property(e => e.IdImage).HasColumnName("id_image");
-
-                entity.Property(e => e.FileName)
-                    .IsRequired()
-                    .HasMaxLength(200)
-                    .IsUnicode(false)
-                    .HasColumnName("fileName");
 
                 entity.Property(e => e.IdPostPet).HasColumnName("id_postPet");
 
@@ -200,7 +192,6 @@ namespace mascotas
                 entity.Property(e => e.LinkMapSeen).HasColumnName("link_mapSeen");
 
                 entity.Property(e => e.PetName)
-                    .IsRequired()
                     .HasMaxLength(45)
                     .HasColumnName("pet_name");
 
@@ -222,6 +213,7 @@ namespace mascotas
                 entity.HasOne(d => d.IdPetBreedNavigation)
                     .WithMany(p => p.PostPets)
                     .HasForeignKey(d => d.IdPetBreed)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_post_pet_pet_breed");
 
                 entity.HasOne(d => d.IdPetSpecieNavigation)
@@ -313,7 +305,10 @@ namespace mascotas
 
                 entity.Property(e => e.IdUser).HasColumnName("id_user");
 
-                entity.Property(e => e.CellNumber).HasColumnName("cell_number");
+                entity.Property(e => e.CellNumber)
+                    .HasMaxLength(32)
+                    .IsUnicode(false)
+                    .HasColumnName("cell_number");
 
                 entity.Property(e => e.CreatedAt)
                     .HasColumnType("datetime")
@@ -334,9 +329,9 @@ namespace mascotas
 
                 entity.Property(e => e.Password)
                     .IsRequired()
-                    .HasMaxLength(70)
-                    .HasColumnName("password")
-                    .IsFixedLength(true);
+                    .HasMaxLength(64)
+                    .IsUnicode(false)
+                    .HasColumnName("password");
 
                 entity.Property(e => e.UpdatedAt)
                     .HasColumnType("datetime")

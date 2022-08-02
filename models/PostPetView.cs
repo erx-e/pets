@@ -8,6 +8,7 @@ namespace mascotas.Models
     {
         public int id { get; set; }
         public string userName { get; set; }
+        public int idUser { get; set; }
         public string petName { get; set; }
         public string petState { get; set; }
         public string petSpecie { get; set; }
@@ -19,20 +20,20 @@ namespace mascotas.Models
         public decimal? reward { get; set; }
         public DateTime lastTimeSeen { get; set; }
         public string? linkMapSeen { get; set; }
-        public List<imgModel> imgs { get; set; }
+        public List<imgModel> urlImgs { get; set; }
     }
 
     public class CreatePostPetDTO
     {
         [Required]
         public int idUser { get; set; }
-        [Required]
-        public string petName { get; set; }
+        public string? petName { get; set; }
         [Required]
         public string idState { get; set; }
         [Required]
         public int idPetSpecie { get; set; }
-        public int? idPetBreed { get; set; }
+        [Required]
+        public int idPetBreed { get; set; }
         [Required]
         public int idProvincia { get; set; }
         [Required]
@@ -45,25 +46,25 @@ namespace mascotas.Models
         public DateTime lastTimeSeen { get; set; }
         public string? linkMapSeen { get; set; }
         [Required]
-        public imgModel[] urlImgs { get; set; }
+        public string[] urlImgs { get; set; }
     }
 
     public class UpdatePostPetDTO
     {
         [Required]
-        public int IdPostPet { get; set; }
-        public int IdUser { get; set; }
-        public string? PetName { get; set; }
-        public string? IdState { get; set; }
-        public int? IdPetSpecie { get; set; }
-        public int? IdPetBreed { get; set; }
-        public int? IdProvincia { get; set; }
-        public int? IdCanton { get; set; }
-        public int? IdSector { get; set; }
-        public string? Description { get; set; }
-        public decimal? Reward { get; set; }
-        public DateTime? LastTimeSeen { get; set; }
-        public string? LinkMapSeen { get; set; }
-        public updatePostImgDTO[]? Imgs { get; set; }
+        public int idPostPet { get; set; }
+        public int idUser { get; set; }
+        public string? petName { get; set; }
+        public string? idState { get; set; }
+        public int? idPetSpecie { get; set; }
+        public int? idPetBreed { get; set; }
+        public int? idProvincia { get; set; }
+        public int? idCanton { get; set; }
+        public int? idSector { get; set; }
+        public string? description { get; set; }
+        public decimal? reward { get; set; }
+        public DateTime? lastTimeSeen { get; set; }
+        public string? linkMapSeen { get; set; }
+        public List<updatePostImgDTO>? urlImgs { get; set; }
     }
 }

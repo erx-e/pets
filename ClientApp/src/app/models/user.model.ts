@@ -1,4 +1,5 @@
 export interface UserView {
+  idUser: number;
   name: string;
   email: string;
   cellNumber: string;
@@ -19,5 +20,6 @@ export interface authUser{
 }
 
 export interface authUserResponse{
+  user: UserView;
   token: string;
 }

@@ -1,14 +1,13 @@
-import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
-import { CreateUserDTO, UserView } from "src/app/models/user.model";
+import { CreateUserDTO } from "src/app/models/user.model";
 import { UserService } from "src/app/services/user.service";
 import {
-  FormControl,
   Validators,
   FormGroup,
   FormBuilder,
 } from "@angular/forms";
 import { MyValidators } from "src/app/validators/validators";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-register",
@@ -20,32 +19,42 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private router: Router,
   ) {
     this.buildForm();
   }
 
   ngOnInit(): void {}
 
-
   showPassword: boolean = false;
   showConfirmPassword: boolean = false;
 
-  changePasswordVisibility(){
+  changePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }
 
-  changeConfirmPasswordVisibility(){
+  changeConfirmPasswordVisibility() {
     this.showConfirmPassword = !this.showConfirmPassword;
   }
 
   user: CreateUserDTO;
+  emailAlreadyRegistered: boolean = false;
 
   createUser() {
-    console.log(this.form.valid)
     if (this.form.valid) {
       this.user = this.form.value;
-      this.userService.create(this.user).subscribe(response => console.log(response));
+      this.userService.create(this.user).subscribe(
+        () => {
+          this.router.navigate(['home'])
+        },
+        (error: string) => {
+          console.log(error);
+          if (error == "Email already registered") {
+            this.emailAlreadyRegistered = true;
+          }
+        }
+      );
     }
     this.form.markAllAsTouched();
   }
@@ -78,8 +87,6 @@ export class RegisterComponent implements OnInit {
       }
     );
   }
-
-  againPassword = new FormControl("", [Validators.required, Validators.email]);
 
   get nameField() {
     return this.form.get("name");

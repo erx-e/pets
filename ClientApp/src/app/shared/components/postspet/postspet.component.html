@@ -1,1 +1,11 @@
-<p>postspet works!</p>
+<div class="postpets--grid">
+  <app-postpet
+  [postpet]="postpet"
+  *ngFor="let postpet of postspet"
+  ></app-postpet>
+</div>
+<div>
+  <div class="load-container">
+    <button id="load-button" class="load-button" (click)="onLoadMore()">Cargar más</button>
+  </div>
+</div>

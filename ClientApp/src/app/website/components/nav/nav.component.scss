@@ -1,13 +1,44 @@
 header {
-  // box-shadow: 0 2px 4px 0 rgb(0 0 0 / 25%);
   position: relative;
-  // background-color: #F1F6F8;
+  z-index: 1;
+  .overlay {
+    position: fixed;
+    opacity: 0;
+    top: 0px;
+    right: 0px;
+    left: 0px;
+    bottom: 0px;
+    background-image: linear-gradient(#06003eff, transparent);
+    width: 0%;
+  }
+
+  &.open {
+    .overlay {
+      width: 100%;
+    }
+
+    .nav__toggle {
+      > span:first-child {
+        transform: rotate(45deg);
+      }
+      > span:nth-child(2) {
+        opacity: 0;
+      }
+      > span:last-child {
+        transform: rotate(-45deg);
+      }
+    }
+  }
 }
 
-
+a {
+  text-decoration: none;
+  color: black;
+}
 
 .nav-header {
-  background-color: transparent;
+  position: relative;
+  background-color: white;
   display: flex;
   max-width: 1280px;
   margin-right: auto;
@@ -27,7 +58,7 @@ header {
   a {
     font-weight: bold;
     text-decoration: none;
-    color: black;
+    color: #06003eff;
     img {
       margin-left: 12px;
       margin-right: 5px;
@@ -44,7 +75,8 @@ header {
 
 .nav__links {
   display: flex;
-  justify-content: space-between;
+  width: 200px;
+  justify-content: space-around;
   align-items: center;
 }
 
@@ -58,6 +90,8 @@ header {
   font-size: 1rem;
   line-height: 1.15;
   font-weight: 700;
+  color: #03091e;
+  margin-left: 6px;
 }
 
 .button__create_account {
@@ -65,20 +99,104 @@ header {
 }
 
 .button__login {
-  color: #03091e;
-  margin-right: 6px;
 }
 
-.nav__menu {
+.nav__toggle {
+  margin-left: 6px;
   span {
     display: block;
     background-color: black;
     width: 26px;
     height: 2px;
+    transition: all 300ms ease-in-out;
+    transform-origin: 3px 1px;
+
+    &:not(:last-child) {
+      margin-bottom: 5px;
+    }
   }
 }
-.nav__menu > span:not(:last-child) {
-  margin-bottom: 3px;
+
+.flex-end {
+  justify-content: flex-end;
+}
+
+.nav__menu {
+  visibility: hidden;
+  position: absolute;
+  background-color: white;
+  width: calc(100% - 3rem);
+  margin-top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 20px;
+  border-radius: 5px;
+  a {
+    display: block;
+    padding: 12px 0px;
+    text-align: center;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    visibility: hidden;
+    opacity: 0;
+  }
+  1% {
+    visibility: hidden;
+    opacity: 0;
+  }
+  to {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fade-in 300ms ease-in-out forwards;
+}
+
+@keyframes fade-out {
+  from {
+    visibility: visible;
+    opacity: 1;
+    width: 100%;
+  }
+  99% {
+    visibility: visible;
+    opacity: 0;
+    width: 100%;
+  }
+  to {
+    visibility: hidden;
+    width: 0%;
+    opacity: 0;
+  }
+}
+
+@keyframes fade-out-visibility {
+  from {
+    visibility: visible;
+    opacity: 1;
+  }
+  99% {
+    visibility: visible;
+    opacity: 0;
+  }
+  to {
+    visibility: hidden;
+
+    opacity: 0;
+  }
+}
+
+.fade-out-visibility {
+  animation: fade-out-visibility 300ms ease-in-out forwards;
+}
+
+.fade-out {
+  animation: fade-out 300ms ease-in-out forwards;
 }
 
 .show-mobile {
@@ -88,9 +206,6 @@ header {
   display: none;
 }
 
-
-
-
 @media screen and (min-width: 40em) and (max-width: 63.9375em) {
   .show-mobile {
     display: none;
@@ -98,10 +213,42 @@ header {
   .hide-mobile {
     display: block;
   }
-
-  header{
-    padding: 0px 20px;
+  .nav__button {
+    font-size: 0.875rem;
+    padding: 9px 16px;
+    border: 0;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 6px;
+    background-color: yellow;
   }
+
+  .nav__showLinks {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    a {
+      color: #555a81;
+      font-size: 14px;
+      margin-left: 8px;
+      padding: 7px 7px;
+      &:first-child {
+        margin-left: 0px;
+      }
+      &.active{
+        color: #06003eff;
+        border: 1px solid;
+        border-color: #06003eff;
+        border-radius: 6px;
+      }
+    }
+  }
+
+  .nav__links {
+    width: auto;
+    max-width: none;
+  }
+
 
   // .nav__logo{
   //     font-size: 20px;
@@ -130,11 +277,35 @@ header {
   //       font-size: 20px;
   //     }
   // }
-
-  header{
-    padding: 0px;
+  .nav__showLinks {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    a {
+      color: #555a81;
+      font-size: 14px;
+      margin-left: 8px;
+      padding: 9px 16px;
+      &:first-child {
+        margin-left: 0px;
+      }
+      &.active{
+        color: #06003eff;
+        border: 1px solid;
+        border-color: #06003eff;
+        border-radius: 6px;
+      }
+    }
   }
 
+
+  header {
+    padding: 0px;
+  }
+  .nav__links {
+    width: auto;
+    max-width: none;
+  }
   .nav__button {
     font-size: 0.875rem;
     padding: 9px 16px;

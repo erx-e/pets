@@ -72,7 +72,7 @@ namespace mascotas.Controllers
             {
                 return BadRequest(response.Message);
             }
-            return Ok(response.Data);
+            return Ok(response);
         }
 
         [Authorize]

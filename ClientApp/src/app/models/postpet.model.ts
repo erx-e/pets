@@ -1,42 +1,59 @@
 export interface postpetView {
   id: string;
   userName: string;
+  idUser: number | null;
   petName: string;
   petState: string;
   petSpecie: string;
-  petBreed: string | null;
+  petBreed: string;
   provinciaName: string;
   cantonName: string;
   sectorName: string | null;
   description: string;
   reward: number | null;
-  lastTimeSeen: Date;
+  lastTimeSeen: string;
   linkMapSeen: string | null;
-  imgs: img[];
+  urlImgs: img[];
+}
+
+export interface PostpetFilter {
+  idPetSpecie: number | null;
+  idPetBreed: number | null;
+  idProvincia: number | null;
+  idCanton: number | null;
+  idSector: number | null;
+  date: string | null;
 }
 
 export interface CreatePostpetDTO {
   idUser: number;
   petName: string;
-  idState: number;
+  idState: string;
   idPetSpecie: number;
-  idPetBreed: number | null;
+  idPetBreed: number;
   idProvincia: number;
+  idCanton: number;
   idSector: number | null;
   description: string;
   reward: number | null;
-  lastTimeSeen: Date;
-  linkMapSeen: string;
-  urlImgs: img[];
+  lastTimeSeen: string;
+  linkMapSeen: string | null;
+  urlImgs: string[];
 }
 
 export interface UpdatePostpetDTO
-  extends Omit<Partial<CreatePostpetDTO>, "idUser"> {
+  extends Omit<Partial<CreatePostpetDTO>, "idUser" | "urlImgs"> {
   idUser: number;
   idPostPet: number;
+  urlImgs?: updateImg[];
 }
 
-interface img {
-  fileName: string;
+export interface img {
   url: string;
+  idImage: number;
+}
+
+export interface updateImg {
+  url?: string | null;
+  idImage?: number;
 }
