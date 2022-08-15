@@ -401,6 +401,9 @@ namespace mascotas.Services
             {
                 IdUser = postpetDTO.idUser,
                 PetName = postpetDTO.petName != null ? postpetDTO.petName : null,
+                PetAge = postpetDTO.petAge != null ? postpetDTO.petAge : null,
+                PetSpecialCondition = postpetDTO.petSpecialCondition != null ? postpetDTO.petSpecialCondition : null,
+                Contact = postpetDTO.contact != null ? postpetDTO.contact : null,
                 IdState = postpetDTO.idState,
                 IdPetSpecie = postpetDTO.idPetSpecie,
                 IdPetBreed = postpetDTO.idPetBreed,
@@ -461,6 +464,9 @@ namespace mascotas.Services
             postpetNew.IdUser = postpetOld.IdUser;
             postpetNew.IdPostPet = postpetOld.IdPostPet;
 
+            postpetNew.PetAge = postpetDTO.petAge != null ? postpetDTO.petAge : postpetOld.PetAge;
+            postpetNew.PetSpecialCondition = postpetDTO.petSpecialCondition != null ? postpetDTO.petSpecialCondition : postpetOld.PetSpecialCondition;
+            postpetNew.Contact = postpetDTO.contact != null ? postpetDTO.contact : postpetOld.Contact;
             postpetNew.IdPetSpecie = postpetDTO.idPetSpecie != null ? (int)postpetDTO.idPetSpecie : postpetOld.IdPetSpecie;
             postpetNew.IdPetBreed = postpetDTO.idPetBreed != null ? (int)postpetDTO.idPetBreed : postpetOld.IdPetBreed;
             postpetNew.IdProvincia = postpetDTO.idProvincia != null ? (int)postpetDTO.idProvincia : postpetOld.IdProvincia;
@@ -489,7 +495,8 @@ namespace mascotas.Services
                         var oldImg = _context.PostImages.Where(img => img.IdImage == ImgNew.idImage).FirstOrDefault();
                         if (oldImg != null)
                         {
-                            if(ImgNew.url == null){
+                            if (ImgNew.url == null)
+                            {
                                 _context.PostImages.Remove(_context.PostImages.Find((int)ImgNew.idImage));
                             }
                             if (ImgNew.url != null && ImgNew.url != oldImg.Url)

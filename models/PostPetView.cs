@@ -10,6 +10,9 @@ namespace mascotas.Models
         public string userName { get; set; }
         public int idUser { get; set; }
         public string petName { get; set; }
+        public string petAge { get; set; }
+        public string? petSpecialCondition { get; set; }
+        public string contact { get; set; }
         public string petState { get; set; }
         public string petSpecie { get; set; }
         public string? petBreed { get; set; }
@@ -28,6 +31,9 @@ namespace mascotas.Models
         [Required]
         public int idUser { get; set; }
         public string? petName { get; set; }
+        public string? petAge { get; set; }
+        public string? petSpecialCondition { get; set; }
+        public string? contact { get; set; }
         [Required]
         public string idState { get; set; }
         [Required]
@@ -55,6 +61,9 @@ namespace mascotas.Models
         public int idPostPet { get; set; }
         public int idUser { get; set; }
         public string? petName { get; set; }
+        public string? petAge { get; set; }
+        public string? petSpecialCondition { get; set; }
+        public string? contact { get; set; }
         public string? idState { get; set; }
         public int? idPetSpecie { get; set; }
         public int? idPetBreed { get; set; }

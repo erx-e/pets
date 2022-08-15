@@ -15,6 +15,9 @@ namespace mascotas
         public int IdPostPet { get; set; }
         public int IdUser { get; set; }
         public string PetName { get; set; }
+        public string PetAge { get; set; }
+        public string PetSpecialCondition { get; set; }
+        public string Contact { get; set; }
         public string IdState { get; set; }
         public int IdPetSpecie { get; set; }
         public int IdPetBreed { get; set; }

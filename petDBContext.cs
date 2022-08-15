@@ -159,6 +159,11 @@ namespace mascotas
 
                 entity.Property(e => e.IdPostPet).HasColumnName("id_postPet");
 
+                entity.Property(e => e.Contact)
+                    .HasMaxLength(50)
+                    .HasColumnName("contact")
+                    .IsFixedLength(true);
+
                 entity.Property(e => e.CreatedAt)
                     .HasColumnType("datetime")
                     .HasColumnName("created_at")
@@ -191,9 +196,15 @@ namespace mascotas
 
                 entity.Property(e => e.LinkMapSeen).HasColumnName("link_mapSeen");
 
+                entity.Property(e => e.PetAge)
+                    .HasMaxLength(20)
+                    .HasColumnName("pet_age");
+
                 entity.Property(e => e.PetName)
                     .HasMaxLength(45)
                     .HasColumnName("pet_name");
+
+                entity.Property(e => e.PetSpecialCondition).HasColumnName("pet_specialCondition");
 
                 entity.Property(e => e.Reward)
                     .HasColumnType("money")
