@@ -49,7 +49,7 @@ export class PostpetService {
     );
   }
 
-  GetByFilter(stateId: string, petSpecieId?: number | null, petBreedId?: number | null , provinciaId?: number | null , cantonId?: number | null, sectorId?: number | null, date?: string | null, limit?: number, offset?: number){
+  GetByFilter(stateId: string, petSpecieId?: number | null, petBreedId?: number | null , provinciaId?: number | null , cantonId?: number | null, sectorId?: number | null, date?: string | null, order?: number | null, limit?: number, offset?: number){
     let params = new HttpParams();
     if(limit != undefined || offset != undefined){
       params = params.set("limit", limit);
@@ -63,7 +63,7 @@ export class PostpetService {
     params = (cantonId != null || cantonId != undefined) ? params.set("cantonId", cantonId) : params
     params = (sectorId != null || sectorId != undefined) ? params.set("sectorId", sectorId) : params
     params = (date != null || date != undefined) ? params.set("date", date) : params
-
+    params = (order != null || order != undefined) ? params.set("order", order) : params
 
     return this.http.get<postpetView[] | null>(
       `${this.apiUrl}/postpet/getByFilter/${stateId}`,
