@@ -16,7 +16,7 @@ export class TimerCacheService {
 
   startTimer() {
     if (!this.isTimerStarted) {
-      this.dDay.setMinutes(this.dDay.getMinutes() + +1);
+      this.dDay.setMinutes(this.dDay.getMinutes() + +10);
       this.getTimeDifference();
       this.isTimerStarted = true;
     }
