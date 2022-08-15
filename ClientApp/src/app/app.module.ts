@@ -7,6 +7,7 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { QuicklinkModule } from 'ngx-quicklink';
 import { NotfoundComponent } from './not-found/notfound.component'
+import { LoadingInterceptor } from "./interceptors/loading.interceptor";
 
 @NgModule({
   declarations: [AppComponent, NotfoundComponent],
@@ -19,6 +20,7 @@ import { NotfoundComponent } from './not-found/notfound.component'
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })

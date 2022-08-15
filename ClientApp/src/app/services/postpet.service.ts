@@ -10,6 +10,7 @@ import {
   img
 } from "../models/postpet.model";
 import { checkToken } from "../interceptors/token.interceptor";
+import { checkLoading } from "../interceptors/loading.interceptor";
 
 @Injectable({
   providedIn: "root",
@@ -27,7 +28,7 @@ export class PostpetService {
     params = params.set("limit", limit);
     params = params.set("offset", offset);
     return this.http.get<postpetView[]>(`${this.apiUrl}/postpet/get`, {
-      params,
+      params, context: checkLoading()
     });
   }
 
@@ -45,7 +46,7 @@ export class PostpetService {
     params = params.set("offset", offset);
     return this.http.get<postpetView[]>(
       `${this.apiUrl}/postpet/getByState/${id}`,
-      { params }
+      { params, context: checkLoading() }
     );
   }
 
@@ -67,7 +68,7 @@ export class PostpetService {
 
     return this.http.get<postpetView[] | null>(
       `${this.apiUrl}/postpet/getByFilter/${stateId}`,
-      { params }
+      { params, context: checkLoading() }
     );
   }
 
