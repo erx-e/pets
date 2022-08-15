@@ -55,7 +55,7 @@ namespace mascotas.Controllers
 
         [HttpGet]
         [Route("getByFilter/{stateId}")]
-        public ActionResult<IEnumerable<PostPetView>> GetByFilter(string stateId, [FromQuery] int? petSpecieId, int? petBreedId, int? provinciaId, int? cantonId, int? sectorId, DateTime? date, int? limit = null, int? offset = null)
+        public ActionResult<IEnumerable<PostPetView>> GetByFilter(string stateId, [FromQuery] int? petSpecieId, int? petBreedId, int? provinciaId, int? cantonId, int? sectorId, DateTime? date, int? order, int? limit = null, int? offset = null)
         {
             if (stateId == null)
             {
@@ -64,7 +64,7 @@ namespace mascotas.Controllers
 
             if (limit != null && offset != null)
             {
-                var response = _postPetService.getByFilter(stateId, petSpecieId, petBreedId, provinciaId, cantonId, sectorId, date, limit, offset);
+                var response = _postPetService.getByFilter(stateId, petSpecieId, petBreedId, provinciaId, cantonId, sectorId, date, order, limit, offset);
                 if (response.Data != null)
                 {
                     return Ok((IEnumerable<PostPetView>)response.Data);
@@ -74,7 +74,7 @@ namespace mascotas.Controllers
                     return null;
                 }
             }
-            return Ok((IEnumerable<PostPetView>)_postPetService.getByFilter(stateId, petSpecieId, petBreedId, provinciaId, cantonId, sectorId, date).Data);
+            return Ok((IEnumerable<PostPetView>)_postPetService.getByFilter(stateId, petSpecieId, petBreedId, provinciaId, cantonId, sectorId, date, order).Data);
         }
 
         [HttpGet]

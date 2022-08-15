@@ -25,7 +25,6 @@ namespace mascotas.Services
             var listAllPosts = _context.PostPets.ToList();
 
             List<PostPetView> result = (from post in listAllPosts
-                                        where post.IdSector != null
                                         join user in _context.Users
                                         on post.IdUser equals user.IdUser
                                         join state in _context.PetStates
@@ -80,13 +79,12 @@ namespace mascotas.Services
             return result;
         }
 
-        public List<PostPetView> getByState(string id, int? limit = null, int? offset = null)
+        public List<PostPetView> getByState(string stateId, int? limit = null, int? offset = null)
         {
-            var stateId = id;
             var listAllPosts = _context.PostPets.ToList();
 
             List<PostPetView> result = (from post in listAllPosts
-                                        where post.IdSector != null && post.IdState == stateId
+                                        where post.IdState == stateId
                                         join user in _context.Users
                                         on post.IdUser equals user.IdUser
                                         join state in _context.PetStates
@@ -121,7 +119,7 @@ namespace mascotas.Services
                                                 {
                                                     url = img.Url,
                                                 }).ToList()
-                                        }).ToList();
+                                        }).OrderByDescending(p => p.lastTimeSeen).ToList();
 
             if (limit != null && offset != null)
             {
@@ -142,7 +140,7 @@ namespace mascotas.Services
             return result;
         }
 
-        public Response getByFilter(string stateId, int? petSpecieId, int? petBreedId, int? provinciaId, int? cantonId, int? sectorId, DateTime? date, int? limit = null, int? offset = null)
+        public Response getByFilter(string stateId, int? petSpecieId, int? petBreedId, int? provinciaId, int? cantonId, int? sectorId, DateTime? date, int? order, int? limit = null, int? offset = null)
         {
 
             List<PostPet> listPostFilter = _context.PostPets
@@ -155,6 +153,7 @@ namespace mascotas.Services
                                     (sectorId == null || (sectorId != null && post.IdSector == sectorId)) &&
                                     (date == null || (date != null && post.LastTimeSeen >= date))
                                     )).ToList();
+
 
 
             List<PostPetView> result = (from post in listPostFilter
@@ -192,7 +191,11 @@ namespace mascotas.Services
                                                 {
                                                     url = img.Url,
                                                 }).ToList()
-                                        }).ToList();
+                                        }).OrderByDescending(p => p.lastTimeSeen).ToList();
+
+            if(order != null && order >= 1){
+                result.OrderBy(p => p.lastTimeSeen);
+            }
 
             var response = new Response();
             if (limit != null && offset != null)
