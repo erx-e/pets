@@ -16,11 +16,7 @@
         </div>
         <p>Filtro</p>
       </div>
-      <form
-        [formGroup]="form"
-        class="form-container"
-        (ngSubmit)="applyFilter($event)"
-      >
+      <form [formGroup]="form" class="form-container">
         <div class="form-filter-element">
           <p class="form-label">Tipo de mascota</p>
           <div
@@ -132,9 +128,51 @@
             </p>
           </div>
         </div>
+        <div class="form-filter-element">
+          <label class="form-label" for="order">Ordernar por: </label>
+          <select
+            class="form-select"
+            formControlName="order"
+            name="order"
+            id="order"
+          >
+            <option value="0">Vistos (más recientes)</option>
+            <option value="1">Vistos (más antiguos)</option>
+          </select>
+        </div>
         <div class="submitButtons">
-          <button class="btnSubmit btn-clear" type="submit">Limpiar</button>
-          <button class="btnSubmit btn-apply" type="submit">Aplicar</button>
+          <a
+            class="btnSubmit btn-clear"
+            routerLink="."
+            (click)="cleanForm()"
+            [queryParams]="{
+              especie: null,
+              raza: null,
+              provincia: null,
+              canton: null,
+              sector: null,
+              fecha: null,
+              orden: null
+            }"
+            >Limpiar</a
+          >
+          <a
+            class="btnSubmit btn-apply"
+            routerLink="."
+            [queryParams]="{
+              especie: petSpecieField.value ? petSpecieField.value : null,
+              raza: petBreedField.value ? petBreedField.value : null,
+              provincia: provinciaField.value ? provinciaField.value : null,
+              canton: cantonField.value ? cantonField.value : null,
+              sector: sectorField.value ? sectorField.value : null,
+              fecha: lastTimeSeenField.value ? lastTimeSeenField.value : null,
+              orden:
+                orderField.value && orderField.value != '0'
+                  ? orderField.value
+                  : null
+            }"
+            >Aplicar</a
+          >
         </div>
       </form>
     </div>
@@ -159,11 +197,7 @@
       <div class="filter-container hide-mobile">
         <aside>
           <p class="filter-title">Filtro</p>
-          <form
-            [formGroup]="form"
-            class="form-container"
-            (ngSubmit)="applyFilter($event)"
-          >
+          <form [formGroup]="form" class="form-container">
             <div class="form-filter-element">
               <p class="form-label">Tipo de mascota</p>
               <div
@@ -282,9 +316,52 @@
                 </p>
               </div>
             </div>
+            <div class="form-filter-element">
+              <label class="form-label" for="order">Ordernar por: </label>
+              <select
+                class="form-select"
+                formControlName="order"
+                name="order"
+                id="order"
+              >
+                <option value="0">Vistos (más recientes)</option>
+                <option value="1">Vistos (más antiguos)</option>
+              </select>
+            </div>
             <div class="submitButtons">
-              <button class="btnSubmit btn-clear" type="submit">Limpiar</button>
-              <button class="btnSubmit btn-apply" type="submit">Aplicar</button>
+              <a
+                class="btnSubmit btn-clear"
+                routerLink="."
+                (click)="cleanForm()"
+                [queryParams]="{
+                  especie: null,
+                  raza: null,
+                  provincia: null,
+                  canton: null,
+                  sector: null,
+                  fecha: null
+                }"
+                >Limpiar</a
+              >
+              <a
+                class="btnSubmit btn-apply"
+                routerLink="."
+                [queryParams]="{
+                  especie: petSpecieField.value ? petSpecieField.value : null,
+                  raza: petBreedField.value ? petBreedField.value : null,
+                  provincia: provinciaField.value ? provinciaField.value : null,
+                  canton: cantonField.value ? cantonField.value : null,
+                  sector: sectorField.value ? sectorField.value : null,
+                  fecha: lastTimeSeenField.value
+                    ? lastTimeSeenField.value
+                    : null,
+                  orden:
+                    orderField.value && orderField.value != '0'
+                      ? orderField.value
+                      : null
+                }"
+                >Aplicar</a
+              >
             </div>
           </form>
         </aside>
@@ -293,13 +370,23 @@
         <a routerLink="publicar" class="publicPet hide-mobile"
           >publica a tu mascota</a
         >
-        <div class="posts">
+        <div class="posts" *ngIf="!isLoading; else loading">
           <app-postspet
+            [isLoadingMore]="isLoadingMore"
+            [morePostspet]="morePostspet"
             [postspet]="postspet"
-            [notMorePostPet]="notMorePostpet"
             (loadMore)="onLoadMore()"
           ></app-postspet>
         </div>
+        <ng-template #loading>
+          <div class="posts">
+            <app-postspet
+              [morePostspet]="false"
+              [postspet]="postspetLoading"
+              (loadMore)="onLoadMore()"
+            ></app-postspet>
+          </div>
+        </ng-template>
       </div>
     </main>
   </div>

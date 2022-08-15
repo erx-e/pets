@@ -1,6 +1,6 @@
-<div class="postpet">
+<div class="postpet" *ngIf="postpet; else loading">
   <div class="container__postpet-img">
-    <div class="postpet-img" *ngIf="postpet.urlImgs; else elseImage">
+    <div class="postpet-img" *ngIf="postpet.urlImgs">
       <a [routerLink]="['/pet', postpet.id]">
         <app-image
           [img]="postpet.urlImgs[0].url"
@@ -8,9 +8,6 @@
         ></app-image>
       </a>
     </div>
-    <ng-template #elseImage>
-      <!-- <app-image></app-image> -->
-    </ng-template>
   </div>
   <div class="postpet-info">
     <p>
@@ -26,3 +23,8 @@
     </ng-template>
   </div>
 </div>
+<ng-template #loading>
+  <div class="postpet">
+    <div class="postpet-info"></div>
+  </div>
+</ng-template>

@@ -10,7 +10,7 @@ export class PostpetComponent implements OnInit {
 
   constructor() { }
 
-  @Input() postpet: postpetView;
+  @Input() postpet: postpetView | null;
 
   ngOnInit(): void {
   }

@@ -12,9 +12,10 @@ export class PostspetComponent implements OnInit {
   @Output() loadMore = new EventEmitter();
 
   @Input() postspet: postpetView[] = [];
+  @Input() isLoadingMore: boolean
   @Input()
-    set notMorePostPet(notMore: boolean){
-      if(notMore){
+    set morePostspet(more: boolean){
+      if(!more){
         document.getElementById("load-button").style.display = "none"
       }
       else{

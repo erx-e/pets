@@ -1,11 +1,16 @@
 <div class="postpets--grid">
   <app-postpet
-  [postpet]="postpet"
-  *ngFor="let postpet of postspet"
+    [postpet]="postpet"
+    *ngFor="let postpet of postspet"
   ></app-postpet>
 </div>
 <div>
   <div class="load-container">
-    <button id="load-button" class="load-button" (click)="onLoadMore()">Cargar más</button>
+    <button id="load-button" class="load-button" (click)="onLoadMore()">
+      <span *ngIf="!isLoadingMore; else loadingMore">Cargar más</span>
+      <ng-template #loadingMore>
+        <app-spinner> </app-spinner>
+      </ng-template>
+    </button>
   </div>
 </div>

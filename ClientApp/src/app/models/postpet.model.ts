@@ -1,8 +1,13 @@
+import { NullCheckBoxList } from "aws-sdk/clients/glue";
+
 export interface postpetView {
   id: string;
   userName: string;
   idUser: number | null;
   petName: string;
+  petAge: string;
+  petSpecialCondition: string;
+  contact: string;
   petState: string;
   petSpecie: string;
   petBreed: string;
@@ -16,18 +21,13 @@ export interface postpetView {
   urlImgs: img[];
 }
 
-export interface PostpetFilter {
-  idPetSpecie: number | null;
-  idPetBreed: number | null;
-  idProvincia: number | null;
-  idCanton: number | null;
-  idSector: number | null;
-  date: string | null;
-}
 
 export interface CreatePostpetDTO {
   idUser: number;
   petName: string;
+  petAge: string ;
+  petSpecialCondition: string;
+  contact: string;
   idState: string;
   idPetSpecie: number;
   idPetBreed: number;
