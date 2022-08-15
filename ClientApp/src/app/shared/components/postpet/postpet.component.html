@@ -12,7 +12,7 @@
   <div class="postpet-info">
     <p>
       Visto por ultima vez en {{ postpet.cantonName | titlecase }},
-      {{ postpet.provinciaName | titlecase }}
+      {{ postpet.provinciaName | titlecase }}, {{lastTimeSeen}}
     </p>
     <p *ngIf="postpet.petBreed">Raza: {{ postpet.petBreed }}</p>
     <p *ngIf="postpet.reward; else noReward">
