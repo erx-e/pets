@@ -54,8 +54,8 @@ namespace mascotas.Controllers
         }
 
         [HttpGet]
-        [Route("getByFilter/{stateId}")]
-        public ActionResult<IEnumerable<PostPetView>> GetByFilter(string stateId, [FromQuery] int? petSpecieId, int? petBreedId, int? provinciaId, int? cantonId, int? sectorId, DateTime? date, int? order, int? limit = null, int? offset = null)
+        [Route("getByFilter")]
+        public ActionResult<IEnumerable<PostPetView>> GetByFilter([FromQuery] string? stateId, int? petSpecieId, int? petBreedId, int? provinciaId, int? cantonId, int? sectorId, DateTime? date, int? order, int? limit = null, int? offset = null)
         {
             if (stateId == null)
             {

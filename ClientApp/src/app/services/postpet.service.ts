@@ -7,7 +7,7 @@ import {
   CreatePostpetDTO,
   postpetView,
   UpdatePostpetDTO,
-  img
+  img,
 } from "../models/postpet.model";
 import { checkToken } from "../interceptors/token.interceptor";
 import { checkLoading } from "../interceptors/loading.interceptor";
@@ -28,7 +28,8 @@ export class PostpetService {
     params = params.set("limit", limit);
     params = params.set("offset", offset);
     return this.http.get<postpetView[]>(`${this.apiUrl}/postpet/get`, {
-      params, context: checkLoading()
+      params,
+      context: checkLoading(),
     });
   }
 
@@ -37,7 +38,9 @@ export class PostpetService {
   }
 
   getByIdUpdate(id: number) {
-    return this.http.get<UpdatePostpetDTO>(`${this.apiUrl}/postpet/getUpdate/${id}`);
+    return this.http.get<UpdatePostpetDTO>(
+      `${this.apiUrl}/postpet/getUpdate/${id}`
+    );
   }
 
   getByState(id: string, limit?: number, offset?: number) {
@@ -50,24 +53,55 @@ export class PostpetService {
     );
   }
 
-  GetByFilter(stateId: string, petSpecieId?: number | null, petBreedId?: number | null , provinciaId?: number | null , cantonId?: number | null, sectorId?: number | null, date?: string | null, order?: number | null, limit?: number, offset?: number){
+  GetByFilter(
+    stateId: string,
+    petSpecieId?: number | null,
+    petBreedId?: number | null,
+    provinciaId?: number | null,
+    cantonId?: number | null,
+    sectorId?: number | null,
+    date?: string | null,
+    order?: number | null,
+    limit?: number,
+    offset?: number
+  ) {
     let params = new HttpParams();
-    if(limit != undefined || offset != undefined){
+    if (limit != undefined || offset != undefined) {
       params = params.set("limit", limit);
       params = params.set("offset", offset);
     }
 
-    // params = params.set("stateId", stateId)
-    params = (petSpecieId != null || petSpecieId != undefined) ? params.set("petSpecieId", petSpecieId) : params
-    params = (petBreedId != null || petBreedId != undefined) ? params.set("petBreedId", petBreedId) : params
-    params = (provinciaId != null || provinciaId != undefined) ? params.set("provinciaId", provinciaId) : params
-    params = (cantonId != null || cantonId != undefined) ? params.set("cantonId", cantonId) : params
-    params = (sectorId != null || sectorId != undefined) ? params.set("sectorId", sectorId) : params
-    params = (date != null || date != undefined) ? params.set("date", date) : params
-    params = (order != null || order != undefined) ? params.set("order", order) : params
+    params =
+      stateId != null || stateId != undefined
+        ? params.set("stateId", stateId)
+        : params;
+    params =
+      petSpecieId != null || petSpecieId != undefined
+        ? params.set("petSpecieId", petSpecieId)
+        : params;
+    params =
+      petBreedId != null || petBreedId != undefined
+        ? params.set("petBreedId", petBreedId)
+        : params;
+    params =
+      provinciaId != null || provinciaId != undefined
+        ? params.set("provinciaId", provinciaId)
+        : params;
+    params =
+      cantonId != null || cantonId != undefined
+        ? params.set("cantonId", cantonId)
+        : params;
+    params =
+      sectorId != null || sectorId != undefined
+        ? params.set("sectorId", sectorId)
+        : params;
+    params =
+      date != null || date != undefined ? params.set("date", date) : params;
+    params =
+      order != null || order != undefined ? params.set("order", order) : params;
 
     return this.http.get<postpetView[] | null>(
-      `${this.apiUrl}/postpet/getByFilter/${stateId}`,
+      `${this.apiUrl}/postpet/getByFilter`,
       { params, context: checkLoading() }
     );
   }
@@ -111,6 +145,8 @@ export class PostpetService {
   }
 
   deleteImg(key: string) {
-    return this.storage.deleteObject({ Key: key, Bucket: "petslighthouse" }).promise();
+    return this.storage
+      .deleteObject({ Key: key, Bucket: "petslighthouse" })
+      .promise();
   }
 }

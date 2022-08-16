@@ -145,7 +145,7 @@ namespace mascotas.Services
 
             List<PostPet> listPostFilter = _context.PostPets
                                 .Where(post => (
-                                    post.IdState == stateId &&
+                                    (stateId == null || (stateId != null && post.IdState == stateId)) &&
                                     (petSpecieId == null || (petSpecieId != null && post.IdPetSpecie == petSpecieId)) &&
                                     (petBreedId == null || (petBreedId != null && post.IdPetBreed == petBreedId)) &&
                                     (provinciaId == null || (provinciaId != null && post.IdProvincia == provinciaId)) &&
@@ -154,47 +154,84 @@ namespace mascotas.Services
                                     (date == null || (date != null && post.LastTimeSeen >= date))
                                     )).ToList();
 
-
-
-            List<PostPetView> result = (from post in listPostFilter
-                                        join user in _context.Users
-                                        on post.IdUser equals user.IdUser
-                                        join state in _context.PetStates
-                                        on post.IdState equals state.IdState
-                                        join specie in _context.PetSpecies
-                                        on post.IdPetSpecie equals specie.IdPetSpecie
-                                        join breed in _context.PetBreeds
-                                        on post.IdPetBreed equals breed.IdPetBreed
-                                        join canton in _context.Cantons
-                                        on post.IdCanton equals canton.IdCanton
-                                        join sector in _context.Sectors
-                                        on post.IdSector != null ? post.IdSector : 1 equals sector.IdSector
-                                        join provincia in _context.Provincia
-                                        on post.IdProvincia equals provincia.IdProvincia
-                                        select new PostPetView
-                                        {
-                                            id = post.IdPostPet,
-                                            userName = user.Name,
-                                            petName = post.PetName,
-                                            petState = state.StateName,
-                                            petSpecie = specie.SpecieName,
-                                            petBreed = breed.BreedName,
-                                            provinciaName = provincia.Name,
-                                            cantonName = canton.Name,
-                                            sectorName = post.IdSector != null ? sector.Name : null,
-                                            description = post.Description,
-                                            reward = post.Reward,
-                                            lastTimeSeen = post.LastTimeSeen,
-                                            linkMapSeen = post.LinkMapSeen,
-                                            urlImgs = _context.PostImages.Where(img => img.IdPostPet == post.IdPostPet).Select(
-                                                img => new imgModel
-                                                {
-                                                    url = img.Url,
-                                                }).ToList()
-                                        }).OrderByDescending(p => p.lastTimeSeen).ToList();
-
-            if(order != null && order >= 1){
-                result.OrderBy(p => p.lastTimeSeen);
+            List<PostPetView> result;
+            if (order != null && order >= 1)
+            {
+                result = (from post in listPostFilter
+                          join user in _context.Users
+                          on post.IdUser equals user.IdUser
+                          join state in _context.PetStates
+                          on post.IdState equals state.IdState
+                          join specie in _context.PetSpecies
+                          on post.IdPetSpecie equals specie.IdPetSpecie
+                          join breed in _context.PetBreeds
+                          on post.IdPetBreed equals breed.IdPetBreed
+                          join canton in _context.Cantons
+                          on post.IdCanton equals canton.IdCanton
+                          join sector in _context.Sectors
+                          on post.IdSector != null ? post.IdSector : 1 equals sector.IdSector
+                          join provincia in _context.Provincia
+                          on post.IdProvincia equals provincia.IdProvincia
+                          select new PostPetView
+                          {
+                              id = post.IdPostPet,
+                              userName = user.Name,
+                              petName = post.PetName,
+                              petState = state.StateName,
+                              petSpecie = specie.SpecieName,
+                              petBreed = breed.BreedName,
+                              provinciaName = provincia.Name,
+                              cantonName = canton.Name,
+                              sectorName = post.IdSector != null ? sector.Name : null,
+                              description = post.Description,
+                              reward = post.Reward,
+                              lastTimeSeen = post.LastTimeSeen,
+                              linkMapSeen = post.LinkMapSeen,
+                              urlImgs = _context.PostImages.Where(img => img.IdPostPet == post.IdPostPet).Select(
+                                  img => new imgModel
+                                  {
+                                      url = img.Url,
+                                  }).ToList()
+                          }).OrderBy(p => p.lastTimeSeen).ToList();
+            }
+            else
+            {
+                result = (from post in listPostFilter
+                          join user in _context.Users
+                          on post.IdUser equals user.IdUser
+                          join state in _context.PetStates
+                          on post.IdState equals state.IdState
+                          join specie in _context.PetSpecies
+                          on post.IdPetSpecie equals specie.IdPetSpecie
+                          join breed in _context.PetBreeds
+                          on post.IdPetBreed equals breed.IdPetBreed
+                          join canton in _context.Cantons
+                          on post.IdCanton equals canton.IdCanton
+                          join sector in _context.Sectors
+                          on post.IdSector != null ? post.IdSector : 1 equals sector.IdSector
+                          join provincia in _context.Provincia
+                          on post.IdProvincia equals provincia.IdProvincia
+                          select new PostPetView
+                          {
+                              id = post.IdPostPet,
+                              userName = user.Name,
+                              petName = post.PetName,
+                              petState = state.StateName,
+                              petSpecie = specie.SpecieName,
+                              petBreed = breed.BreedName,
+                              provinciaName = provincia.Name,
+                              cantonName = canton.Name,
+                              sectorName = post.IdSector != null ? sector.Name : null,
+                              description = post.Description,
+                              reward = post.Reward,
+                              lastTimeSeen = post.LastTimeSeen,
+                              linkMapSeen = post.LinkMapSeen,
+                              urlImgs = _context.PostImages.Where(img => img.IdPostPet == post.IdPostPet).Select(
+                                  img => new imgModel
+                                  {
+                                      url = img.Url,
+                                  }).ToList()
+                          }).OrderByDescending(p => p.lastTimeSeen).ToList();
             }
 
             var response = new Response();
