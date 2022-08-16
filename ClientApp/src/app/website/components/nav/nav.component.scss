@@ -1,5 +1,6 @@
 header {
   position: relative;
+  background-color: #ebf0f7ff;
   z-index: 1;
   .overlay {
     position: fixed;
@@ -38,8 +39,8 @@ a {
 
 .nav-header {
   position: relative;
-  background-color: white;
   display: flex;
+  background-color: #ebf0f7ff;
   max-width: 1280px;
   margin-right: auto;
   margin-left: auto;
@@ -98,8 +99,6 @@ a {
   margin-right: 8px;
 }
 
-.button__login {
-}
 
 .nav__toggle {
   margin-left: 6px;
@@ -206,7 +205,7 @@ a {
   display: none;
 }
 
-@media screen and (min-width: 40em) and (max-width: 63.9375em) {
+@media screen and (min-width: 48em) and (max-width: 63.9375em) {
   .show-mobile {
     display: none;
   }
@@ -230,14 +229,16 @@ a {
     a {
       color: #555a81;
       font-size: 14px;
+      font-weight: 600;
       margin-left: 8px;
       padding: 7px 7px;
       &:first-child {
         margin-left: 0px;
       }
       &.active{
-        color: #06003eff;
+        color: white;
         border: 1px solid;
+        background-color: #06003eff;
         border-color: #06003eff;
         border-radius: 6px;
       }
@@ -285,13 +286,15 @@ a {
       color: #555a81;
       font-size: 14px;
       margin-left: 8px;
+      font-weight: 600;
       padding: 9px 16px;
       &:first-child {
         margin-left: 0px;
       }
       &.active{
-        color: #06003eff;
+        color: white;
         border: 1px solid;
+        background-color: #06003eff;
         border-color: #06003eff;
         border-radius: 6px;
       }
