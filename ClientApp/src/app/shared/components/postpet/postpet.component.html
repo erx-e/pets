@@ -12,7 +12,7 @@
   <div class="postpet-info">
     <p>
       Visto por ultima vez en {{ postpet.cantonName | titlecase }},
-      {{ postpet.provinciaName | titlecase }}, {{lastTimeSeen}}
+      {{ postpet.provinciaName | titlecase }}, {{ lastTimeSeen }}
     </p>
     <p *ngIf="postpet.petBreed">Raza: {{ postpet.petBreed }}</p>
     <p *ngIf="postpet.reward; else noReward">
@@ -25,6 +25,9 @@
 </div>
 <ng-template #loading>
   <div class="postpet">
+    <div class="container__postpet-img">
+      <div class="postpet-imgLoading"></div>
+    </div>
     <div class="postpet-info"></div>
   </div>
 </ng-template>

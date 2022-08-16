@@ -1,7 +1,6 @@
-
 .postpet {
-  min-width: 174px;
   max-width: 300px;
+  width: 88.9%;
   margin: 0 auto;
   box-sizing: content-box;
   background-color: #d2dbe3;
@@ -13,7 +12,6 @@
 .container__postpet-img {
   display: flex;
   justify-content: center;
-  background-color: white;
 }
 
 .postpet-img {
@@ -21,7 +19,11 @@
   display: flex;
   background-color: white;
   align-items: center;
-  height: 243px;
+  min-height: 245px;
+}
+
+.postpet-imgLoading{
+  height: 245px;
 }
 
 .postpet-info {
@@ -44,12 +46,13 @@
   }
 
   .container__postpet-img{
-    height: 75%;
+    height: 65%;
   }
   .postpet-img {
     width: auto;
     height: auto;
     overflow: hidden;
+    min-height: auto;
   }
   .flex-justify-center {
     display: flex;
@@ -60,7 +63,7 @@
 
   .postpet-info{
     display: flex;
-    height: 25%;
+    height: 35%;
     font-size: 14px;
     line-height: 1.15;
     padding-top: 0px;
@@ -71,7 +74,7 @@
 
 @media screen and (min-width: 64em) {
   .container__postpet-img{
-    height: 75%;
+    height: 65%;
   }
   .postpet {
     margin-bottom: 0px;
@@ -80,7 +83,7 @@
 
   .postpet-info{
     display: flex;
-    height: 25%;
+    height: 35%;
     font-size: 14px;
     line-height: 1.15;
     padding-top: 0px;
