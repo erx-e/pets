@@ -13,12 +13,12 @@ export class LoadingService {
 
   show(){
     this.isLoading$.next(true)
-    console.log()
+    console.log(true)
   }
 
   hide(){
     this.isLoading$.next(false)
-    console.log()
+    console.log(false)
   }
 
 

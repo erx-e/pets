@@ -46,6 +46,7 @@ export class LoadingInterceptor implements HttpInterceptor {
 
       if (cachedResponse) {
         console.log(cachedResponse);
+        this.loadingSerivce.hide()
         return of(cachedResponse);
       }
 
