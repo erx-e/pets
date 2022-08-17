@@ -1,60 +1,120 @@
+.background{
+  background-color: #ebf0f7ff;
+  width: 100%;
+  height: 100%;
+}
 
-
-.petpost-page{
+.petpost-page {
   margin-top: 20px;
   padding: 0 12px;
 }
 
-.navButtons{
+a {
+  text-decoration: none;
+}
+
+.navButtons {
   display: flex;
   justify-content: space-between;
 }
 
-.backBotton{
+.backBotton {
   padding: 9px 9px;
   font-weight: 600;
-  background-color: yellow;
+  background-color: #faff00;
   border-radius: 6px;
 }
 
-.deleteButton{
+.deleteButton {
   padding: 9px 9px;
   font-weight: 600;
-  background-color: blue;
+  background-color: #06003e;
   color: white;
   border-radius: 6px;
 }
 
-.editButton{
+.editButton {
   padding: 9px 9px;
   font-weight: 600;
   color: white;
-  background-color: red;
+  background-color: #6e7e85;
   border-radius: 6px;
+  margin-right: 5px;
 }
 
-.petContainer{
+.petContainer {
   margin-top: 12px;
   line-height: 1.15;
-  a{
-    text-decoration: none;
+}
+
+.petGallery {
+  margin-bottom: 8px;
+  border-radius: 6px;
+  min-width: 296px;
+  min-height: 233px;
+  padding: 15px;
+  background: #d2dbe3;
+}
+
+.petData {
+  margin-bottom: 8px;
+  border-radius: 6px;
+  padding: 15px;
+  background: #d2dbe3;
+  min-height: 200px;
+  min-width: 296px;
+  p{
+    margin-bottom: 5px;
   }
   div{
-    margin-bottom: 8px;
-  }
-  p{
-    margin-bottom: 20px;
+    margin-bottom: 18px;
   }
 }
 
-.petGallery{
-  margin-bottom: 5px;
-}
 
-.imgPet{
+.imgPet {
   width: 100%;
 }
 
-.petGallery{
+.petGallery {
   width: 100%;
+}
+
+@media screen and (min-width: 48rem) {
+  .petpost-page {
+    margin-top: 40px;
+  }
+  .petContainer {
+    display: flex;
+    margin-top: 45px;
+  }
+  .petGallery {
+    margin-bottom: 0px;
+    width: 60%;
+  }
+  .petData {
+    margin-bottom: 0px;
+    margin-left: 5px;
+    min-width: 390px;
+    min-height: 340px;
+  }
+}
+@media screen and (min-width: 64rem) {
+  .petpost-page {
+    margin: 0 auto;
+    margin-top: 40px;
+    max-width: 1280px;
+  }
+  .petGallery {
+    min-width: 520px;
+    min-height: 520px;
+  }
+  .petContainer {
+    justify-content: center;
+  }
+  .petData {
+    min-width: 450px;
+    min-height: 520px;
+    margin-left: 20px;
+  }
 }
