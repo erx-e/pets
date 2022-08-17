@@ -15,12 +15,14 @@
       {{ postpet.provinciaName | titlecase }}, {{ lastTimeSeen }}
     </p>
     <p *ngIf="postpet.petBreed">Raza: {{ postpet.petBreed }}</p>
-    <p *ngIf="postpet.reward; else noReward">
-      Recompensa: {{ postpet.reward | currency }}
-    </p>
-    <ng-template #noReward>
-      <p>Recompensa: -</p>
-    </ng-template>
+    <div *ngIf="postpet.petStateId == 'B'">
+      <p *ngIf="postpet.reward; else noReward">
+        Recompensa: {{ postpet.reward | currency }}
+      </p>
+      <ng-template #noReward>
+        <p>Recompensa: -</p>
+      </ng-template>
+    </div>
   </div>
 </div>
 <ng-template #loading>
