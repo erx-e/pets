@@ -57,10 +57,6 @@ namespace mascotas.Controllers
         [Route("getByFilter")]
         public ActionResult<IEnumerable<PostPetView>> GetByFilter([FromQuery] string? stateId, int? petSpecieId, int? petBreedId, int? provinciaId, int? cantonId, int? sectorId, DateTime? date, int? order, int? limit = null, int? offset = null)
         {
-            if (stateId == null)
-            {
-                return BadRequest("Must send id state");
-            }
 
             if (limit != null && offset != null)
             {
