@@ -9,6 +9,7 @@ export interface postpetView {
   petSpecialCondition: string;
   contact: string;
   petState: string;
+  petStateId: string;
   petSpecie: string;
   petBreed: string;
   provinciaName: string;

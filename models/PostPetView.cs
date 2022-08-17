@@ -14,6 +14,7 @@ namespace mascotas.Models
         public string? petSpecialCondition { get; set; }
         public string contact { get; set; }
         public string petState { get; set; }
+        public string petStateId { get; set; }
         public string petSpecie { get; set; }
         public string? petBreed { get; set; }
         public string provinciaName { get; set; }
