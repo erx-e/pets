@@ -1,9 +1,17 @@
-<div class="postpets--grid">
+<div class="postpets--grid" *ngIf="postspet[0]; else loading">
   <app-postpet
     [postpet]="postpet"
     *ngFor="let postpet of postspet"
   ></app-postpet>
 </div>
+<ng-template #loading>
+  <div class="postpets--grid">
+    <app-postpet
+      [postpet]="postpet"
+      *ngFor="let postpet of postspet"
+    ></app-postpet>
+  </div>
+</ng-template>
 <div>
   <div class="load-container">
     <button id="load-button" class="load-button" (click)="onLoadMore()">
