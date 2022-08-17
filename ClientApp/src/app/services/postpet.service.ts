@@ -36,7 +36,7 @@ export class PostpetService {
   }
 
   getById(id: number) {
-    return this.http.get<postpetView>(`${this.apiUrl}/postpet/get/${id}`).pipe(
+    return this.http.get<postpetView>(`${this.apiUrl}/postpet/get/${id}`, {context: checkLoading()}).pipe(
       catchError((error: HttpErrorResponse) => {
         if(error.status === HttpStatusCode.BadRequest){
           return throwError("Post no encontrado")
