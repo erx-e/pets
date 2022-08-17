@@ -18,69 +18,90 @@
   <ng-template #elseNav>
     <button class="backBotton" (click)="goToBack()">Back</button>
   </ng-template>
-
-  <div *ngIf="postpet; else loading" class="petContainer">
-    <div class="petGallery">
-      <swiper [config]="swiperConfig" style="z-index: 0">
-        <ng-template *ngFor="let img of postpet?.urlImgs" swiperSlide>
-          <div class="slide-container">
-            <img class="imgPet" [src]="img.url" alt="imagen mascota" />
+  <div *ngIf="!isLoading; else loading">
+    <div *ngIf="postpet; else notFound">
+      <div class="petContainer">
+        <div class="petGallery">
+          <swiper [config]="swiperConfig" style="z-index: 0">
+            <ng-template *ngFor="let img of postpet?.urlImgs" swiperSlide>
+              <div class="slide-container">
+                <img class="imgPet" [src]="img.url" alt="imagen mascota" />
+              </div>
+            </ng-template>
+          </swiper>
+        </div>
+        <div class="petData">
+          <div *ngIf="postpet.petStateId == 'E'">
+            <div class="petData__direction">
+              <p>
+                Fui encontrado por
+                <a [routerLink]="['/profile', postpet.idUser]">{{
+                  postpet.userName
+                }}</a>
+                en {{ postpet?.provinciaName | titlecase }},
+                {{ postpet?.cantonName | titlecase }} el {{ lastTimeSeen }}
+              </p>
+              <p *ngIf="postpet?.sectorName">
+                Sector: {{ postpet?.sectorName | titlecase }}
+              </p>
+            </div>
+            <div *ngIf="postpet.contact">
+              <p>Si quieres más información contacta: {{ postpet.contact }}</p>
+            </div>
           </div>
-        </ng-template>
-      </swiper>
-    </div>
-    <div class="petData">
-      <div *ngIf="postpet.petStateId == 'E'">
-        <div class="petData__direction">
-          <p>
-            Fui encontrado por
-            <a [routerLink]="['/profile', postpet.idUser]">{{
-              postpet.userName
-            }}</a>
-            en {{ postpet?.provinciaName | titlecase }},
-            {{ postpet?.cantonName | titlecase }} el {{ lastTimeSeen }}
-          </p>
-          <p *ngIf="postpet?.sectorName">
-            Sector: {{ postpet?.sectorName | titlecase }}
-          </p>
-        </div>
-        <div *ngIf="postpet.contact">
-          <p>Si quieres más información contacta: {{postpet.contact}}</p>
-        </div>
-      </div>
-      <div *ngIf="postpet.petStateId == 'B'">
-        <p *ngIf="postpet?.petName">
-          Mi nombre es {{ postpet?.petName }} y estoy siendo buscado por mi
-          dueño
-          <a [routerLink]="['/profile', postpet.idUser]">{{
-            postpet.userName
-          }}</a>. <span *ngIf="postpet.petBreed">Soy un {{postpet.petBreed}}</span> <span *ngIf="postpet.petAge">de {{postpet.petAge}}</span>
-        </p>
-        <div class="petData__direction">
-          Me perdi en {{ postpet?.provinciaName | titlecase }},
-          {{ postpet?.cantonName | titlecase }} el {{ lastTimeSeen }}
+          <div *ngIf="postpet.petStateId == 'B'">
+            <p *ngIf="postpet?.petName">
+              Mi nombre es {{ postpet?.petName }} y estoy siendo buscado por mi
+              dueño
+              <a [routerLink]="['/profile', postpet.idUser]">{{
+                postpet.userName
+              }}</a
+              >.
+              <span *ngIf="postpet.petBreed"
+                >Soy un {{ postpet.petBreed }}</span
+              >
+              <span *ngIf="postpet.petAge">de {{ postpet.petAge }}</span>
+            </p>
+            <div class="petData__direction">
+              Me perdi en {{ postpet?.provinciaName | titlecase }},
+              {{ postpet?.cantonName | titlecase }} el {{ lastTimeSeen }}
 
-          <p *ngIf="postpet?.sectorName">
-            Sector: {{ postpet?.sectorName | titlecase }}
-          </p>
-        </div>
-        <div *ngIf="postpet.contact">
-          <p>Si tienes informacion sobre mi por favar contacta: {{postpet.contact}}</p>
-        </div>
-      </div>
-      <div>
-        <p>
-          Detalles sobre mi y mi situacion: <br />
-          {{ postpet?.description }}
-        </p>
-      </div>
+              <p *ngIf="postpet?.sectorName">
+                Sector: {{ postpet?.sectorName | titlecase }}
+              </p>
+            </div>
+            <div *ngIf="postpet.contact">
+              <p>
+                Si tienes informacion sobre mi por favar contacta:
+                {{ postpet.contact }}
+              </p>
+            </div>
+          </div>
+          <div>
+            <p>
+              Detalles sobre mi y mi situacion: <br />
+              {{ postpet?.description }}
+            </p>
+          </div>
 
-      <div>
-        <p *ngIf="postpet?.reward">
-          Recompensa al que me encuentre: {{ postpet?.reward | currency }}
-        </p>
+          <div>
+            <p *ngIf="postpet?.reward">
+              Recompensa al que me encuentre: {{ postpet?.reward | currency }}
+            </p>
+          </div>
+        </div>
       </div>
     </div>
+    <ng-template #notFound>
+      <div class="notFound">
+        <img
+          class="notFound__img"
+          src="../../assets/imgs/notFound.png"
+          alt="404 not found"
+        />
+        <p class="notFound__text">Mascota no encontrada</p>
+      </div>
+    </ng-template>
   </div>
   <ng-template #loading>
     <div class="petContainer">

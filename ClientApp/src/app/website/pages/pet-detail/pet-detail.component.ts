@@ -29,11 +29,9 @@ export class PetDetailComponent implements OnInit {
   postpetId: string | null = null;
   postpet: postpetView | null = null;
   user: UserView | null;
-  lastTimeSeen: string = ""
+  lastTimeSeen: string = "";
   notFound: boolean = false;
   isLoading: boolean = true;
-
-
 
   swiperConfig: SwiperOptions = {
     pagination: true,
@@ -42,40 +40,47 @@ export class PetDetailComponent implements OnInit {
     spaceBetween: 25,
   };
 
-   ngOnInit(): void {
+  ngOnInit(): void {
     this.authService.user$.subscribe((data) => (this.user = data));
-    this.loadingService.isLoading$.subscribe(isL => this.isLoading = isL)
-     this.router.paramMap
+    this.loadingService.isLoading$.subscribe((isL) => (this.isLoading = isL));
+    this.router.paramMap
       .pipe(
         switchMap((params) => {
           this.postpetId = params.get("id");
           if (this.postpetId) {
             return this.postpetService.getById(parseInt(this.postpetId));
-          }
-          else{
-            
+          } else {
+            this.notFound = true;
           }
           return of(null);
         })
       )
-      .subscribe((data) => {
-        if (data) {
-          this.postpet = data;
-          this.lastTimeSeen = format(new Date(this.postpet.lastTimeSeen), "dd 'de' MMMM 'del' yyyy 'a las' HH:mm", {locale: es})
+      .subscribe(
+        (data) => {
+          if (data) {
+            this.postpet = data;
+            this.lastTimeSeen = format(
+              new Date(this.postpet.lastTimeSeen),
+              "dd 'de' MMMM 'del' yyyy 'a las' HH:mm",
+              { locale: es }
+            );
+          }
+        },
+        () => {
+          this.notFound = true;
         }
-      });
+      );
 
     Swiper.use([Pagination, Navigation]);
-
-
-
   }
 
   deletePost() {
     this.postpetService.delete(parseInt(this.postpet.id)).subscribe(() => {
       this.postpet.urlImgs.forEach((url) => {
         let key = url.url.split("/").pop();
-        this.postpetService.deleteImg(key).then(() => {console.log(url.url)});
+        this.postpetService.deleteImg(key).then(() => {
+          console.log(url.url);
+        });
       });
       this.location.back();
     });
