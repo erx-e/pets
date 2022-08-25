@@ -42,11 +42,11 @@ html {
       padding: 16px 24px;
       border: 0;
       margin-bottom: 8px;
-      background-color: #EBF0F7ff;
+      background-color: var(--light-blue);
     }
     button {
       border-radius: 6px;
-      background-color: yellow;
+      background-color: var(--yellow);
       font-size: 1rem;
       font-weight: bold;
       width: 100%;
@@ -76,7 +76,7 @@ html {
   margin-top: 8px;
   justify-content: space-evenly;
   .stadistics-text {
-    border: 1px solid #06003eff;
+    border: 1px solid var(--blue);
     border-radius: 8px;
     padding: 8px;
     display: flex;
@@ -126,7 +126,7 @@ html {
       margin: 0 auto;
       border-radius: 8px;
       padding: 9px 16px;
-      background-color: yellow;
+      background-color: var(--yellow);
     }
   }
 }

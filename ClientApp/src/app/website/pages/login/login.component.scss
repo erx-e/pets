@@ -46,7 +46,7 @@
 
 .form-button {
   width: 100%;
-  background-color: yellow;
+  background-color: var(--yellow);
   padding: 9px 19px;
   font-weight: 700;
 
@@ -65,8 +65,8 @@
     background-color: transparent;
     border: 1px solid;
     border-radius: 8px;
-    border-color: #06003Eff;
-    color: #06003Eff;
+    border-color: var(--blue);
+    color: var(--blue);
     text-decoration: none;
     font-weight: 700;
   }
