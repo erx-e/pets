@@ -1,6 +1,4 @@
-.background {
-  background-color: #ebf0f7ff;
-}
+
 
 a {
   text-decoration: none;
@@ -92,7 +90,7 @@ a {
 }
 
 .btn-apply {
-  background-color: yellow;
+  background-color: var(--yellow);
   color: #03091e;
 }
 
@@ -103,7 +101,7 @@ a {
 
 .side-background {
   width: calc(100% - 269px);
-  background-color: #06003e5c;
+  background-color: var(--blue-transparent);
 }
 
 .icon-closeFilter {
@@ -116,7 +114,7 @@ a {
 
 .publicPet {
   padding: 9px 16px;
-  background-color: yellow;
+  background-color: var(--yellow);
   font-size: 14px;
   width: 190px;
   text-align: center;
@@ -132,6 +130,10 @@ a {
   max-width: 1280px;
   min-height: 625px;
   margin: 0 auto;
+}
+
+.profilePosts{
+  padding: 0px;
 }
 
 .postsLoading {
@@ -257,10 +259,14 @@ a {
     display: flex;
     flex-direction: column;
   }
+  .profilePostsContainer{
+    width: 100%;
+  }
 
   .filter-container {
     width: 20%;
     background-color: #e2e9f3;
+    min-height: calc(100vh - 68px);
   }
 
   .filter-title {
