@@ -1,0 +1,445 @@
+<main class="main">
+  <p class="title">Publicar mascota</p>
+  <div class="formBox">
+    <form [formGroup]="form" (ngSubmit)="crearPost()">
+      <div class="form-container">
+        <div class="form-element-section">
+          <p>Indique las caracteristicas de la mascota</p>
+          <div class="flex">
+            <div *ngIf="stateId != 'E'" class="form-elements">
+              <label class="form-label" for="petName">Nombre:</label>
+              <input
+                formControlName="petName"
+                id="petName"
+                class="form-control"
+                placeholder="Nombre de tu mascota"
+                [class.is-valid]="petNameFieldValid"
+                [class.is-invalid]="petNameFieldInvalid"
+                type="text"
+              />
+              <div
+                class="validationMessage"
+                [class.active]="petNameFieldInvalid"
+              >
+                <p
+                  *ngIf="petNameField.hasError('required')"
+                  class="invalid-feedback"
+                >
+                  Debe escribir el nombre de la mascota
+                </p>
+                <p
+                  *ngIf="petNameField.hasError('minlength')"
+                  class="invalid-feedback"
+                >
+                  Debe escribir un nombre de mas de dos caracteres
+                </p>
+                <p
+                  *ngIf="petNameField.hasError('maxlength')"
+                  class="invalid-feedback"
+                >
+                  Debe escribir un nombre de menos de 12 caracteres
+                </p>
+                <p
+                  *ngIf="petNameField.hasError('pattern')"
+                  class="invalid-feedback"
+                >
+                  Debe escribir un nombre sin numeros o signos especiales
+                </p>
+              </div>
+            </div>
+            <div class="form-elements">
+              <p class="form-label">Tipo de mascota:</p>
+              <div
+                class="btn-group full-width"
+                role="group"
+                aria-label="selector de especie"
+              >
+                <input
+                  formControlName="idPetSpecie"
+                  type="radio"
+                  name="idPetSpecie"
+                  value="1"
+                  id="especie1"
+                  class="btn-check"
+                  autocomplete="off"
+                />
+                <label class="btn btn-outline-primary" for="especie1"
+                  >Perro</label
+                >
+                <input
+                  formControlName="idPetSpecie"
+                  type="radio"
+                  name="idPetSpecie"
+                  value="2"
+                  id="especie2"
+                  class="btn-check"
+                  autocomplete="off"
+                />
+                <label class="btn btn-outline-primary" for="especie2"
+                  >Gato</label
+                >
+              </div>
+              <div
+                class="validationMessage"
+                [class.active]="petSpecieFieldInvalid"
+              >
+                <p
+                  *ngIf="petSpecieField.hasError('required')"
+                  class="invalid-feedback"
+                >
+                  Debe seleccionar el tipo de mascota
+                </p>
+              </div>
+            </div>
+            <div class="form-elements">
+              <label class="form-label" for="formRaza">Raza: </label>
+              <select
+                class="form-select"
+                formControlName="idPetBreed"
+                name="raza"
+                id="formRaza"
+                [class.is-valid]="petBreedFieldValid"
+                [class.is-invalid]="petBreedFieldInvalid"
+              >
+                <option value="">Escoja la raza de la mascota</option>
+                <option
+                  *ngFor="let breed of breeds; let i = index"
+                  [value]="breeds[i].id"
+                >
+                  {{ breeds[i].name }}
+                </option>
+              </select>
+              <div
+                class="validationMessage"
+                [class.active]="petBreedFieldInvalid"
+              >
+                <p
+                  *ngIf="petBreedField.hasError('required')"
+                  class="invalid-feedback"
+                >
+                  Debe seleccionar la raza
+                </p>
+              </div>
+            </div>
+            <div *ngIf="stateId != 'E'" class="form-elements">
+              <label class="form-label" for="petAge">Edad: </label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="petAge"
+                placeholder="Edad de tu mascota"
+                name="petAge"
+                id="petAge"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="form-element-section">
+          <p *ngIf="stateId != 'B'">
+            Indique en donde y cuando vio a la mascota
+          </p>
+          <p *ngIf="stateId == 'B'">
+            Indique por donde y cuando se perdio la mascota
+          </p>
+          <div class="flex">
+            <div class="form-elements">
+              <label class="form-label" for="formProvincia">Provincia: </label>
+              <select
+                class="form-select"
+                formControlName="idProvincia"
+                name="idProvincia"
+                id="formProvincia"
+                [class.is-valid]="provinciaFieldValid"
+                [class.is-invalid]="provinciaFieldInvalid"
+              >
+                <option value="">Escoja la provincia</option>
+                <option
+                  *ngFor="let provincia of provincias"
+                  [value]="provincia.id"
+                >
+                  {{ provincia.name }}
+                </option>
+              </select>
+              <div
+                class="validationMessage"
+                [class.active]="provinciaFieldInvalid"
+              >
+                <p
+                  *ngIf="provinciaField.hasError('required')"
+                  class="invalid-feedback"
+                >
+                  Debe seleccionar la provincia
+                </p>
+              </div>
+            </div>
+            <div class="form-elements">
+              <label class="form-label" for="formCanton">Canton: </label>
+              <select
+                class="form-select"
+                formControlName="idCanton"
+                name="idCanton"
+                id="formCanton"
+                [class.is-valid]="cantonFieldValid"
+                [class.is-invalid]="cantonFieldInvalid"
+              >
+                <option value="">Escoja el canton</option>
+                <option *ngFor="let canton of cantones" [value]="canton.id">
+                  {{ canton.name }}
+                </option>
+              </select>
+              <div
+                class="validationMessage"
+                [class.active]="cantonFieldInvalid"
+              >
+                <p
+                  *ngIf="cantonField.hasError('required')"
+                  class="invalid-feedback"
+                >
+                  Debe seleccionar el canton
+                </p>
+              </div>
+            </div>
+            <div
+              *ngIf="this.cantonField.value && sectores.length > 0"
+              class="form-elements"
+            >
+              <label class="form-label" for="formSector">Sector: </label>
+              <select
+                class="form-select"
+                formControlName="idSector"
+                name="sector"
+                id="formSector"
+              >
+                <option value="">Escoja el sector</option>
+                <option *ngFor="let sector of sectores" [value]="sector.id">
+                  {{ sector.name }}
+                </option>
+              </select>
+            </div>
+            <div class="form-elements">
+              <label class="form-label" for="formLastTime">Fecha y hora:</label>
+              <input
+                class="form-control"
+                formControlName="lastTimeSeen"
+                type="datetime-local"
+                name="formLastTime"
+                id="lastTime"
+                [class.is-valid]="lastTimeSeenFieldValid"
+                [class.is-invalid]="lastTimeSeenFieldInvalid"
+              />
+              <div
+                class="validationMessage"
+                [class.active]="lastTimeSeenFieldInvalid"
+              >
+                <p
+                  *ngIf="lastTimeSeenField.hasError('required')"
+                  class="invalid-feedback"
+                >
+                  Debe colocar la fecha y hora
+                </p>
+                <p
+                  *ngIf="lastTimeSeenField.hasError('invalid_date')"
+                  class="invalid-feedback"
+                >
+                  Debe colocar una fecha correcta
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-element-section">
+          <p>Indique datos adicionales</p>
+          <div class="">
+            <div class="textarea form-elements">
+              <div class="form-floating">
+                <textarea
+                  class="form-control textDescription"
+                  formControlName="description"
+                  name="description"
+                  id="formDescription"
+                  placeholder="Describe con detalle en que lugar y como estaba la mascota para ayudarle a encontrar dueño"
+                  [class.is-valid]="descriptionFieldValid"
+                  [class.is-invalid]="descriptionFieldInvalid"
+                ></textarea>
+                <label for="formDescription">Descripcion de detalles</label>
+              </div>
+              <div
+                class="validationMessage"
+                [class.active]="descriptionFieldInvalid"
+              >
+                <p
+                  *ngIf="descriptionField.hasError('required')"
+                  class="invalid-feedback"
+                >
+                  Debe escribir una description
+                </p>
+              </div>
+            </div>
+            <div class="form-elements formContact">
+              <div
+                formArrayName="contact"
+                *ngFor="let contact of contactField.controls; let i = index"
+              >
+                <div class="formArrayElement">
+                  <label *ngIf="this.i == 0" class="form-label" for="contact"
+                    >Número de contacto:
+                  </label>
+                  <div>
+                    <input
+                      type="tel"
+                      class="form-control contactInput"
+                      [formControlName]="i"
+                      placeholder="Número de contacto"
+                      [name]="i"
+                      [id]="i == 0 ? 'contact' : null"
+                      [class.is-valid]="this.contact.touched && this.contact.valid"
+                      [class.is-invalid]="this.contact.touched && this.contact.invalid"
+                    />
+                    <button
+                      class="addContactField"
+                      *ngIf="this.i == 0"
+                      type="button"
+                      (click)="addContactField()"
+                    >
+                      Agregar más números de contacto
+                    </button>
+                  </div>
+                  <div
+                    class="validationMessage"
+                    [class.active]="
+                      this.contact.touched && this.contact.invalid
+                    "
+                  >
+                    <p
+                      *ngIf="this.contact.hasError('required')"
+                      class="invalid-feedback"
+                    >
+                      Ingrese un número de contacto
+                    </p>
+                    <p
+                      *ngIf="this.contact.hasError('pattern')"
+                      class="invalid-feedback"
+                    >
+                      Ingrese solamente números
+                    </p>
+                    <p
+                      *ngIf="this.contact.hasError('minlength')"
+                      class="invalid-feedback"
+                    >
+                      El número de teléfono es incorrecto
+                    </p>
+                    <p
+                      *ngIf="this.contact.hasError('maxlength')"
+                      class="invalid-feedback"
+                    >
+                      El número de télefono es incorrecto
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <p class="invalid-feedback" *ngIf="maxFourContactNumbers">
+                Máximo cuatro números de contacto
+              </p>
+            </div>
+            <div *ngIf="stateId != 'E'" class="form-elements">
+              <label class="form-label" for="reward">Recompensa:</label>
+              <input
+                formControlName="reward"
+                id="reward"
+                class="form-control"
+                type="number"
+                [class.is-valid]="rewardFieldValid"
+                [class.is-invalid]="rewardFieldInvalid"
+                placeholder="Cantidad de la recompensa"
+              />
+              <div
+                class="validationMessage"
+                [class.active]="rewardFieldInvalid"
+              >
+                <p *ngIf="rewardField.hasError('min')" class="invalid-feedback">
+                  Debe ingresar una cantidad mayor a cero
+                </p>
+                <p *ngIf="rewardField.hasError('max')" class="invalid-feedback">
+                  Debe ingresar una cantidad menor a 100.000
+                </p>
+              </div>
+            </div>
+            <div class="form-elements inputFileElement">
+              <label class="form-label" for="formImgs">Agregar fotos</label>
+              <input
+                (change)="uploadFile($event)"
+                class="form-control"
+                formControlName="urlImgs"
+                type="file"
+                multiple="multiple"
+                accept="image/*"
+                id="formImgs"
+                name="imgs"
+                [class.is-valid]="urlImgsFieldValid"
+                [class.is-invalid]="urlImgsFieldInvalid"
+              />
+              <p class="message" [class.invalid]="maxSixFiles">
+                Seleccione un maximo de 6 fotos
+              </p>
+              <div
+                class="validationMessage"
+                [class.active]="urlImgsFieldInvalid"
+              >
+                <p *ngIf="imgUrls.length == 0" class="invalid-feedback">
+                  Debe seleccionar minimo una imagen de la mascota
+                </p>
+              </div>
+              <div>
+                <div class="containerImgs">
+                  <div
+                    class="uploadedImgs"
+                    *ngFor="let imgs of imgsUploading"
+                    [id]="imgs != null ? imgs : null"
+                  >
+                    <div class="imgContainer" *ngIf="imgUrls[imgs]">
+                      <img
+                        [src]="imgUrls[imgs][0]"
+                        alt="mascota"
+                        (load)="OnImgLoaded(imgs)"
+                      />
+                      <i class="deleteIcon" (click)="deleteImg(imgs, true)">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 512 512"
+                        >
+                          <path
+                            d="M0 256C0 114.6 114.6 0 256 0C397.4 0 512 114.6 512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256zM175 208.1L222.1 255.1L175 303C165.7 312.4 165.7 327.6 175 336.1C184.4 346.3 199.6 346.3 208.1 336.1L255.1 289.9L303 336.1C312.4 346.3 327.6 346.3 336.1 336.1C346.3 327.6 346.3 312.4 336.1 303L289.9 255.1L336.1 208.1C346.3 199.6 346.3 184.4 336.1 175C327.6 165.7 312.4 165.7 303 175L255.1 222.1L208.1 175C199.6 165.7 184.4 165.7 175 175C165.7 184.4 165.7 199.6 175 208.1V208.1z"
+                          />
+                        </svg>
+                      </i>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  *ngFor="let imgs of imgsProgressBar"
+                  [id]="imgs != null ? imgs : null"
+                  class="progressBar"
+                >
+                  <div class="bar"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button
+          class="submit-btn"
+          type="submit"
+          [disabled]="disableSubmit"
+          *ngIf="!editPost; else editButton"
+        >
+          Publicar mascota
+        </button>
+        <ng-template #editButton>
+          <button class="submit-btn" type="submit" [disabled]="disableSubmit">
+            Editar publicacion
+          </button>
+        </ng-template>
+      </div>
+    </form>
+  </div>
+</main>
