@@ -1,11 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { CreateUserDTO } from "src/app/models/user.model";
 import { UserService } from "src/app/services/user.service";
-import {
-  Validators,
-  FormGroup,
-  FormBuilder,
-} from "@angular/forms";
+import { Validators, FormGroup, FormBuilder } from "@angular/forms";
 import { MyValidators } from "src/app/validators/validators";
 import { Router } from "@angular/router";
 
@@ -20,7 +16,7 @@ export class RegisterComponent implements OnInit {
   constructor(
     private userService: UserService,
     private formBuilder: FormBuilder,
-    private router: Router,
+    private router: Router
   ) {
     this.buildForm();
   }
@@ -46,7 +42,7 @@ export class RegisterComponent implements OnInit {
       this.user = this.form.value;
       this.userService.create(this.user).subscribe(
         () => {
-          this.router.navigate(['home'])
+          this.router.navigate(["home"]);
         },
         (error: string) => {
           console.log(error);
