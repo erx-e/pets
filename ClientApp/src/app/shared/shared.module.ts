@@ -7,7 +7,7 @@ import { ImageComponent } from './components/image/image.component';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SpinnerComponent } from './components/spinner/spinner.component';
-import { PublishComponent } from './components/publicar/publish.component';
+import { NotfoundComponent } from '../not-found/notfound.component';
 
 
 
@@ -18,7 +18,7 @@ import { PublishComponent } from './components/publicar/publish.component';
     ImageComponent,
     FilterComponent,
     SpinnerComponent,
-    PublishComponent
+    NotfoundComponent
   ],
   imports: [
     CommonModule,
@@ -31,7 +31,7 @@ import { PublishComponent } from './components/publicar/publish.component';
     ImageComponent,
     FilterComponent,
     SpinnerComponent,
-    PublishComponent
+    NotfoundComponent
   ]
 })
 export class SharedModule { }

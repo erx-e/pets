@@ -6,11 +6,10 @@ import { TokenInterceptor } from "./interceptors/token.interceptor";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { QuicklinkModule } from 'ngx-quicklink';
-import { NotfoundComponent } from './not-found/notfound.component'
 import { LoadingInterceptor } from "./interceptors/loading.interceptor";
 
 @NgModule({
-  declarations: [AppComponent, NotfoundComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
     AppRoutingModule,
