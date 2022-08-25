@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using mascotas.Services;
 using Microsoft.AspNetCore.Authorization;
 using mascotas.Models.Responses;
+using System.Threading.Tasks;
 
 namespace mascotas.Controllers
 {
@@ -60,7 +61,7 @@ namespace mascotas.Controllers
             {
                 return BadRequest(response.Message);
             }
-            return Ok(response);
+            return Ok(response.Data);
         }
 
         [HttpPost]
@@ -78,9 +79,9 @@ namespace mascotas.Controllers
         [Authorize]
         [HttpDelete]
         [Route("delete/{id}")]
-        public ActionResult delete(int id)
+        public async Task<ActionResult> deleteAsync(int id)
         {
-            var response = _userService.deleteUser(id);
+            var response = await _userService.deleteUser(id);
             if (response.Success == 0)
             {
                 return BadRequest(response.Message);

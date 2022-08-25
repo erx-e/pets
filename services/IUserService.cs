@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using mascotas.Models;
 using mascotas.Models.Responses;
 
@@ -9,6 +10,6 @@ namespace mascotas.Services
         Response getUserData(int id);
         Response updateUser(UpdateUserDTO userDTO);
         Response createUser(CreateUserDTO userDTO);
-        Response deleteUser(int id);
+        Task<Response> deleteUser(int id);
     }
 }

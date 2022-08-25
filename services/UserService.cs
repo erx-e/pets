@@ -4,6 +4,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
+using System.Threading.Tasks;
 using mascotas.Models;
 using mascotas.Models.Responses;
 using mascotas.Options;
@@ -18,22 +19,25 @@ namespace mascotas.Services
     {
         private readonly JwtOptions _jwtOptions;
         private readonly petDBContext _context;
-        public UserService(petDBContext context, IOptions<JwtOptions> jwtOptions)
+        private readonly IPostPetService _postPetService;
+        public UserService(petDBContext context, IOptions<JwtOptions> jwtOptions, IPostPetService postPetService)
         {
             _context = context;
             _jwtOptions = jwtOptions.Value;
+            _postPetService = postPetService;
         }
         public UserResponse Auth(AuthUserRequest request)
         {
             UserResponse userresponse = new UserResponse();
             var epassword = Encrypt.GetSHA256(request.password);
-            var user = _context.Users.Where(u => u.Email == request.email &&
-                                 u.Password == epassword).FirstOrDefault();
+            var user = _context.Users.AsNoTracking().Where(u => u.Email == request.email &&
+                                 u.Password == epassword).AsNoTracking().FirstOrDefault();
             if (user == null)
             {
                 return null;
             }
-            UserView authUser = new UserView{
+            UserView authUser = new UserView
+            {
                 name = user.Name,
                 email = user.Email,
                 cellNumber = user.CellNumber,
@@ -47,7 +51,7 @@ namespace mascotas.Services
         public Response createUser(CreateUserDTO userDTO)
         {
             var response = new Response();
-            var user = _context.Users.Where(u => u.Email == userDTO.email).FirstOrDefault();
+            var user = _context.Users.AsNoTracking().Where(u => u.Email == userDTO.email).AsNoTracking().FirstOrDefault();
             if (user != null)
             {
                 response.Message = "Email already registered";
@@ -78,12 +82,12 @@ namespace mascotas.Services
         public Response getUserData(int id)
         {
             var response = new Response();
-            if (_context.Users.Find(id) == null)
+            if (_context.Users.AsNoTracking().Where(u => u.IdUser == id) == null)
             {
                 response.Message = "Incorrect user id";
                 return response;
             }
-            UserView user = (from usr in _context.Users
+            UserView user = (from usr in _context.Users.AsNoTracking()
                              where usr.IdUser == id
                              select new UserView
                              {
@@ -92,36 +96,63 @@ namespace mascotas.Services
                                  email = usr.Email,
                                  cellNumber = usr.CellNumber,
                                  facebookProfile = usr.FacebookProfile
-                             }).Single();
+                             }).AsNoTracking().Single();
             response.Success = 1;
             response.Data = user;
             return response;
         }
 
-        public Response updateUser(UpdateUserDTO userDTO)
+        public Response updateUser(UpdateUserDTO userNew)
         {
             var response = new Response();
-            var userOld = _context.Users.AsNoTracking().Where(u => u.IdUser == userDTO.idUser).FirstOrDefault();
+            var userOld = _context.Users.AsNoTracking().Where(u => u.IdUser == userNew.idUser).AsNoTracking().FirstOrDefault();
             if (userOld == null)
             {
                 response.Message = "Incorrect user id";
                 return response;
             }
-            var userNew = new User
+
+            userOld.Name = userNew.name != null ? userNew.name : userOld.Name;
+
+            if (userNew.email != null && userOld.Email != userNew.email) 
             {
-                IdUser = userDTO.idUser,
-                Name = userDTO.name != null ? userDTO.name : userOld.Name,
-                Email = userDTO.email != null ? userDTO.email : userOld.Email,
-                CellNumber = userDTO.cellNumber != null ? userDTO.cellNumber : userOld.CellNumber,
-                FacebookProfile = userDTO.facebookProfile != null ? userDTO.facebookProfile : userOld.FacebookProfile,
-                CreatedAt = userOld.CreatedAt,
-                UpdatedAt = DateTime.Today,
-                Password = userDTO.password != null ? Encrypt.GetSHA256(userDTO.password) : userOld.Password
-            };
-            _context.Entry(userNew).State = EntityState.Modified;
+                if (_context.Users.AsNoTracking().Where(u => u.Email == userNew.email).Count() >= 1)
+                {
+                    response.Message = "Email already registered";
+                    return response;
+                }
+                userOld.Email = userNew.email != null ? userNew.email : userOld.Email;
+            }
+
+            userOld.CellNumber = userNew.cellNumber != null ? userNew.cellNumber : userOld.CellNumber;
+            userOld.CreatedAt = userOld.CreatedAt;
+            userOld.UpdatedAt = DateTime.Now;
+
+            if (userNew.password != null)
+            {
+                if (Encrypt.GetSHA256(userNew.oldPassword) == userOld.Password)
+                {
+                    userOld.Password = userNew.password != null ? Encrypt.GetSHA256(userNew.password) : userOld.Password;
+                }
+                else{
+                    response.Message = "Incorrect password";
+                    return response;
+                }
+            }
+
+            _context.Entry(userOld).State = EntityState.Modified;
             _context.SaveChanges();
             response.Success = 1;
-            response.Data = userNew;
+
+            var userView = new UserView
+            {
+                idUser = userOld.IdUser,
+                name = userOld.Name,
+                email = userOld.Email,
+                cellNumber = userOld.CellNumber
+            };
+
+            response.Data = userView;
             response.Message = "User updated correctly";
             return response;
         }
@@ -148,7 +179,7 @@ namespace mascotas.Services
 
         public IEnumerable<UserView> Get()
         {
-            List<UserView> listUsers = (from user in _context.Users
+            List<UserView> listUsers = (from user in _context.Users.AsNoTracking()
                                         select new UserView
                                         {
                                             name = user.Name,
@@ -159,7 +190,7 @@ namespace mascotas.Services
             return listUsers;
         }
 
-        public Response deleteUser(int id)
+        public async Task<Response> deleteUser(int id)
         {
             var response = new Response();
             var user = _context.Users.Find(id);
@@ -168,6 +199,11 @@ namespace mascotas.Services
                 response.Message = "Incorrect user id";
                 return response;
             }
+            var userPosts = _context.PostPets.Where(post => post.IdUser == user.IdUser);
+            await userPosts.ForEachAsync(async post =>
+            {
+                await _postPetService.deletePost(post.IdPostPet);
+            });
             _context.Remove(user);
             _context.SaveChanges();
             response.Success = 1;
