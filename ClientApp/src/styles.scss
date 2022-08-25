@@ -13,28 +13,72 @@
   font-family: Roboto, sans-serif;
 }
 
-.swiper-wrapper{
+$yellow: #faff00;
+$blue: #06003eff;
+$blue-transparent: #06003e5c;
+$grey: #6e7e85;
+$light-blue: #ebf0f7ff;
+$darker-light-blue: #d2dbe3;
+$lighter-light-blue: #f0f8ff;
+$green: #2ba84a;
+$red: #ff1d15;
+
+:root {
+  --yellow: #{$yellow};
+  --blue: #{$blue};
+  --blue-transparent: #{$blue-transparent};
+  --grey: #{$grey};
+  --light-blue: #{$light-blue};
+  --darker-light-blue: #{$darker-light-blue};
+  --lighter-light-blue: #{$lighter-light-blue};
+  --green: #{$green};
+  --red: #{$red};
+}
+
+.invalid-feedback {
+  color: var(--red);
+}
+
+.is-invalid {
+  color: var(--red);
+}
+
+.valid-feedback {
+  color: var(--green);
+}
+
+.form-control.is-valid{
+  border-color: var(--green);
+}
+
+.form-control.is-invalid{
+  border-color: var(--red);
+}
+
+.is-valid {
+  color: var(--green);
+}
+
+.swiper-wrapper {
   align-items: center;
 }
 
-.swiper-button-prev{
-  color: yellow;
+.swiper-button-prev {
+  color: $yellow;
 }
 
-.swiper-button-next{
-  color: yellow;
+.swiper-button-next {
+  color: $yellow;
 }
 
 .swiper-pagination-bullet-active {
-
-  background: yellow;
-
+  background: $yellow;
 }
 
 .noScroll {
   overflow: hidden;
 }
 
-.body{
-  background-color: #ebf0f7ff;
+.body {
+  background-color: $light-blue;
 }
