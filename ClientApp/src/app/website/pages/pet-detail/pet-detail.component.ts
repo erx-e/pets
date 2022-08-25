@@ -76,12 +76,6 @@ export class PetDetailComponent implements OnInit {
 
   deletePost() {
     this.postpetService.delete(parseInt(this.postpet.id)).subscribe(() => {
-      this.postpet.urlImgs.forEach((url) => {
-        let key = url.url.split("/").pop();
-        this.postpetService.deleteImg(key).then(() => {
-          console.log(url.url);
-        });
-      });
       this.location.back();
     });
   }
