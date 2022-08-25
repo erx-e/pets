@@ -1,11 +1,11 @@
-<div class="postpets--grid" *ngIf="postspet[0]; else loading">
+<div class="postpets--grid" *ngIf="postspet[0]; else loading" [class.profileGrid]="profilePosts">
   <app-postpet
     [postpet]="postpet"
     *ngFor="let postpet of postspet"
   ></app-postpet>
 </div>
 <ng-template #loading>
-  <div class="postpets--grid">
+  <div class="postpets--grid" [class.profileGrid]="profilePosts">
     <app-postpet
       [postpet]="postpet"
       *ngFor="let postpet of postspet"

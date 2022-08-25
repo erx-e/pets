@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { postpetView } from "src/app/models/postpet.model";
 import {
@@ -10,7 +10,7 @@ import {
 import { switchMap } from "rxjs/operators";
 import { CategoryService } from "src/app/services/category.service";
 import { PostpetService } from "src/app/services/postpet.service";
-import { Observable, Subject } from "rxjs";
+import { Observable } from "rxjs";
 import { MyValidators } from "src/app/validators/validators";
 import { NoScrollService } from "../../../services/no-scroll.service";
 import { ActivatedRoute, ParamMap } from "@angular/router";
@@ -34,6 +34,7 @@ export class FilterComponent implements OnInit {
   }
 
   @Input() stateId: string = "";
+  @Input() userId: number = null;
 
   petSpecieId: number | null = null;
   petBreedId: number | null = null;
@@ -122,6 +123,7 @@ export class FilterComponent implements OnInit {
           this.provinciaId,
           this.cantonId,
           this.sectorId,
+          this.userId,
           this.date,
           this.order,
           this.limit,
@@ -171,6 +173,7 @@ export class FilterComponent implements OnInit {
         this.provinciaId,
         this.cantonId,
         this.sectorId,
+        this.userId,
         this.date,
         this.order,
         this.limit,

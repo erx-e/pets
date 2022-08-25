@@ -1,5 +1,6 @@
 <div
   class="filter-container-mobile show-mobile-flex"
+  *ngIf="!userId"
   [class.toggle-filter]="filter"
 >
   <div class="filter-main">
@@ -179,7 +180,7 @@
 </div>
 
 <div class="allContainer">
-  <div class="buttons-container show-mobile-flex">
+  <div *ngIf="!userId" class="buttons-container show-mobile-flex">
     <i (click)="toggleFilter()" class="icon-filter">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
         <path
@@ -198,7 +199,7 @@
   </div>
 
   <main class="mainContainer">
-    <div class="filter-container hide-mobile">
+    <div *ngIf="!userId" class="filter-container hide-mobile">
       <aside>
         <p class="filter-title">Filtro</p>
         <form [formGroup]="form" class="form-container">
@@ -366,8 +367,8 @@
         </form>
       </aside>
     </div>
-    <div class="post-container">
-      <a routerLink="publicar" class="publicPet hide-mobile"
+    <div class="post-container" [class.profilePostsContainer] = "userId">
+      <a *ngIf="!userId" routerLink="publicar" class="publicPet hide-mobile"
         ><span *ngIf="stateId == 'E'">Publica la mascota que encontraste</span
         ><span *ngIf="stateId == 'B'">Publica a tu mascota perdida</span>
         <span *ngIf="stateId == 'A'">Publica la mascota en adopción</span>
@@ -375,10 +376,11 @@
           >Publica la mascota necesitada de ayuda</span
         >
       </a>
-      <div class="posts" *ngIf="!isLoading; else loading">
+      <div class="posts" [class.profilePosts] = "userId" *ngIf="!isLoading; else loading">
         <div *ngIf="postspet.length > 0; else petsNotFound">
           <app-postspet
             [isLoadingMore]="isLoadingMore"
+            [profilePosts]="userId != null"
             [morePostspet]="morePostspet"
             [postspet]="postspet"
             (loadMore)="onLoadMore()"
@@ -398,9 +400,10 @@
         </ng-template>
       </div>
       <ng-template #loading>
-        <div class="postsLoading">
+        <div class="postsLoading" [class.profilePosts] = "userId">
           <app-postspet
             [morePostspet]="false"
+            [profilePosts]="userId != null"
             [postspet]="postspetLoading"
             (loadMore)="onLoadMore()"
           ></app-postspet>

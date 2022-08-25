@@ -12,6 +12,7 @@ export interface CreateUserDTO extends UserView {
 
 export interface UpdateUserDTO extends Partial<CreateUserDTO> {
   idUser: number;
+  oldPassword?: string;
 }
 
 export interface authUser{

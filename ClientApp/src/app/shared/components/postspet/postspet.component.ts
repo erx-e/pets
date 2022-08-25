@@ -12,16 +12,16 @@ export class PostspetComponent implements OnInit {
   @Output() loadMore = new EventEmitter();
 
   @Input() postspet: postpetView[] = [];
-  @Input() isLoadingMore: boolean
+  @Input() isLoadingMore: boolean;
   @Input()
-    set morePostspet(more: boolean){
-      if(!more){
-        document.getElementById("load-button").style.display = "none"
-      }
-      else{
-        document.getElementById("load-button").style.display = "block"
-      }
+  set morePostspet(more: boolean) {
+    if (!more) {
+      document.getElementById("load-button").style.display = "none";
+    } else {
+      document.getElementById("load-button").style.display = "block";
     }
+  }
+  @Input() profilePosts: boolean = false;
 
   ngOnInit(): void {}
 
