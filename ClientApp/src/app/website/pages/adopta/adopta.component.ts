@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-adopta',
-  templateUrl: './adopta.component.html',
-  styleUrls: ['./adopta.component.scss']
+  template: `<app-filter [stateId]="stateId"></app-filter>`,
 })
 export class AdoptaComponent implements OnInit {
 
@@ -11,5 +10,5 @@ export class AdoptaComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  stateId: string = "A"
 }
