@@ -55,12 +55,12 @@ namespace mascotas.Controllers
 
         [HttpGet]
         [Route("getByFilter")]
-        public ActionResult<IEnumerable<PostPetView>> GetByFilter([FromQuery] string? stateId, int? petSpecieId, int? petBreedId, int? provinciaId, int? cantonId, int? sectorId, DateTime? date, int? order, int? limit = null, int? offset = null)
+        public ActionResult<IEnumerable<PostPetView>> GetByFilter([FromQuery] string? stateId, int? petSpecieId, int? petBreedId, int? provinciaId, int? cantonId, int? sectorId, int? userId, DateTime? date, int? order, int? limit = null, int? offset = null)
         {
 
             if (limit != null && offset != null)
             {
-                var response = _postPetService.getByFilter(stateId, petSpecieId, petBreedId, provinciaId, cantonId, sectorId, date, order, limit, offset);
+                var response = _postPetService.getByFilter(stateId, petSpecieId, petBreedId, provinciaId, cantonId, sectorId, userId, date, order, limit, offset);
                 if (response.Data != null)
                 {
                     return Ok((IEnumerable<PostPetView>)response.Data);
@@ -70,7 +70,7 @@ namespace mascotas.Controllers
                     return null;
                 }
             }
-            return Ok((IEnumerable<PostPetView>)_postPetService.getByFilter(stateId, petSpecieId, petBreedId, provinciaId, cantonId, sectorId, date, order).Data);
+            return Ok((IEnumerable<PostPetView>)_postPetService.getByFilter(stateId, petSpecieId, petBreedId, provinciaId, cantonId, sectorId, userId, date, order).Data);
         }
 
         [HttpGet]
@@ -110,15 +110,15 @@ namespace mascotas.Controllers
             {
                 return BadRequest(response.Message);
             }
-            return Ok(response);
+            return Ok(response.Data);
         }
 
         [Authorize]
         [HttpDelete]
         [Route("Delete/{id}")]
-        public ActionResult delete([Required] int id)
+        public async Task<ActionResult> deleteAsync([Required] int id)
         {
-            var response = _postPetService.deletePost(id);
+            var response = await _postPetService.deletePost(id);
             return Ok(response);
         }
     }

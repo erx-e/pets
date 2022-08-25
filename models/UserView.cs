@@ -29,6 +29,7 @@ namespace mascotas.Models
         public string? cellNumber { get; set; }
         public string? facebookProfile { get; set; }
         public string? password { get; set; }
+        public string? oldPassword {get; set;}
     }
 
     public class UserResponse
