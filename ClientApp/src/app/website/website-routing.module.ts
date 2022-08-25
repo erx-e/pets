@@ -25,11 +25,8 @@ const routes: Routes = [
       },
       {
         path: "profile",
-        component: ProfileComponent,
-      },
-      {
-        path: "profile/:id",
-        component: ProfileComponent,
+        loadChildren: () =>
+          import("./pages/profile/profile.module").then((m) => m.ProfileModule),
       },
       {
         path: "encuentra",
@@ -57,10 +54,6 @@ const routes: Routes = [
         path: "pet/:id",
         component: PetDetailComponent,
       },
-      {
-        path: "**",
-        component: NotfoundComponent,
-      },
     ],
   },
   {
@@ -70,6 +63,10 @@ const routes: Routes = [
   {
     path: "register",
     component: RegisterComponent,
+  },
+  {
+    path: "**",
+    component: NotfoundComponent,
   },
 ];
 
