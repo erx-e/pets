@@ -14,7 +14,7 @@ import { finalize, tap } from "rxjs/operators";
 import { CacheService } from "../services/cache.service";
 import { TimerCacheService } from "../services/timer-cache.service";
 
-const CHECK_LOADING = new HttpContextToken<boolean>(() => false);
+export const CHECK_LOADING = new HttpContextToken<boolean>(() => false);
 
 export function checkLoading() {
   return new HttpContext().set(CHECK_LOADING, true);
@@ -70,6 +70,13 @@ export class LoadingInterceptor implements HttpInterceptor {
         })
       );
     } else {
+      if(request.context.get(CHECK_LOADING)){
+        this.loadingSerivce.show();
+        console.log(request)
+        return next.handle(request).pipe(
+          finalize(() => this.loadingSerivce.hide())
+        );
+      }
       this.cacheService.invalidateCache()
       return next.handle(request);
     }
