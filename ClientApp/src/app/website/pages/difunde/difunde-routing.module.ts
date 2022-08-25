@@ -11,7 +11,11 @@ const routes: Routes = [
   {
     path: 'publicar',
     component: PublicarComponent
-  }
+  },
+  {
+    path: "editar/:id",
+    component: PublicarComponent,
+  },
 ];
 
 @NgModule({
