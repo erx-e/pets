@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-ayuda',
-  templateUrl: './ayuda.component.html',
-  styleUrls: ['./ayuda.component.scss']
+  template: `<app-filter [stateId]="stateId"></app-filter>`,
 })
 export class AyudaComponent implements OnInit {
 
@@ -11,5 +10,7 @@ export class AyudaComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  stateId: string = "H"
 
 }
