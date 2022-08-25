@@ -12,10 +12,10 @@ namespace mascotas.Services
         Response getViewPostById(int id);
         Response getPostById(int id);
         List<PostPetView> getByState(string id, int? limit = null, int? offset = null);
-        Response getByFilter(string stateId, int? petSpecieId, int? petBreedId, int? provinciaId, int? cantonId, int? sectorId, DateTime? date, int? order, int? limit = null, int? offset = null);
+        Response getByFilter(string stateId, int? petSpecieId, int? petBreedId, int? provinciaId, int? cantonId, int? sectorId, int? userId, DateTime? date, int? order, int? limit = null, int? offset = null);
         Response createPost(CreatePostPetDTO postpetDTO);
         Task<Response> createPostAsync(CreatePostPetDTO postpetDTO);
         Response updatePost(UpdatePostPetDTO postpetDTO);
-        Response deletePost(int id);
+        Task<Response> deletePost(int id);
     }
 }

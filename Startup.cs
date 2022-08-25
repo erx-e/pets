@@ -33,7 +33,8 @@ namespace mascotas
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors(option => option.AddPolicy(name: cors, builder => {
+            services.AddCors(option => option.AddPolicy(name: cors, builder =>
+            {
                 builder.WithOrigins("*").AllowAnyHeader()
                                         .AllowAnyMethod();
             }));
@@ -48,7 +49,10 @@ namespace mascotas
             });
 
             services.AddDbContext<petDBContext>(opt =>
-                opt.UseSqlServer(Configuration.GetConnectionString("SqlServerConnection")));
+            {
+                opt.UseSqlServer(Configuration.GetConnectionString("SqlServerConnection"));
+                opt.EnableSensitiveDataLogging();
+            });
             services.AddAutoMapper(typeof(postpetProfile));
 
             services.AddScoped<IUserService, UserService>();

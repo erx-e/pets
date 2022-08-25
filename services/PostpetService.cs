@@ -5,8 +5,9 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System;
 using mascotas.Models.Responses;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using Amazon.S3;
 using System.Threading.Tasks;
+using Amazon.S3.Model;
 
 namespace mascotas.Services
 {
@@ -14,6 +15,7 @@ namespace mascotas.Services
     {
         private readonly petDBContext _context;
         private readonly IMapper _mapper;
+        string bucketName = "petslighthouse";
         public PostpetService(petDBContext context, IMapper mapper)
         {
             _context = context;
@@ -142,7 +144,7 @@ namespace mascotas.Services
             return result;
         }
 
-        public Response getByFilter(string stateId, int? petSpecieId, int? petBreedId, int? provinciaId, int? cantonId, int? sectorId, DateTime? date, int? order, int? limit = null, int? offset = null)
+        public Response getByFilter(string? stateId, int? petSpecieId, int? petBreedId, int? provinciaId, int? cantonId, int? sectorId, int? userId, DateTime? date, int? order, int? limit = null, int? offset = null)
         {
 
             List<PostPet> listPostFilter = _context.PostPets
@@ -153,6 +155,7 @@ namespace mascotas.Services
                                     (provinciaId == null || (provinciaId != null && post.IdProvincia == provinciaId)) &&
                                     (cantonId == null || (cantonId != null && post.IdCanton == cantonId)) &&
                                     (sectorId == null || (sectorId != null && post.IdSector == sectorId)) &&
+                                    (userId == null || (userId != null && post.IdUser == userId)) &&
                                     (date == null || (date != null && post.LastTimeSeen >= date))
                                     )).ToList();
 
@@ -482,7 +485,7 @@ namespace mascotas.Services
             return response;
         }
 
-        public Response deletePost(int id)
+        public async Task<Response> deletePost(int id)
         {
             var response = new Response();
             var postpet = _context.PostPets.Find(id);
@@ -492,9 +495,17 @@ namespace mascotas.Services
                 return response;
             }
 
-            var postImgs = _context.PostImages.Where(img => img.IdPostPet == postpet.IdPostPet);
+            var postImgs = _context.PostImages.Where(img => img.IdPostPet == postpet.IdPostPet).ToList();
             if (postImgs != null)
             {
+                var imgskey = postImgs.Select(img => new KeyVersion { Key = img.Url.Split("/").Last() }).ToList();
+                var client = new AmazonS3Client();
+                var deleteRequest = new DeleteObjectsRequest()
+                {
+                    Objects = imgskey,
+                    BucketName = bucketName
+                };
+                await client.DeleteObjectsAsync(deleteRequest);
                 _context.PostImages.RemoveRange(postImgs);
             }
             _context.PostPets.Remove(postpet);
