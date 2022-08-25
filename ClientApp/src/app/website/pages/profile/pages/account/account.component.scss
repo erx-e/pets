@@ -1,0 +1,97 @@
+.title{
+  font-weight: 600;
+  font-size: 22px;
+  height: 34px;
+  padding: 6px 0px;
+}
+
+.form-field {
+  padding: 10px 0px;
+  max-width: 342px;
+}
+
+.form-control{
+  max-width: 342px;
+}
+
+.changePassword__button{
+  background-color: var(--blue);
+  padding: 9px 16px;
+  font-weight: 600;
+  color: white;
+  border-radius: 6px;
+  margin-top: 8px;
+}
+
+.passChanged{
+  color: var(--green);
+  font-weight: 600;
+}
+
+.accountPage__delete{
+  margin-top: 42px;
+}
+
+.delete__text{
+  margin-top: 10px;
+}
+
+.delete__button{
+  background-color: var(--blue);
+  padding: 9px 16px;
+  font-weight: 600;
+  color: white;
+  border-radius: 6px;
+  margin-top: 8px;
+}
+
+
+.validationMessage {
+  display: none;
+  &.active {
+    display: block;
+  }
+}
+
+.is-valid {
+  background-image: none;
+}
+
+.is-invalid {
+  background-image: none;
+}
+
+.invalid-feedback {
+  display: block;
+}
+
+
+.icon-eye{
+  position: absolute;
+  fill: gray;
+  right: 15px;
+  cursor: pointer;
+  top: 45px;
+  svg{
+    display: none;
+    &.active{
+      display: block;
+    }
+  }
+}
+
+@media screen and (min-width: 48rem){
+
+}
+
+@media screen and (min-width: 64rem){
+  .icon-eye{
+    right: 115px;
+  }
+  .form-field{
+    max-width: 440px;
+  }
+  .form-control{
+    width: 440px;
+  }
+}

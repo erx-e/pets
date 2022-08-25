@@ -6,7 +6,6 @@ import { LayoutComponent } from './components/layout/layout.component';
 import { NavComponent } from './components/nav/nav.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
-import { ProfileComponent } from './pages/profile/profile.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { PetDetailComponent } from './pages/pet-detail/pet-detail.component';
 import { LandpageComponent } from './pages/landpage/landpage.component';
@@ -23,7 +22,6 @@ import { SwiperModule } from 'swiper/angular';
     NavComponent,
     HomeComponent,
     LoginComponent,
-    ProfileComponent,
     RegisterComponent,
     PetDetailComponent,
     LandpageComponent,

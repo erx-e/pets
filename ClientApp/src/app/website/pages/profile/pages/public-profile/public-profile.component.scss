@@ -1,0 +1,110 @@
+.title__container{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  height: 34px;
+}
+
+.editButton{
+  padding: 9px 12px;
+  border-radius: 6px;
+  background-color: var(--yellow);
+  font-weight: 600;
+}
+
+.profilePublicPage__title{
+  font-weight: 600;
+  font-size: 22px;
+  align-self: center;
+}
+
+.form-field {
+  padding: 10px 0px;
+}
+
+.formArrayElement{
+  margin-bottom: 8px;
+}
+
+.contactInput{
+  display: inline-block;
+  width: 100%;
+  margin-right: 8px;
+}
+
+.addContactField{
+  display: inline-block;
+  margin-top: 6px;
+  padding: 9px 9px;
+  background-color: var(--yellow);
+  font-weight: 600;
+  border-radius: 5px;
+}
+
+.form-buttons{
+  display: flex;
+}
+
+.cancelButton{
+  padding: 9px 12px;
+  border-radius: 6px;
+  background-color: var(--yellow);
+  font-weight: 600;
+}
+
+.profilePublicPage__info{
+  p{
+    margin-bottom: 12px;
+    line-height: 1.15;
+  }
+}
+
+.validationMessage {
+  display: none;
+  p{
+    margin-bottom: 0px;
+  }
+  &.active {
+    display: block;
+  }
+}
+
+.is-valid {
+  background-image: none;
+}
+
+.is-invalid {
+  background-image: none;
+}
+
+.invalid-feedback {
+  display: block;
+}
+
+@media screen and (min-width: 48rem){
+  .form-field{
+    max-width: 450px;
+  }
+  .form-control{
+    max-width: 450px;
+  }
+  .title__container{
+    justify-content: flex-start;
+  }
+
+  .editButton{
+    margin-left: 150px;
+  }
+
+}
+
+@media screen and (min-width: 64rem){
+
+  .editButton{
+    margin-right: 150px;
+  }
+
+  .form-control{
+    width: 440px;
+  }
+}
