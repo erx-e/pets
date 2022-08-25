@@ -3,7 +3,7 @@
   width: 88.9%;
   margin: 0 auto;
   box-sizing: content-box;
-  background-color: #d2dbe3;
+  background-color: var(--darker-light-blue);
   border-radius: 5px;
   padding: 12px;
   margin-bottom: 15px;
@@ -39,7 +39,7 @@
 
 @media screen and (min-width: 40em) and (max-width: 63.9375em) {
   .postpet {
-    max-width: none;
+    max-width: 275px;
     margin-bottom: 0px;
     height: 340px;
   }
