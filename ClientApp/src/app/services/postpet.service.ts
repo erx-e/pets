@@ -1,4 +1,9 @@
-import { HttpClient, HttpErrorResponse, HttpParams, HttpStatusCode } from "@angular/common/http";
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpParams,
+  HttpStatusCode,
+} from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
 import { Response } from "../models/response.model";
@@ -7,7 +12,6 @@ import {
   CreatePostpetDTO,
   postpetView,
   UpdatePostpetDTO,
-  img,
 } from "../models/postpet.model";
 import { checkToken } from "../interceptors/token.interceptor";
 import { checkLoading } from "../interceptors/loading.interceptor";
@@ -36,59 +40,63 @@ export class PostpetService {
   }
 
   getById(id: number) {
-    return this.http.get<postpetView>(`${this.apiUrl}/postpet/get/${id}`, {context: checkLoading()}).pipe(
-      catchError((error: HttpErrorResponse) => {
-        if(error.status === HttpStatusCode.BadRequest){
-          return throwError("Post no encontrado")
-        }
-        else{
-          return throwError("Error del servidor")
-        }
+    return this.http
+      .get<postpetView>(`${this.apiUrl}/postpet/get/${id}`, {
+        context: checkLoading(),
       })
-    );
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          if (error.status === HttpStatusCode.BadRequest) {
+            return throwError("Post no encontrado");
+          } else {
+            return throwError("Error del servidor");
+          }
+        })
+      );
   }
 
   getByIdUpdate(id: number) {
-    return this.http.get<UpdatePostpetDTO>(
-      `${this.apiUrl}/postpet/getUpdate/${id}`
-    ).pipe(
-      catchError((error: HttpErrorResponse) => {
-        if(error.status === HttpStatusCode.BadRequest){
-          return throwError("Post no encontrado")
-        }
-        else{
-          return throwError("Error del servidor")
-        }
-      })
-    );;
+    return this.http
+      .get<UpdatePostpetDTO>(`${this.apiUrl}/postpet/getUpdate/${id}`)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          if (error.status === HttpStatusCode.BadRequest) {
+            return throwError("Post no encontrado");
+          } else {
+            return throwError("Error del servidor");
+          }
+        })
+      );
   }
 
   getByState(id: string, limit?: number, offset?: number) {
     let params = new HttpParams();
     params = params.set("limit", limit);
     params = params.set("offset", offset);
-    return this.http.get<postpetView[]>(
-      `${this.apiUrl}/postpet/getByState/${id}`,
-      { params, context: checkLoading() }
-    ).pipe(
-      catchError((error: HttpErrorResponse) => {
-        if(error.status === HttpStatusCode.BadRequest){
-          return throwError("Id state must be sent")
-        }
-        else{
-          return throwError("Error del servidor")
-        }
+    return this.http
+      .get<postpetView[]>(`${this.apiUrl}/postpet/getByState/${id}`, {
+        params,
+        context: checkLoading(),
       })
-    );;
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          if (error.status === HttpStatusCode.BadRequest) {
+            return throwError("Id state must be sent");
+          } else {
+            return throwError("Error del servidor");
+          }
+        })
+      );
   }
 
   GetByFilter(
-    stateId: string,
+    stateId?: string,
     petSpecieId?: number | null,
     petBreedId?: number | null,
     provinciaId?: number | null,
     cantonId?: number | null,
     sectorId?: number | null,
+    userId?: number | null,
     date?: string | null,
     order?: number | null,
     limit?: number,
@@ -125,6 +133,10 @@ export class PostpetService {
         ? params.set("sectorId", sectorId)
         : params;
     params =
+      userId != null || userId != undefined
+        ? params.set("userId", userId)
+        : params;
+    params =
       date != null || date != undefined ? params.set("date", date) : params;
     params =
       order != null || order != undefined ? params.set("order", order) : params;
@@ -136,18 +148,19 @@ export class PostpetService {
   }
 
   update(dto: UpdatePostpetDTO) {
-    return this.http.put<Response>(`${this.apiUrl}/postpet/update`, dto, {
-      context: checkToken(),
-    }).pipe(
-      catchError((error: HttpErrorResponse) => {
-        if(error.status === HttpStatusCode.BadRequest){
-          return throwError("Post Id incorrecto")
-        }
-        else{
-          return throwError("Error del servidor")
-        }
+    return this.http
+      .put<Response>(`${this.apiUrl}/postpet/update`, dto, {
+        context: checkToken(),
       })
-    );;
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          if (error.status === HttpStatusCode.BadRequest) {
+            return throwError("Post Id incorrecto");
+          } else {
+            return throwError("Error del servidor");
+          }
+        })
+      );
   }
 
   create(dto: CreatePostpetDTO) {
@@ -157,18 +170,20 @@ export class PostpetService {
   }
 
   delete(id: number) {
-    return this.http.delete<Response>(`${this.apiUrl}/postpet/delete/${id}`, {
-      context: checkToken(),
-    }).pipe(
-      catchError((error: HttpErrorResponse) => {
-        if(error.status === HttpStatusCode.BadRequest){
-          return throwError("Post Id incorrecto")
-        }
-        else{
-          return throwError("Error del servidor")
-        }
+
+    return this.http
+      .delete<Response>(`${this.apiUrl}/postpet/delete/${id}`, {
+        context: checkToken(),
       })
-    );;
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          if (error.status === HttpStatusCode.BadRequest) {
+            return throwError("Post Id incorrecto");
+          } else {
+            return throwError("Error del servidor");
+          }
+        })
+      );
   }
 
   storage = new S3({
