@@ -317,7 +317,7 @@ namespace mascotas
                 entity.Property(e => e.IdUser).HasColumnName("id_user");
 
                 entity.Property(e => e.CellNumber)
-                    .HasMaxLength(32)
+                    .HasMaxLength(45)
                     .IsUnicode(false)
                     .HasColumnName("cell_number");
 
