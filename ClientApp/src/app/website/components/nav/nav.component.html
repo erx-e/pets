@@ -6,23 +6,25 @@
   ></div>
   <nav class="nav-header">
     <div class="nav__logo">
-      <a (click)="toggle == false || toggle == null ? toggle : toggleMenu()" [routerLink]="user ? '/home' : '/'" class="logo" href="">
+      <a
+        (click)="toggle == false || toggle == null ? toggle : toggleMenu()"
+        [routerLink]="user ? '/home' : '/'"
+        class="logo"
+      >
         <img src="../../../../assets/imgs/logo.png" alt="logo" />
       </a>
       <a [routerLink]="user ? '/home' : '/'" class="texto">
         <span>Pet's Lighthouse</span>
       </a>
     </div>
-    <div class="hide-mobile nav__showLinks" >
+    <div class="hide-mobile nav__showLinks">
       <a *ngIf="user" routerLinkActive="active" routerLink="/home">Home</a
       ><a routerLinkActive="active" routerLink="/encuentra">Encuentra</a
-      ><a routerLinkActive="active" routerLink="difunde">Difunde</a><a routerLinkActive="active" routerLink="adopta">Adopta</a
+      ><a routerLinkActive="active" routerLink="difunde">Difunde</a
+      ><a routerLinkActive="active" routerLink="adopta">Adopta</a
       ><a routerLinkActive="active" routerLink="ayuda">Ayuda</a>
     </div>
     <div class="nav__links" [class.flex-end]="user">
-      <!-- <a class="hide-mobile" href="">
-            <button type="button" class="nav__button button__create_account">Crear cuenta</button>
-          </a> -->
       <a
         *ngIf="!user; else profileButton"
         routerLink="login"
@@ -31,9 +33,7 @@
       >
       <ng-template #profileButton>
         <div class="hide-mobile">
-          <a routerLink="/profile" class="nav__button button__login"
-            >Ir a tu perfil</a
-          >
+          <a routerLink="/profile" class="nav__button button__login">Perfil</a>
           <a class="nav__button" (click)="logout()">Cerrar sesión</a>
         </div>
       </ng-template>
@@ -50,8 +50,10 @@
     [class.fade-in]="toggle"
     [class.fade-out-visibility]="toggle == false"
   >
-    <a (click)="toggleMenu()" routerLink="encuentra">Encuentra</a><a (click)="toggleMenu()" routerLink="difunde">Difunde</a
-    ><a (click)="toggleMenu()" routerLink="adopta">Adopta</a><a (click)="toggleMenu()" routerLink="ayuda">Ayuda</a>
+    <a (click)="toggleMenu()" routerLink="encuentra">Encuentra</a
+    ><a (click)="toggleMenu()" routerLink="difunde">Difunde</a
+    ><a (click)="toggleMenu()" routerLink="adopta">Adopta</a
+    ><a (click)="toggleMenu()" routerLink="ayuda">Ayuda</a>
   </div>
   <ng-template #navMenuAuth>
     <div
@@ -59,9 +61,12 @@
       [class.fade-in]="toggle"
       [class.fade-out-visibility]="toggle == false"
     >
-      <a (click)="toggleMenu()" routerLink="/home">Home</a><a (click)="toggleMenu()" routerLink="encuentra">Encuentra</a
-      ><a (click)="toggleMenu()" routerLink="difunde">Difunde</a><a routerLink="adopta">Adopta</a
-      ><a (click)="toggleMenu()" routerLink="ayuda">Ayuda</a><a routerLink="/profile">Ir al perfil</a
+      <a (click)="toggleMenu()" routerLink="/home">Home</a
+      ><a (click)="toggleMenu()" routerLink="encuentra">Encuentra</a
+      ><a (click)="toggleMenu()" routerLink="difunde">Difunde</a
+      ><a (click)="toggleMenu()" routerLink="adopta">Adopta</a
+      ><a (click)="toggleMenu()" routerLink="ayuda">Ayuda</a
+      ><a (click)="toggleMenu()" routerLink="/profile">Perfil</a
       ><a (click)="toggleMenu()" (click)="logout()">Cerrar sesión</a>
     </div>
   </ng-template>
