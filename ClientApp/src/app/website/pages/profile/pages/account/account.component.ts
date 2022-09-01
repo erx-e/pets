@@ -15,13 +15,14 @@ export class AccountComponent implements OnInit {
     private formBuilder: FormBuilder,
     private userService: UserService,
     private authService: AuthService
-  ) {}
+  ) {
+    this.buildForm();
+  }
 
   ngOnInit(): void {
     this.authService.user$.subscribe(
       (usr) => (this.userUpdate.idUser = usr.idUser)
     );
-    this.buildForm();
   }
 
   form: FormGroup;

@@ -1,4 +1,3 @@
-import { NullCheckBoxList } from "aws-sdk/clients/glue";
 
 export interface postpetView {
   id: string;
@@ -57,4 +56,5 @@ export interface img {
 export interface updateImg {
   url?: string | null;
   idImage?: number;
+  file?: File;
 }

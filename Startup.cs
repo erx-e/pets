@@ -1,6 +1,7 @@
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Amazon.S3;
 using AutoMapper;
 using mascotas.Helpers;
 using mascotas.Options;
@@ -55,6 +56,7 @@ namespace mascotas
             });
             services.AddAutoMapper(typeof(postpetProfile));
 
+            services.AddAWSService<IAmazonS3>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IPostPetService, PostpetService>();
             services.AddScoped<ICategoryService, CategoryService>();

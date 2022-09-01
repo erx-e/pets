@@ -20,7 +20,9 @@ export class PublicProfileComponent implements OnInit {
     private authService: AuthService,
     private userService: UserService,
     private formBuilder: FormBuilder
-  ) {}
+  ) {
+    this.buildForm();
+  }
   user: UserView = null;
   userUpdate: UpdateUserDTO = {
     idUser: null,
@@ -37,7 +39,6 @@ export class PublicProfileComponent implements OnInit {
   maxFourCellNumbers: boolean = false;
 
   ngOnInit(): void {
-    this.buildForm();
     this.authService.user$.subscribe((usr) => {
       this.user = usr;
       this.patchForm(usr);

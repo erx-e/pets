@@ -15,11 +15,13 @@ namespace mascotas.Services
     {
         private readonly petDBContext _context;
         private readonly IMapper _mapper;
+        private readonly IAmazonS3 s3Client;
         string bucketName = "petslighthouse";
-        public PostpetService(petDBContext context, IMapper mapper)
+        public PostpetService(petDBContext context, IMapper mapper, IAmazonS3 s3Client)
         {
             _context = context;
             _mapper = mapper;
+            this.s3Client = s3Client;
         }
         public List<PostPetView> getAllPosts(int? limit = null, int? offset = null)
         {
@@ -297,6 +299,8 @@ namespace mascotas.Services
                                userName = user.Name,
                                idUser = post.IdUser,
                                petName = post.PetName,
+                               contact = post.Contact,
+                               petAge = post.PetAge,
                                petState = state.StateName,
                                petStateId = post.IdState,
                                petSpecie = specie.SpecieName,
@@ -338,6 +342,8 @@ namespace mascotas.Services
                                idPostPet = post.IdPostPet,
                                idUser = post.IdUser,
                                petName = post.PetName,
+                               contact = post.Contact,
+                               petAge = post.PetAge,
                                idState = post.IdState,
                                idPetSpecie = post.IdPetSpecie,
                                idPetBreed = post.IdPetBreed,
@@ -416,7 +422,7 @@ namespace mascotas.Services
             return result;
         }
 
-        public Response updatePost(UpdatePostPetDTO postpetDTO)
+        public async Task<Response> updatePostAsync(UpdatePostPetDTO postpetDTO)
         {
             var response = new Response();
             var postpetOld = _context.PostPets.AsNoTracking().Where(p => p.IdPostPet == postpetDTO.idPostPet).FirstOrDefault();
@@ -464,12 +470,18 @@ namespace mascotas.Services
                         var oldImg = _context.PostImages.Where(img => img.IdImage == ImgNew.idImage).FirstOrDefault();
                         if (oldImg != null)
                         {
+                            var imgkey = oldImg.Url.Split("/").Last();
+
                             if (ImgNew.url == null)
                             {
+                                var respons = await s3Client.DeleteObjectAsync(bucketName, imgkey);
+                        
+
                                 _context.PostImages.Remove(_context.PostImages.Find((int)ImgNew.idImage));
                             }
                             if (ImgNew.url != null && ImgNew.url != oldImg.Url)
                             {
+                                await s3Client.DeleteObjectAsync(bucketName, imgkey);
                                 oldImg.Url = ImgNew.url;
                                 _context.Entry(oldImg).State = EntityState.Modified;
                             }

@@ -111,22 +111,29 @@
   margin-bottom: 20px;
 }
 
+
+
+.contactInput{
+  display: inline-block;
+  width: 100%;
+  margin-right: 8px;
+}
+
 .addContactField{
   display: inline-block;
-  padding: 9px 9px;
+  padding: 8px 8px;
   background-color: var(--yellow);
   font-weight: 600;
   border-radius: 5px;
 }
 
-.contactInput{
-  display: inline-block;
-  width: 48.65%;
-  margin-right: 8px;
-}
-
 .formArrayElement{
   margin-bottom: 8px;
+}
+
+.files-uploader{
+  margin-top: 15px;
+  padding: 9px;
 }
 
 .full-width {
@@ -182,7 +189,7 @@
   }
 
   .formContact{
-    width: 100%;
+    width: 56.7%;
   }
 }
 

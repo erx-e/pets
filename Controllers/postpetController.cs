@@ -103,9 +103,9 @@ namespace mascotas.Controllers
         [Authorize]
         [HttpPut]
         [Route("Update")]
-        public ActionResult update([Required] UpdatePostPetDTO postpetDTO)
+        public async Task<ActionResult> update([Required] UpdatePostPetDTO postpetDTO)
         {
-            var response = _postPetService.updatePost(postpetDTO);
+            var response = await _postPetService.updatePostAsync(postpetDTO);
             if (response.Success == 0)
             {
                 return BadRequest(response.Message);

@@ -288,12 +288,17 @@
                     <input
                       type="tel"
                       class="form-control contactInput"
+                      [style.width.%]="i == 0 ? '87.65' : '100'"
                       [formControlName]="i"
                       placeholder="Número de contacto"
                       [name]="i"
                       [id]="i == 0 ? 'contact' : null"
-                      [class.is-valid]="this.contact.touched && this.contact.valid"
-                      [class.is-invalid]="this.contact.touched && this.contact.invalid"
+                      [class.is-valid]="
+                        this.contact.touched && this.contact.valid
+                      "
+                      [class.is-invalid]="
+                        this.contact.touched && this.contact.invalid
+                      "
                     />
                     <button
                       class="addContactField"
@@ -301,7 +306,7 @@
                       type="button"
                       (click)="addContactField()"
                     >
-                      Agregar más números de contacto
+                      +
                     </button>
                   </div>
                   <div
@@ -364,74 +369,21 @@
                 </p>
               </div>
             </div>
-            <div class="form-elements inputFileElement">
-              <label class="form-label" for="formImgs">Agregar fotos</label>
-              <input
-                (change)="uploadFile($event)"
-                class="form-control"
-                formControlName="urlImgs"
-                type="file"
-                multiple="multiple"
-                accept="image/*"
-                id="formImgs"
-                name="imgs"
-                [class.is-valid]="urlImgsFieldValid"
-                [class.is-invalid]="urlImgsFieldInvalid"
-              />
-              <p class="message" [class.invalid]="maxSixFiles">
-                Seleccione un maximo de 6 fotos
+            <div class="files-uploader">
+              <label for="inputElement">Fotos de la mascota</label>
+              <app-uploader
+                [published]="published"
+                [updating]="false"
+                (maxSixLimit)="onLimit($event)"
+                (change)="onUrlsChange($event)"
+              ></app-uploader>
+              <p *ngIf="maxSixFiles" class="invalid-feedback">
+                Debe subir máximo 6 fotos
               </p>
-              <div
-                class="validationMessage"
-                [class.active]="urlImgsFieldInvalid"
-              >
-                <p *ngIf="imgUrls.length == 0" class="invalid-feedback">
-                  Debe seleccionar minimo una imagen de la mascota
-                </p>
-              </div>
-              <div>
-                <div class="containerImgs">
-                  <div
-                    class="uploadedImgs"
-                    *ngFor="let imgs of imgsUploading"
-                    [id]="imgs != null ? imgs : null"
-                  >
-                    <div class="imgContainer" *ngIf="imgUrls[imgs]">
-                      <img
-                        [src]="imgUrls[imgs][0]"
-                        alt="mascota"
-                        (load)="OnImgLoaded(imgs)"
-                      />
-                      <i class="deleteIcon" (click)="deleteImg(imgs, true)">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 512 512"
-                        >
-                          <path
-                            d="M0 256C0 114.6 114.6 0 256 0C397.4 0 512 114.6 512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256zM175 208.1L222.1 255.1L175 303C165.7 312.4 165.7 327.6 175 336.1C184.4 346.3 199.6 346.3 208.1 336.1L255.1 289.9L303 336.1C312.4 346.3 327.6 346.3 336.1 336.1C346.3 327.6 346.3 312.4 336.1 303L289.9 255.1L336.1 208.1C346.3 199.6 346.3 184.4 336.1 175C327.6 165.7 312.4 165.7 303 175L255.1 222.1L208.1 175C199.6 165.7 184.4 165.7 175 175C165.7 184.4 165.7 199.6 175 208.1V208.1z"
-                          />
-                        </svg>
-                      </i>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  *ngFor="let imgs of imgsProgressBar"
-                  [id]="imgs != null ? imgs : null"
-                  class="progressBar"
-                >
-                  <div class="bar"></div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
-        <button
-          class="submit-btn"
-          type="submit"
-          [disabled]="disableSubmit"
-          *ngIf="!editPost; else editButton"
-        >
+        <button class="submit-btn" type="submit" [disabled]="disableSubmit">
           Publicar mascota
         </button>
         <ng-template #editButton>

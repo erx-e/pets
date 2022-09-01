@@ -1,18 +1,18 @@
 <main class="main">
   <p class="title">Publicar mascota</p>
   <div class="formBox">
-    <form [formGroup]="form" (ngSubmit)="crearPost()">
+    <form [formGroup]="form" (ngSubmit)="editPost()">
       <div class="form-container">
         <div class="form-element-section">
           <p>Indique las caracteristicas de la mascota</p>
           <div class="flex">
-            <div class="form-elements">
+            <div *ngIf="stateId != 'E'" class="form-elements">
               <label class="form-label" for="petName">Nombre:</label>
               <input
                 formControlName="petName"
                 id="petName"
                 class="form-control"
-                placeholder="Nombre de la mascota"
+                placeholder="Nombre de tu mascota"
                 [class.is-valid]="petNameFieldValid"
                 [class.is-invalid]="petNameFieldInvalid"
                 type="text"
@@ -121,10 +121,26 @@
                 </p>
               </div>
             </div>
+            <div *ngIf="stateId != 'E'" class="form-elements">
+              <label class="form-label" for="petAge">Edad: </label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="petAge"
+                placeholder="Edad de tu mascota"
+                name="petAge"
+                id="petAge"
+              />
+            </div>
           </div>
         </div>
         <div class="form-element-section">
-          <p>Indique en donde y cuando vio a la mascota</p>
+          <p *ngIf="stateId != 'B'">
+            Indique en donde y cuando vio a la mascota
+          </p>
+          <p *ngIf="stateId == 'B'">
+            Indique por donde y cuando se perdio la mascota
+          </p>
           <div class="flex">
             <div class="form-elements">
               <label class="form-label" for="formProvincia">Provincia: </label>
@@ -259,7 +275,78 @@
                 </p>
               </div>
             </div>
-            <div class="form-elements">
+            <div class="form-elements formContact">
+              <div
+                formArrayName="contact"
+                *ngFor="let contact of contactField.controls; let i = index"
+              >
+                <div class="formArrayElement">
+                  <label *ngIf="this.i == 0" class="form-label" for="contact"
+                    >Número de contacto:
+                  </label>
+                  <div>
+                    <input
+                      type="tel"
+                      class="form-control contactInput"
+                      [formControlName]="i"
+                      placeholder="Número de contacto"
+                      [name]="i"
+                      [style.width.%]="i == 0 ? '87.65' : '100'"
+                      [id]="i == 0 ? 'contact' : null"
+                      [class.is-valid]="
+                        this.contact.touched && this.contact.valid
+                      "
+                      [class.is-invalid]="
+                        this.contact.touched && this.contact.invalid
+                      "
+                    />
+                    <button
+                      class="addContactField"
+                      *ngIf="this.i == 0"
+                      type="button"
+                      (click)="addContactField()"
+                    >
+                      +
+                    </button>
+                  </div>
+                  <div
+                    class="validationMessage"
+                    [class.active]="
+                      this.contact.touched && this.contact.invalid
+                    "
+                  >
+                    <p
+                      *ngIf="this.contact.hasError('required')"
+                      class="invalid-feedback"
+                    >
+                      Ingrese un número de contacto
+                    </p>
+                    <p
+                      *ngIf="this.contact.hasError('pattern')"
+                      class="invalid-feedback"
+                    >
+                      Ingrese solamente números
+                    </p>
+                    <p
+                      *ngIf="this.contact.hasError('minlength')"
+                      class="invalid-feedback"
+                    >
+                      El número de teléfono es incorrecto
+                    </p>
+                    <p
+                      *ngIf="this.contact.hasError('maxlength')"
+                      class="invalid-feedback"
+                    >
+                      El número de télefono es incorrecto
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <p class="invalid-feedback" *ngIf="maxFourContactNumbers">
+                Máximo cuatro números de contacto
+              </p>
+            </div>
+            <div *ngIf="stateId != 'E'" class="form-elements">
               <label class="form-label" for="reward">Recompensa:</label>
               <input
                 formControlName="reward"
@@ -282,78 +369,23 @@
                 </p>
               </div>
             </div>
-            <div class="form-elements inputFileElement">
-              <label class="form-label" for="formImgs">Agregar fotos</label>
-              <input
-                (change)="uploadFile($event)"
-                class="form-control"
-                formControlName="urlImgs"
-                type="file"
-                multiple="multiple"
-                accept="image/*"
-                id="formImgs"
-                name="imgs"
-                [class.is-valid]="urlImgsFieldValid"
-                [class.is-invalid]="urlImgsFieldInvalid"
-              />
-              <p class="message" [class.invalid]="maxSixFiles">
-                Seleccione un maximo de 6 fotos
-              </p>
-              <div>
-                <div class="containerImgs">
-                  <div
-                    class="uploadedImgs"
-                    *ngFor="let imgs of imgsUploading"
-                    [id]="imgs != null ? imgs : null"
-                  >
-                    <div class="imgContainer" *ngIf="imgUrls[imgs]">
-                      <img
-                        [src]="imgUrls[imgs][0]"
-                        alt="mascota"
-                        (load)="OnImgLoaded(imgs)"
-                      />
-                      <i class="deleteIcon" (click)="deleteImg(imgs, true)">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 512 512"
-                        >
-                          <path
-                            d="M0 256C0 114.6 114.6 0 256 0C397.4 0 512 114.6 512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256zM175 208.1L222.1 255.1L175 303C165.7 312.4 165.7 327.6 175 336.1C184.4 346.3 199.6 346.3 208.1 336.1L255.1 289.9L303 336.1C312.4 346.3 327.6 346.3 336.1 336.1C346.3 327.6 346.3 312.4 336.1 303L289.9 255.1L336.1 208.1C346.3 199.6 346.3 184.4 336.1 175C327.6 165.7 312.4 165.7 303 175L255.1 222.1L208.1 175C199.6 165.7 184.4 165.7 175 175C165.7 184.4 165.7 199.6 175 208.1V208.1z"
-                          />
-                        </svg>
-                      </i>
-                    </div>
-                  </div>
-                  <!-- <p *ngIf="imgNames[imgs]">{{ imgNames[imgs] }}</p> -->
-                </div>
-                <div
-                  *ngFor="let imgs of imgsProgressBar"
-                  [id]="imgs != null ? imgs : null"
-                  class="progressBar"
-                >
-                  <div class="bar"></div>
-                </div>
-              </div>
-              <div
-                class="validationMessage"
-                [class.active]="urlImgsFieldInvalid || dateInvalid"
-              >
-                <p
-                  *ngIf="urlImgsField.hasError('required')"
-                  class="invalid-feedback"
-                >
-                  Debe subir al menos una imagen de la mascota
-                </p>
-                <p *ngIf="dateInvalid" class="invalid-feedback">
-                  Coloque una fecha valida
-                </p>
-              </div>
+            <div>
+              <app-uploader [published]="published" [imgsUrlUpdating]="imgUrls" [imgsUrlUpdatingToShow]="imgUrlsOrigin" [updating]="true"  (changeUpdate)="onUrlsChange($event)"></app-uploader>
             </div>
           </div>
         </div>
-        <button class="submit-btn" type="submit" [disabled]="disableSubmit">
+        <button
+          class="submit-btn"
+          type="submit"
+          [disabled]="disableSubmit"
+        >
           Publicar mascota
         </button>
+        <ng-template #editButton>
+          <button class="submit-btn" type="submit" [disabled]="disableSubmit">
+            Editar publicacion
+          </button>
+        </ng-template>
       </div>
     </form>
   </div>

@@ -1,0 +1,61 @@
+.dropzone {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 10px;
+  height: 200px;
+  padding: 20px;
+  border-radius: 6px;
+  border: 2px dashed var(--grey);
+  background-color: var(--lighter-light-blue);
+}
+
+.hovering {
+  border: 2px solid var(--grey);
+}
+
+.file-input {
+  display: none;
+}
+
+.text {
+  text-align: center;
+  margin-bottom: 8px;
+  line-height: 1.15;
+}
+
+.title {
+  font-weight: 600;
+}
+
+.file-label {
+  padding: 9px 16px;
+  border-radius: 5px;
+  color: white;
+  background-color: var(--grey);
+  cursor: pointer;
+}
+
+.uploaded-files {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.imgUploaded {
+  margin-bottom: 10px;
+}
+
+@media screen and (min-width: 48rem) {
+  .uploaded-files {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .imgUploaded {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

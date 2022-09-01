@@ -5,7 +5,6 @@ import { AuthService } from "src/app/services/auth.service";
 @Component({
   selector: "app-my-publications",
   templateUrl: "./my-publications.component.html",
-  styleUrls: ["./my-publications.component.scss"],
 })
 export class MyPublicationsComponent implements OnInit {
   constructor(private authService: AuthService) {}

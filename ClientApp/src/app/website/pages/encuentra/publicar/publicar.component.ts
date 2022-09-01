@@ -195,7 +195,7 @@ export class PublicarComponent implements OnInit, OnDestroy {
       for (let imgIndex in this.imgUrls) {
         console.log(this.imgUrls[imgIndex]);
         console.log(this.imgUrlsOriginal[imgIndex] == null);
-        if(this.imgUrlsOriginal[imgIndex]){          
+        if (this.imgUrlsOriginal[imgIndex]) {
           console.log(
             this.imgUrlsOriginal[imgIndex][0] != this.imgUrls[imgIndex][0]
           );
