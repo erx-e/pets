@@ -12,4 +12,7 @@ export class LandpageComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  sendEmail(){
+    
+  }
 }

@@ -3,7 +3,7 @@ import { CreateUserDTO } from "src/app/models/user.model";
 import { UserService } from "src/app/services/user.service";
 import { Validators, FormGroup, FormBuilder } from "@angular/forms";
 import { MyValidators } from "src/app/validators/validators";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
   selector: "app-register",
@@ -16,12 +16,19 @@ export class RegisterComponent implements OnInit {
   constructor(
     private userService: UserService,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute,
   ) {
     this.buildForm();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.route.queryParamMap.subscribe((param) =>{
+      if( param.get("user_email")){
+        this.emailField.setValue(param.get("user_email"))
+      }
+    })
+  }
 
   showPassword: boolean = false;
   showConfirmPassword: boolean = false;
