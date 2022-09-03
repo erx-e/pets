@@ -26,8 +26,14 @@
 .postpet-img {
   overflow: hidden;
   display: flex;
+  min-width: 200px;
+  min-height: 200px;
   background-color: white;
   align-items: center;
+}
+
+.postpetImg{
+  max-width: 100%;
 }
 
 .postpet-imgLoading {

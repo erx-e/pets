@@ -2,10 +2,11 @@
   <div class="container__postpet-img">
     <div class="postpet-img" *ngIf="postpet.urlImgs">
       <a [routerLink]="['/pet', postpet.id]">
-        <app-image
+        <!-- <app-image
           [img]="postpet.urlImgs[0].url"
           [alt]="postpet.petSpecie"
-        ></app-image>
+        ></app-image> -->
+        <img class="postpetImg" [src]="postpet.urlImgs[0].url" alt="">
       </a>
     </div>
   </div>

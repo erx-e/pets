@@ -15,9 +15,7 @@ import { PostpetService } from "src/app/services/postpet.service";
 export class ProfileComponent implements OnInit {
   constructor(
     private router: ActivatedRoute,
-    private postpetService: PostpetService,
     private authService: AuthService,
-    private loadingService: LoadingService
   ) {}
 
   userId: number = null;
@@ -35,17 +33,6 @@ export class ProfileComponent implements OnInit {
             .subscribe((data) => (this.user = data));
         }
       }
-    });
-    this.postpetService.GetByFilter(
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      this.userId
-    ).subscribe(data => {
-      this.postspet = data;
     });
   }
 }

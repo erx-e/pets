@@ -108,7 +108,7 @@ html {
   padding-top: 24px;
   padding: 0px;
   section {
-    margin-top: 68px;
+    margin-top: 75px;
     h2 {
       text-align: center;
       font-size: 30px;
@@ -129,6 +129,58 @@ html {
       border-radius: 5px;
       padding: 9px 16px;
       background-color: var(--yellow);
+    }
+  }
+}
+
+.circleIcon{
+  height: 180px;
+  width: 180px;
+  background-color: var(--lighter-light-blue);
+  border-radius: 50%;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.seccion__icon{
+  width: 50%;
+}
+
+.landPage__footer{
+  background-color: var(--blue);
+  width: 100%;
+  height: 300px;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo__container{
+  width: 80px;
+  text-align: center;
+  color: var(--light-blue);
+  p{
+    margin-top: 5px;
+  }
+}
+
+.logoImg{
+  width: 100%;
+}
+
+.navLinks{
+  margin-top: 35px;
+  text-align: center;
+  li{
+    margin-bottom: 10px;
+    a{
+      text-decoration: none;
+      color: var(--lighter-light-blue);
     }
   }
 }
@@ -157,6 +209,10 @@ html {
   .main {
     padding-top: 68px;
     max-width: 1280px;
+  }
+
+  .portada_img{
+    min-height: 374px;
   }
 
   .main__container-stadistics {
@@ -198,6 +254,7 @@ html {
   .main__portada {
     display: flex;
     flex-direction: row-reverse;
+    min-height: 640px;
     justify-content: space-around;
     align-items: center;
     .texto {

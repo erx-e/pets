@@ -1,13 +1,16 @@
-<main>
+<main class="profilePage">
   <div *ngIf="!isLoading; else loading">
     <div *ngIf="user; else notFound">
-      <div>
-        <p>Nombre: {{ user.name }}</p>
-        <p>Número: {{ user.cellNumber }}</p>
-        <p>Correo electronico: {{ user.email }}</p>
+      <h1 class="profile__title">Perfil público</h1>
+      <div class="profile__info">
+        <p><span class="highlight">Nombre:</span> {{ user.name }}</p>
+        <p><span class="highlight">Número:</span> {{ user.cellNumber }}</p>
+        <p>
+          <span class="highlight">Correo electrónico:</span> {{ user.email }}
+        </p>
       </div>
       <div>
-        <app-postspet [postspet]="postspet"></app-postspet>
+        <app-filter [userId]="user.idUser"></app-filter>
       </div>
     </div>
     <ng-template #notFound>
@@ -15,8 +18,6 @@
     </ng-template>
   </div>
   <ng-template #loading>
-    <div>
-      
-    </div>
+    <div></div>
   </ng-template>
 </main>
