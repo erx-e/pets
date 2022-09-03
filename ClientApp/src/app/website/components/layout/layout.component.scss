@@ -1,1 +1,35 @@
+.landPage__footer{
+  background-color: var(--blue);
+  width: 100%;
+  height: 300px;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
+.logo__container{
+  width: 80px;
+  text-align: center;
+  color: var(--light-blue);
+  p{
+    margin-top: 5px;
+  }
+}
+
+.logoImg{
+  width: 100%;
+}
+
+.navLinks{
+  margin-top: 35px;
+  text-align: center;
+  li{
+    margin-bottom: 10px;
+    a{
+      text-decoration: none;
+      color: var(--lighter-light-blue);
+    }
+  }
+}
