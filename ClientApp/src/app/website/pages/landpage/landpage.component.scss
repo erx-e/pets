@@ -63,7 +63,7 @@ html {
 }
 .main__stadistics-data {
   padding-top: 16px;
-  border-top: 1px solid gray;
+  border-top: 0.5px solid rgba(111, 127, 133, 0.25);
   margin-bottom: 50px;
   // height: 120px;
   display: flex;
@@ -77,9 +77,10 @@ html {
   margin-top: 8px;
   justify-content: space-evenly;
   .stadistics-text {
-    border: 1px solid var(--blue);
+    // border: 1px solid rgba(111, 127, 133, 0.35);
     border-radius: 8px;
-    padding: 8px;
+    // background-color: rgba(240, 248, 255, 0.603);
+    padding: 9px 16px;
     display: flex;
     height: 50px;
     align-items: center;
@@ -284,5 +285,9 @@ html {
       display: flex;
       flex-direction: column;
     }
+  }
+
+  .stadistics-text{
+    flex-direction: column;
   }
 }
