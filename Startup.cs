@@ -23,7 +23,7 @@ namespace mascotas
 {
     public class Startup
     {
-        readonly string cors = "cors";
+        private readonly string cors = "cors";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -36,7 +36,8 @@ namespace mascotas
         {
             services.AddCors(option => option.AddPolicy(name: cors, builder =>
             {
-                builder.WithOrigins("*").AllowAnyHeader()
+                builder.WithOrigins("*")
+                                        .AllowAnyHeader()
                                         .AllowAnyMethod();
             }));
 

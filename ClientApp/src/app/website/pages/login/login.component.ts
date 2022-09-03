@@ -31,6 +31,7 @@ export class LoginComponent implements OnInit {
   user: authUser;
   showPassword: boolean = false;
   wrongUser: boolean = false;
+  isLoading: boolean = false;
 
   changePasswordVisibility() {
     this.showPassword = !this.showPassword;
@@ -38,13 +39,16 @@ export class LoginComponent implements OnInit {
 
   login() {
     if (this.form.valid) {
+      this.isLoading = true;
       this.user = this.form.value;
       this.authService.login(this.user).subscribe(
         () => {
           this.authService.getCurrentUser();
+          this.isLoading = false;
           this.router.navigate(["/home"]);
         },
         (error: string) => {
+          this.isLoading = false;
           console.log(error);
           this.wrongUser = true;
         }

@@ -5,13 +5,15 @@ import { EncuentraComponent } from './encuentra.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { PublicarComponent } from './publicar/publicar.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { EditarComponent } from './editar/editar.component';
 
 
 
 @NgModule({
   declarations: [
     EncuentraComponent,
-    PublicarComponent
+    PublicarComponent,
+    EditarComponent
   ],
   imports: [
     CommonModule,

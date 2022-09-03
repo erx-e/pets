@@ -7,7 +7,19 @@
 .title {
   font-size: 20px;
   font-weight: 700;
-  margin-bottom: 10px;
+}
+
+.titleSection{
+  display: flex;
+  align-items: center;
+}
+
+.backButton{
+  padding: 9px 9px;
+  font-weight: 600;
+  background-color: var(--yellow);
+  border-radius: 6px;
+  margin-right: 8px;
 }
 
 .formBox {

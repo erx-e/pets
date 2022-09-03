@@ -23,11 +23,9 @@ export class ProfileComponent implements OnInit {
   userId: number = null;
   user: UserView = null;
   postspet: postpetView[] = [];
-  isLoading: boolean = true;
-  loadingSubscription: Subscription
+  isLoading: boolean = false;
 
   ngOnInit(): void {
-    this.loadingSubscription = this.loadingService.isLoading$.subscribe(data => this.isLoading = data)
     this.router.paramMap.subscribe((params) => {
       if (params.get("id")) {
         this.userId = parseInt(params.get("id"));
@@ -38,7 +36,6 @@ export class ProfileComponent implements OnInit {
         }
       }
     });
-    this.loadingSubscription.unsubscribe()
     this.postpetService.GetByFilter(
       undefined,
       undefined,

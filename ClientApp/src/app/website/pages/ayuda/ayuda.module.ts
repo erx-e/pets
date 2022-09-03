@@ -5,12 +5,14 @@ import { AyudaRoutingModule } from './ayuda-routing.module';
 import { AyudaComponent } from './ayuda.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { PublicarComponent } from './publicar/publicar.component';
+import { EditarComponent } from './editar/editar.component';
 
 
 @NgModule({
   declarations: [
     AyudaComponent,
-    PublicarComponent
+    PublicarComponent,
+    EditarComponent
   ],
   imports: [
     CommonModule,

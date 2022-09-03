@@ -5,12 +5,14 @@ import { AdoptaRoutingModule } from './adopta-routing.module';
 import { AdoptaComponent } from './adopta.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { PublicarComponent } from './publicar/publicar.component';
+import { EditarComponent } from './editar/editar.component';
 
 
 @NgModule({
   declarations: [
     AdoptaComponent,
-    PublicarComponent
+    PublicarComponent,
+    EditarComponent
   ],
   imports: [
     CommonModule,

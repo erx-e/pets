@@ -87,7 +87,12 @@
         </div>
         <div>
           <button class="form-items form-button" type="submit">
-            Iniciar sesión
+            <span *ngIf="!isLoading; else loading">
+              Iniciar sesión
+            </span>
+            <ng-template #loading>
+              <app-spinner></app-spinner>
+            </ng-template>
           </button>
         </div>
       </div>

@@ -32,6 +32,7 @@ export class PetDetailComponent implements OnInit {
   lastTimeSeen: string = "";
   notFound: boolean = false;
   isLoading: boolean = true;
+  contactNum: string[] = [];
 
   swiperConfig: SwiperOptions = {
     pagination: true,
@@ -64,6 +65,9 @@ export class PetDetailComponent implements OnInit {
               "dd 'de' MMMM 'del' yyyy 'a las' HH:mm",
               { locale: es }
             );
+            if(this.postpet.contact){
+              this.contactNum = this.postpet.contact.trim().split(/\s+/)
+            }
           }
         },
         () => {

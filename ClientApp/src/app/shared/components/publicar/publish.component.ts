@@ -85,7 +85,6 @@ export class PublishComponent implements OnInit {
   maxSixFiles: boolean = false;
 
 
-  contactNumbers: string[] = [];
 
   maxFourContactNumbers: boolean = false;
 
@@ -149,6 +148,10 @@ export class PublishComponent implements OnInit {
       Validators.maxLength(10),
       Validators.pattern(/^[0-9]*$/),
     ]);
+  }
+
+  goBack(){
+    this.location.back();
   }
 
   crearPost() {

@@ -1,0 +1,71 @@
+.homePage {
+  padding: 12px;
+  overflow: hidden;
+}
+
+.homePage__info {
+  margin-bottom: 18px;
+  line-height: 1.15;
+}
+
+.homeInfo__title {
+  font-weight: 600;
+  font-size: 20px;
+  margin-bottom: 6px;
+}
+
+
+
+.seccion {
+  margin: 12px 0px;
+}
+
+.seccionTitle {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.seccionTitle__text {
+  font-weight: 600;
+  font-size: 18px;
+
+  margin-right: 5px;
+}
+
+.link_icon {
+  width: 20px;
+}
+
+.seccion__postspet {
+  display: flex;
+  align-items: center;
+  overflow-x: overlay;
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.seccion__postspet::-webkit-scrollbar {
+  display: none;
+}
+
+@media screen and (min-width: 64rem) {
+  .homePage {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  .seccion__postspet {
+    /* Hide scrollbar for IE, Edge and Firefox */
+    -ms-overflow-style: block; /* IE and Edge */
+    scrollbar-width: 10px; /* Firefox */
+  }
+
+  .seccion__postspet::-webkit-scrollbar {
+    display: block;
+    height: 150px;
+  }
+}

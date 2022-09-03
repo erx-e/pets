@@ -184,7 +184,13 @@
           </div>
         </div>
         <div>
-          <button class="form-button" type="submit">Crear cuenta</button>
+          <button class="form-button" type="submit">
+            <span *ngIf="!isLoading; else loading">
+              Crear cuenta
+            </span>
+            <ng-template #loading>
+              <app-spinner></app-spinner>
+            </ng-template>          </button>
         </div>
       </div>
     </form>

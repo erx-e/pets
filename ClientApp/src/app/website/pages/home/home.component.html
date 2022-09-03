@@ -1,3 +1,96 @@
-<div style="background-color: #f0f2f5;">
-  <p>home works!</p>
+<div class="homePage">
+  <div class="homePage__info">
+    <h1 class="homeInfo__title">
+      Centro virtual de acogida de Mascotas del Ecuador
+    </h1>
+    <p class="homeInfo__text">
+      Nosotros pensamos que cada animal merece una vida digna y prospera, que
+      cada uno de ellos debe ser tratado con respeto y cuidado como cualquier
+      ser humano. Nuestro proposito es ayudar a que la vida de cada mascota
+      domestica pueda tener el amor que se merece, debe tener el derecho de
+      estar con sus seres queridos, de estar en casa con los que ama y la aman.
+    </p>
+  </div>
+  <div>
+    <section class="seccion">
+      <div class="seccionTitle">
+        <h2 class="seccionTitle__text">Encuentra</h2>
+        <a routerLink="/encuentra">
+          <i
+            ><img
+              class="link_icon"
+              src="./assets/imgs/link_icon.png"
+              alt="link"
+          /></i>
+        </a>
+      </div>
+      <div class="seccion__postspet">
+        <app-postpet
+          *ngFor="let postpet of postspetEncuentra"
+          [home]="true"
+          [postpet]="postpet"
+        ></app-postpet>
+      </div>
+    </section>
+    <section class="seccion">
+      <div class="seccionTitle">
+        <h2 class="seccionTitle__text">Difunde</h2>
+        <a routerLink="/encuentra">
+          <i
+            ><img
+              class="link_icon"
+              src="./assets/imgs/link_icon.png"
+              alt="link"
+          /></i>
+        </a>
+      </div>
+      <div class="seccion__postspet">
+        <app-postpet
+          *ngFor="let postpet of postspetDifunde"
+          [home]="true"
+          [postpet]="postpet"
+        ></app-postpet>
+      </div>
+    </section>
+    <section class="seccion">
+      <div class="seccionTitle">
+        <h2 class="seccionTitle__text">Adopta</h2>
+        <a routerLink="/encuentra">
+          <i
+            ><img
+              class="link_icon"
+              src="./assets/imgs/link_icon.png"
+              alt="link"
+          /></i>
+        </a>
+      </div>
+      <div class="seccion__postspet">
+        <app-postpet
+          *ngFor="let postpet of postspetAdopta"
+          [home]="true"
+          [postpet]="postpet"
+        ></app-postpet>
+      </div>
+    </section>
+    <section class="seccion">
+      <div class="seccionTitle">
+        <h2 class="seccionTitle__text">Ayuda</h2>
+        <a routerLink="/encuentra">
+          <i
+            ><img
+              class="link_icon"
+              src="./assets/imgs/link_icon.png"
+              alt="link"
+          /></i>
+        </a>
+      </div>
+      <div class="seccion__postspet">
+        <app-postpet
+          *ngFor="let postpet of postspetAyuda"
+          [home]="true"
+          [postpet]="postpet"
+        ></app-postpet>
+      </div>
+    </section>
+  </div>
 </div>

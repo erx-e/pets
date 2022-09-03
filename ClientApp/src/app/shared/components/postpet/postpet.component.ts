@@ -12,6 +12,7 @@ export class PostpetComponent implements OnInit {
   constructor() {}
 
   @Input() postpet: postpetView | null;
+  @Input() home: boolean = false;
   lastTimeSeen: string = null;
 
   ngOnInit(): void {

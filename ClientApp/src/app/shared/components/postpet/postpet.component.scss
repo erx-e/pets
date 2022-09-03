@@ -9,6 +9,15 @@
   margin-bottom: 15px;
 }
 
+.postpetHome {
+  min-width: 265px;
+  box-sizing: content-box;
+  background-color: var(--darker-light-blue);
+  border-radius: 5px;
+  padding: 12px;
+  margin: 0px 5px;
+}
+
 .container__postpet-img {
   display: flex;
   justify-content: center;
@@ -21,7 +30,7 @@
   align-items: center;
 }
 
-.postpet-imgLoading{
+.postpet-imgLoading {
   height: 245px;
 }
 
@@ -44,7 +53,11 @@
     height: 340px;
   }
 
-  .container__postpet-img{
+  .postpetHome{
+    margin: 0px 10px;
+  }
+
+  .container__postpet-img {
     height: 65%;
   }
   .postpet-img {
@@ -60,7 +73,7 @@
     height: 210px;
   }
 
-  .postpet-info{
+  .postpet-info {
     display: flex;
     height: 35%;
     font-size: 14px;
@@ -72,7 +85,7 @@
 }
 
 @media screen and (min-width: 64em) {
-  .container__postpet-img{
+  .container__postpet-img {
     height: 65%;
   }
   .postpet {
@@ -80,7 +93,7 @@
     height: 320px;
   }
 
-  .postpet-info{
+  .postpet-info {
     display: flex;
     height: 35%;
     font-size: 14px;

@@ -6,7 +6,7 @@
         <div class="form-element-section">
           <p>Indique las caracteristicas de la mascota</p>
           <div class="flex">
-            <div *ngIf="stateId != 'E'" class="form-elements">
+            <div *ngIf="stateId != 'E' && stateId != 'A'" class="form-elements">
               <label class="form-label" for="petName">Nombre:</label>
               <input
                 formControlName="petName"
@@ -135,11 +135,14 @@
           </div>
         </div>
         <div class="form-element-section">
-          <p *ngIf="stateId != 'B'">
+          <p *ngIf="stateId == 'E'">
             Indique en donde y cuando vio a la mascota
           </p>
           <p *ngIf="stateId == 'B'">
             Indique por donde y cuando se perdio la mascota
+          </p>
+          <p *ngIf="stateId == 'A' || stateId == 'H'">
+            Indique en donde se encuentra la mascota
           </p>
           <div class="flex">
             <div class="form-elements">
@@ -216,7 +219,7 @@
                 </option>
               </select>
             </div>
-            <div class="form-elements">
+            <div class="form-elements" *ngIf="stateId == 'E' || stateId == 'B'">
               <label class="form-label" for="formLastTime">Fecha y hora:</label>
               <input
                 class="form-control"
@@ -346,7 +349,7 @@
                 Máximo cuatro números de contacto
               </p>
             </div>
-            <div *ngIf="stateId != 'E'" class="form-elements">
+            <div *ngIf="stateId == 'B'" class="form-elements">
               <label class="form-label" for="reward">Recompensa:</label>
               <input
                 formControlName="reward"

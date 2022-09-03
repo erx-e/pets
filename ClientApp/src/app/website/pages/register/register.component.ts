@@ -25,6 +25,7 @@ export class RegisterComponent implements OnInit {
 
   showPassword: boolean = false;
   showConfirmPassword: boolean = false;
+  isLoading: boolean = false;
 
   changePasswordVisibility() {
     this.showPassword = !this.showPassword;
@@ -39,13 +40,16 @@ export class RegisterComponent implements OnInit {
 
   createUser() {
     if (this.form.valid) {
+      this.isLoading = true;
       this.user = this.form.value;
       this.userService.create(this.user).subscribe(
         () => {
+          this.isLoading = false;
           this.router.navigate(["home"]);
         },
         (error: string) => {
           console.log(error);
+          this.isLoading = false;
           if (error == "Email already registered") {
             this.emailAlreadyRegistered = true;
           }

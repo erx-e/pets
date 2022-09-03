@@ -2,16 +2,36 @@
   <div class="navButtons" *ngIf="postpet && user; else elseNav">
     <button class="backBotton" (click)="goToBack()">Back</button>
     <div *ngIf="user.idUser == postpet.idUser">
-      <button
-        [routerLink]="
-          postpet.petState == 'Encontrado en la calle'
-            ? ['/encuentra/editar', postpetId]
-            : ['/difunde/editar', postpetId]
-        "
-        class="editButton"
-      >
-        Editar
-      </button>
+      <div [ngSwitch]="postpet.petStateId" [style.display]="'inline'">
+        <button
+          *ngSwitchCase="'E'"
+          [routerLink]="['/encuentra/editar', postpetId]"
+          class="editButton"
+        >
+          Editar
+        </button>
+        <button
+          *ngSwitchCase="'B'"
+          [routerLink]="['/difunde/editar', postpetId]"
+          class="editButton"
+        >
+          Editar
+        </button>
+        <button
+          *ngSwitchCase="'H'"
+          [routerLink]="['/ayuda/editar', postpetId]"
+          class="editButton"
+        >
+          Editar
+        </button>
+        <button
+          *ngSwitchCase="'A'"
+          [routerLink]="['/adopta/editar', postpetId]"
+          class="editButton"
+        >
+          Editar
+        </button>
+      </div>
       <button (click)="deletePost()" class="deleteButton">Eliminar</button>
     </div>
   </div>
@@ -33,23 +53,53 @@
         <div class="petData">
           <div *ngIf="postpet.petStateId == 'E'">
             <div class="petData__direction">
+              <h3 class="data__question">¿Dónde y cuando fui encontrado?</h3>
               <p>
-                Fui encontrado por
+                El <span class="highlight">{{ lastTimeSeen }}</span> fui
+                encontrado en la provincia de
+                <span class="highlight">{{
+                  postpet?.provinciaName | titlecase
+                }}</span
+                >, especificamente en el
+                <span *ngIf="postpet?.sectorName"
+                  >sector
+                  <span class="highlight">{{
+                    postpet?.sectorName | titlecase
+                  }}</span>
+                  del</span
+                >
+                canton
+                <span class="highlight">{{
+                  postpet?.cantonName | titlecase
+                }}</span
+                >.
+              </p>
+            </div>
+            <div>
+              <h3 class="data__question">¿Quién me encontró?</h3>
+              <p>
+                La persona que me encontro fue
                 <a [routerLink]="['/profile', postpet.idUser]">{{
                   postpet.userName
-                }}</a>
-                en {{ postpet?.provinciaName | titlecase }},
-                {{ postpet?.cantonName | titlecase }} el {{ lastTimeSeen }}
-              </p>
-              <p *ngIf="postpet?.sectorName">
-                Sector: {{ postpet?.sectorName | titlecase }}
+                }}</a
+                >.
               </p>
             </div>
             <div *ngIf="postpet.contact">
-              <p>Si quieres más información contacta: {{ postpet.contact }}</p>
+              <h3 class="data__question">Medios de contacto</h3>
+              <p>
+                Si necesitas más información contacta
+                <span *ngIf="contactNum.length > 1; else otherNumber"
+                  >con los siguientes números</span
+                >
+                <ng-template #otherNumber>
+                  <span>con el siguiente número</span> </ng-template
+                >: {{ postpet.contact }}
+              </p>
             </div>
           </div>
           <div *ngIf="postpet.petStateId == 'B'">
+            <h3 class="data__question">Acerca de mí</h3>
             <p *ngIf="postpet?.petName">
               Mi nombre es {{ postpet?.petName }} y estoy siendo buscado por mi
               dueño
@@ -60,7 +110,7 @@
               <span *ngIf="postpet.petBreed"
                 >Soy un {{ postpet.petBreed }}</span
               >
-              <span *ngIf="postpet.petAge">de {{ postpet.petAge }}</span>
+              <span *ngIf="postpet.petAge"> de {{ postpet.petAge }}</span>
             </p>
             <div class="petData__direction">
               Me perdi en {{ postpet?.provinciaName | titlecase }},
@@ -71,20 +121,27 @@
               </p>
             </div>
             <div *ngIf="postpet.contact">
+              <h3 class="data__question">Medio de contacto</h3>
               <p>
-                Si tienes informacion sobre mi por favar contacta:
+                Si tienes información sobre mí por favor contacta con
+                <span *ngIf="contactNum.length > 1; else otherNumber"
+                  >los siguientes números</span
+                >
+                <ng-template #otherNumber>
+                  <span>el siguiente número</span> </ng-template
+                >:
                 {{ postpet.contact }}
               </p>
             </div>
           </div>
           <div>
+            <h3 class="data__question">Detalles acerca de mi situación</h3>
             <p>
-              Detalles sobre mi y mi situacion: <br />
               {{ postpet?.description }}
             </p>
           </div>
-
           <div>
+            <h3 class="data__question">Recompensa</h3>
             <p *ngIf="postpet?.reward">
               Recompensa al que me encuentre: {{ postpet?.reward | currency }}
             </p>

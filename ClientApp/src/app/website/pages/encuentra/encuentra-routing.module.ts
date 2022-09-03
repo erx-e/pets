@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+import { EditarComponent } from "./editar/editar.component";
 import { EncuentraComponent } from "./encuentra.component";
 import { PublicarComponent } from "./publicar/publicar.component";
 
@@ -14,7 +15,7 @@ const routes: Routes = [
   },
   {
     path: "editar/:id",
-    component: PublicarComponent,
+    component: EditarComponent,
   },
 ];
 
