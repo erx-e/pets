@@ -14,7 +14,7 @@ export class S3StorageService {
   private region = environment.AWS_REGION;
   private bucketName = environment.BUCKET_NAME;
 
-  storage = new S3({
+  private storage = new S3({
     region: this.region,
     accessKeyId: this.key_id,
     secretAccessKey: this.key_secret,

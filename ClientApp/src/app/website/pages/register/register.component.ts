@@ -4,6 +4,7 @@ import { UserService } from "src/app/services/user.service";
 import { Validators, FormGroup, FormBuilder } from "@angular/forms";
 import { MyValidators } from "src/app/validators/validators";
 import { ActivatedRoute, Router } from "@angular/router";
+import { userErrors } from "src/app/models/errorsModelBinding";
 
 @Component({
   selector: "app-register",
@@ -11,7 +12,6 @@ import { ActivatedRoute, Router } from "@angular/router";
   styleUrls: ["./register.component.scss"],
 })
 export class RegisterComponent implements OnInit {
-  form: FormGroup;
 
   constructor(
     private userService: UserService,
@@ -29,10 +29,14 @@ export class RegisterComponent implements OnInit {
       }
     })
   }
+  form: FormGroup;
 
   showPassword: boolean = false;
   showConfirmPassword: boolean = false;
   isLoading: boolean = false;
+  user: CreateUserDTO;
+  emailAlreadyRegistered: boolean = false;
+
 
   changePasswordVisibility() {
     this.showPassword = !this.showPassword;
@@ -42,8 +46,6 @@ export class RegisterComponent implements OnInit {
     this.showConfirmPassword = !this.showConfirmPassword;
   }
 
-  user: CreateUserDTO;
-  emailAlreadyRegistered: boolean = false;
 
   createUser() {
     if (this.form.valid) {
@@ -54,10 +56,10 @@ export class RegisterComponent implements OnInit {
           this.isLoading = false;
           this.router.navigate(["home"]);
         },
-        (error: string) => {
+        (error: userErrors) => {
           console.log(error);
           this.isLoading = false;
-          if (error == "Email already registered") {
+          if(error.email){
             this.emailAlreadyRegistered = true;
           }
         }

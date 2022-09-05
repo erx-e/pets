@@ -1,4 +1,3 @@
-
 export interface postpetView {
   id: string;
   userName: string;
@@ -21,11 +20,10 @@ export interface postpetView {
   urlImgs: img[];
 }
 
-
 export interface CreatePostpetDTO {
   idUser: number;
   petName: string;
-  petAge: string ;
+  petAge: string;
   petSpecialCondition: string;
   contact: string;
   idState: string;
@@ -38,7 +36,7 @@ export interface CreatePostpetDTO {
   reward: number | null;
   lastTimeSeen: string;
   linkMapSeen: string | null;
-  urlImgs: string[];
+  urlImgs: createImgDTO[];
 }
 
 export interface UpdatePostpetDTO
@@ -46,6 +44,10 @@ export interface UpdatePostpetDTO
   idUser: number;
   idPostPet: number;
   urlImgs?: updateImg[];
+}
+
+export interface createImgDTO {
+  url: string;
 }
 
 export interface img {

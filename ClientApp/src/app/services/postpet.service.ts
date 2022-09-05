@@ -7,7 +7,6 @@ import {
 import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
 import { Response } from "../models/response.model";
-import * as S3 from "aws-sdk/clients/s3";
 import {
   CreatePostpetDTO,
   postpetView,
@@ -170,7 +169,6 @@ export class PostpetService {
   }
 
   delete(id: number) {
-
     return this.http
       .delete<Response>(`${this.apiUrl}/postpet/delete/${id}`, {
         context: checkToken(),
@@ -184,31 +182,5 @@ export class PostpetService {
           }
         })
       );
-  }
-
-  storage = new S3({
-    region: this.region,
-    accessKeyId: this.key_id,
-    secretAccessKey: this.key_secret,
-  });
-
-  uploadImage(file: File, key: string) {
-    return this.storage.putObject(
-      { Key: key, Body: file, Bucket: "petslighthouse" },
-      function (err, data) {
-        if (err) {
-          console.log("There was an error uploading your file: ", err);
-          return false;
-        }
-        console.log("Successfully uploaded file.", data);
-        return true;
-      }
-    );
-  }
-
-  deleteImg(key: string) {
-    return this.storage
-      .deleteObject({ Key: key, Bucket: "petslighthouse" })
-      .promise();
   }
 }

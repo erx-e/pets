@@ -96,8 +96,14 @@ namespace mascotas.Controllers
         [Route("Create")]
         public async Task<ActionResult<Response>> create([Required] CreatePostPetDTO postpetDTO)
         {
-            var response = await _postPetService.createPostAsync(postpetDTO);
-            return Ok(response);
+            var authR = (Response)HttpContext.Items["User"];
+            var authUser = authR.Data as UserView;
+            if (authUser.idUser == postpetDTO.idUser)
+            {
+                var response = await _postPetService.createPostAsync(postpetDTO);
+                return Ok(response);
+            }
+            return Unauthorized();
         }
 
         [Authorize]
@@ -105,12 +111,18 @@ namespace mascotas.Controllers
         [Route("Update")]
         public async Task<ActionResult> update([Required] UpdatePostPetDTO postpetDTO)
         {
-            var response = await _postPetService.updatePostAsync(postpetDTO);
-            if (response.Success == 0)
+            var authR = (Response)HttpContext.Items["User"];
+            var authUser = authR.Data as UserView;
+            if (authUser.idUser == postpetDTO.idUser)
             {
-                return BadRequest(response.Message);
+                var response = await _postPetService.updatePostAsync(postpetDTO);
+                if (response.Success == 0)
+                {
+                    return BadRequest(response.Message);
+                }
+                return Ok(response.Data);
             }
-            return Ok(response.Data);
+            return Unauthorized();
         }
 
         [Authorize]
@@ -118,8 +130,14 @@ namespace mascotas.Controllers
         [Route("Delete/{id}")]
         public async Task<ActionResult> deleteAsync([Required] int id)
         {
-            var response = await _postPetService.deletePost(id);
-            return Ok(response);
+            var authR = (Response)HttpContext.Items["User"];
+            var authUser = authR.Data as UserView;
+            if (authUser.idUser == id)
+            {
+                var response = await _postPetService.deletePost(id);
+                return Ok(response);
+            }
+            return Unauthorized();
         }
     }
 }

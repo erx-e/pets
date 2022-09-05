@@ -7,6 +7,7 @@ import {
   Validators,
 } from "@angular/forms";
 import {
+  createImgDTO,
   CreatePostpetDTO,
 } from "src/app/models/postpet.model";
 import { Location } from "@angular/common";
@@ -164,7 +165,9 @@ export class PublishComponent implements OnInit {
 
         this.createdPost = this.form.value;
 
-        this.createdPost.urlImgs = this.imgUrls;
+        this.createdPost.urlImgs = this.imgUrls.map(url => {
+          return {url: url} as createImgDTO
+        } );
         this.createdPost.contact = this.contactField.value.join(" ");
         this.createdPost.idUser = this.user.idUser;
 

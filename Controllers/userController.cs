@@ -43,12 +43,12 @@ namespace mascotas.Controllers
                 }
                 return Ok(response.Data);
             }
-            var jwtResponse = (Response)HttpContext.Items["User"];
-            if (jwtResponse.Success == 0)
+            var authR = (Response)HttpContext.Items["User"];
+            if (authR.Success == 0)
             {
-                return BadRequest(jwtResponse.Message);
+                return BadRequest(authR.Message);
             }
-            return Ok(jwtResponse.Data);
+            return Ok(authR.Data);
         }
 
         [Authorize]
@@ -56,12 +56,18 @@ namespace mascotas.Controllers
         [Route("update")]
         public ActionResult update(UpdateUserDTO userDTO)
         {
-            var response = _userService.updateUser(userDTO);
-            if (response.Success == 0)
+            var authR = (Response)HttpContext.Items["User"];
+            var authUser = authR.Data as UserView;
+            if (authUser.idUser == userDTO.idUser)
             {
-                return BadRequest(response.Message);
+                var response = _userService.updateUser(userDTO);
+                if (response.Success == 0)
+                {
+                    return BadRequest(response.Message);
+                }
+                return Ok(response.Data);
             }
-            return Ok(response.Data);
+            return Unauthorized();
         }
 
         [HttpPost]
@@ -81,12 +87,19 @@ namespace mascotas.Controllers
         [Route("delete/{id}")]
         public async Task<ActionResult> deleteAsync(int id)
         {
-            var response = await _userService.deleteUser(id);
-            if (response.Success == 0)
+            var authR = (Response)HttpContext.Items["User"];
+            var authUser = authR.Data as UserView;
+            if (authUser.idUser == id)
             {
-                return BadRequest(response.Message);
+
+                var response = await _userService.deleteUser(id);
+                if (response.Success == 0)
+                {
+                    return BadRequest(response.Message);
+                }
+                return Ok(response);
             }
-            return Ok(response);
+            return Unauthorized();
         }
 
         [HttpPost]

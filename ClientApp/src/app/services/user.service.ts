@@ -12,6 +12,7 @@ import { TokenService } from "./token.service";
 import { AuthService } from "./auth.service";
 import { throwError } from "rxjs";
 import { checkToken } from "../interceptors/token.interceptor";
+import { userErrors } from "../models/errorsModelBinding";
 
 @Injectable({
   providedIn: "root",
@@ -20,7 +21,7 @@ export class UserService {
   constructor(
     private http: HttpClient,
     private tokenService: TokenService,
-    private authService: AuthService,
+    private authService: AuthService
   ) {}
 
   private apiUrl = `${environment.API_URL}/user`;
@@ -43,7 +44,11 @@ export class UserService {
     return this.http.post<Response>(`${this.apiUrl}/create`, dto).pipe(
       catchError((error: HttpErrorResponse) => {
         if (error.status === HttpStatusCode.BadRequest) {
-          return throwError("Email already registered");
+          if (error.error == "Email already registered") {
+            return throwError({
+              email: ["Email already registered"],
+            } as userErrors);
+          }
         }
       }),
       tap((response: Response) => {

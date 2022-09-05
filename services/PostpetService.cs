@@ -401,7 +401,7 @@ namespace mascotas.Services
                     var imgObj = new PostImage
                     {
                         IdPostPet = lastPostpet.IdPostPet,
-                        Url = urlImg
+                        Url = urlImg.url
                     };
                     _context.Add(imgObj);
                 }
